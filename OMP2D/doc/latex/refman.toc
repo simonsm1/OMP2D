@@ -1,0 +1,53 @@
+\contentsline {chapter}{\numberline {1}Namespace Index}{1}{chapter.1}
+\contentsline {section}{\numberline {1.1}Packages}{1}{section.1.1}
+\contentsline {chapter}{\numberline {2}Hierarchical Index}{3}{chapter.2}
+\contentsline {section}{\numberline {2.1}Class Hierarchy}{3}{section.2.1}
+\contentsline {chapter}{\numberline {3}Class Index}{5}{chapter.3}
+\contentsline {section}{\numberline {3.1}Class List}{5}{section.3.1}
+\contentsline {chapter}{\numberline {4}File Index}{7}{chapter.4}
+\contentsline {section}{\numberline {4.1}File List}{7}{section.4.1}
+\contentsline {chapter}{\numberline {5}Namespace Documentation}{9}{chapter.5}
+\contentsline {section}{\numberline {5.1}Package O\discretionary {-}{}{}M\discretionary {-}{}{}P2\discretionary {-}{}{}D}{9}{section.5.1}
+\contentsline {chapter}{\numberline {6}Class Documentation}{11}{chapter.6}
+\contentsline {section}{\numberline {6.1}O\discretionary {-}{}{}M\discretionary {-}{}{}P2\discretionary {-}{}{}D.\discretionary {-}{}{}Matrix\discretionary {-}{}{}Operations.\discretionary {-}{}{}Incompatible\discretionary {-}{}{}Dimensions\discretionary {-}{}{}Exception Class Reference}{11}{section.6.1}
+\contentsline {subsection}{\numberline {6.1.1}Constructor \& Destructor Documentation}{11}{subsection.6.1.1}
+\contentsline {subsubsection}{\numberline {6.1.1.1}Incompatible\discretionary {-}{}{}Dimensions\discretionary {-}{}{}Exception}{11}{subsubsection.6.1.1.1}
+\contentsline {subsubsection}{\numberline {6.1.1.2}Incompatible\discretionary {-}{}{}Dimensions\discretionary {-}{}{}Exception}{11}{subsubsection.6.1.1.2}
+\contentsline {subsubsection}{\numberline {6.1.1.3}Incompatible\discretionary {-}{}{}Dimensions\discretionary {-}{}{}Exception}{11}{subsubsection.6.1.1.3}
+\contentsline {section}{\numberline {6.2}O\discretionary {-}{}{}M\discretionary {-}{}{}P2\discretionary {-}{}{}D.\discretionary {-}{}{}Matrix\discretionary {-}{}{}Operations Class Reference}{11}{section.6.2}
+\contentsline {subsection}{\numberline {6.2.1}Member Function Documentation}{12}{subsection.6.2.1}
+\contentsline {subsubsection}{\numberline {6.2.1.1}add\discretionary {-}{}{}Vectors}{12}{subsubsection.6.2.1.1}
+\contentsline {subsubsection}{\numberline {6.2.1.2}add\discretionary {-}{}{}Vectors}{12}{subsubsection.6.2.1.2}
+\contentsline {subsubsection}{\numberline {6.2.1.3}allocate\discretionary {-}{}{}Elements}{13}{subsubsection.6.2.1.3}
+\contentsline {subsubsection}{\numberline {6.2.1.4}kron\discretionary {-}{}{}Atom}{13}{subsubsection.6.2.1.4}
+\contentsline {subsubsection}{\numberline {6.2.1.5}matrix\discretionary {-}{}{}Multiply}{13}{subsubsection.6.2.1.5}
+\contentsline {subsubsection}{\numberline {6.2.1.6}max\discretionary {-}{}{}Abs}{14}{subsubsection.6.2.1.6}
+\contentsline {subsubsection}{\numberline {6.2.1.7}max\discretionary {-}{}{}Abs}{14}{subsubsection.6.2.1.7}
+\contentsline {subsubsection}{\numberline {6.2.1.8}multiply\discretionary {-}{}{}Matrix\discretionary {-}{}{}Vector}{14}{subsubsection.6.2.1.8}
+\contentsline {subsubsection}{\numberline {6.2.1.9}norm}{14}{subsubsection.6.2.1.9}
+\contentsline {subsubsection}{\numberline {6.2.1.10}normalize}{15}{subsubsection.6.2.1.10}
+\contentsline {subsubsection}{\numberline {6.2.1.11}normalize}{15}{subsubsection.6.2.1.11}
+\contentsline {subsubsection}{\numberline {6.2.1.12}outer\discretionary {-}{}{}Product}{15}{subsubsection.6.2.1.12}
+\contentsline {subsubsection}{\numberline {6.2.1.13}real\discretionary {-}{}{}Inner\discretionary {-}{}{}Product}{16}{subsubsection.6.2.1.13}
+\contentsline {subsubsection}{\numberline {6.2.1.14}scale\discretionary {-}{}{}Vector}{16}{subsubsection.6.2.1.14}
+\contentsline {subsubsection}{\numberline {6.2.1.15}vector\discretionary {-}{}{}Matrix\discretionary {-}{}{}Vector}{16}{subsubsection.6.2.1.15}
+\contentsline {section}{\numberline {6.3}O\discretionary {-}{}{}M\discretionary {-}{}{}P2\discretionary {-}{}{}D.\discretionary {-}{}{}O\discretionary {-}{}{}M\discretionary {-}{}{}P2\discretionary {-}{}{}D Class Reference}{17}{section.6.3}
+\contentsline {subsection}{\numberline {6.3.1}Constructor \& Destructor Documentation}{17}{subsection.6.3.1}
+\contentsline {subsubsection}{\numberline {6.3.1.1}O\discretionary {-}{}{}M\discretionary {-}{}{}P2\discretionary {-}{}{}D}{17}{subsubsection.6.3.1.1}
+\contentsline {subsection}{\numberline {6.3.2}Member Function Documentation}{17}{subsection.6.3.2}
+\contentsline {subsubsection}{\numberline {6.3.2.1}calc\discretionary {-}{}{}Block}{17}{subsubsection.6.3.2.1}
+\contentsline {section}{\numberline {6.4}O\discretionary {-}{}{}M\discretionary {-}{}{}P2\discretionary {-}{}{}D.\discretionary {-}{}{}Pursuit\discretionary {-}{}{}Functions Class Reference}{17}{section.6.4}
+\contentsline {subsection}{\numberline {6.4.1}Member Function Documentation}{18}{subsection.6.4.1}
+\contentsline {subsubsection}{\numberline {6.4.1.1}calc\discretionary {-}{}{}Biorthogonal}{18}{subsubsection.6.4.1.1}
+\contentsline {subsubsection}{\numberline {6.4.1.2}calc\discretionary {-}{}{}Index\discretionary {-}{}{}Yand\discretionary {-}{}{}X}{18}{subsubsection.6.4.1.2}
+\contentsline {subsubsection}{\numberline {6.4.1.3}calc\discretionary {-}{}{}Residule\discretionary {-}{}{}O\discretionary {-}{}{}M\discretionary {-}{}{}P}{18}{subsubsection.6.4.1.3}
+\contentsline {subsubsection}{\numberline {6.4.1.4}choose\discretionary {-}{}{}Atom\discretionary {-}{}{}O\discretionary {-}{}{}M\discretionary {-}{}{}P2\discretionary {-}{}{}D}{18}{subsubsection.6.4.1.4}
+\contentsline {subsubsection}{\numberline {6.4.1.5}mean}{19}{subsubsection.6.4.1.5}
+\contentsline {subsubsection}{\numberline {6.4.1.6}min}{19}{subsubsection.6.4.1.6}
+\contentsline {subsubsection}{\numberline {6.4.1.7}orthogonalize\discretionary {-}{}{}O\discretionary {-}{}{}M\discretionary {-}{}{}P}{19}{subsubsection.6.4.1.7}
+\contentsline {subsubsection}{\numberline {6.4.1.8}reorthogonalize}{19}{subsubsection.6.4.1.8}
+\contentsline {chapter}{\numberline {7}File Documentation}{21}{chapter.7}
+\contentsline {section}{\numberline {7.1}src/\discretionary {-}{}{}O\discretionary {-}{}{}M\discretionary {-}{}{}P2\discretionary {-}{}{}D/\discretionary {-}{}{}Matrix\discretionary {-}{}{}Operations.java File Reference}{21}{section.7.1}
+\contentsline {section}{\numberline {7.2}src/\discretionary {-}{}{}O\discretionary {-}{}{}M\discretionary {-}{}{}P2\discretionary {-}{}{}D/\discretionary {-}{}{}O\discretionary {-}{}{}M\discretionary {-}{}{}P2\discretionary {-}{}{}D.java File Reference}{21}{section.7.2}
+\contentsline {section}{\numberline {7.3}src/\discretionary {-}{}{}O\discretionary {-}{}{}M\discretionary {-}{}{}P2\discretionary {-}{}{}D/\discretionary {-}{}{}Pursuit\discretionary {-}{}{}Functions.java File Reference}{21}{section.7.3}
+\contentsline {chapter}{Index}{22}{section*.14}

@@ -1,0 +1,151 @@
+\begin{theindex}
+
+  \item {add\discretionary {-}{}{}Vectors}
+    \subitem {O\discretionary {-}{}{}M\discretionary {-}{}{}P2\discretionary {-}{}{}D\discretionary {-}{}{}::\discretionary {-}{}{}Matrix\discretionary {-}{}{}Operations}, 
+		\hyperpage{12}
+  \item {allocate\discretionary {-}{}{}Elements}
+    \subitem {O\discretionary {-}{}{}M\discretionary {-}{}{}P2\discretionary {-}{}{}D\discretionary {-}{}{}::\discretionary {-}{}{}Matrix\discretionary {-}{}{}Operations}, 
+		\hyperpage{13}
+
+  \indexspace
+
+  \item {calc\discretionary {-}{}{}Biorthogonal}
+    \subitem {O\discretionary {-}{}{}M\discretionary {-}{}{}P2\discretionary {-}{}{}D\discretionary {-}{}{}::\discretionary {-}{}{}Pursuit\discretionary {-}{}{}Functions}, 
+		\hyperpage{18}
+  \item {calc\discretionary {-}{}{}Block}
+    \subitem {O\discretionary {-}{}{}M\discretionary {-}{}{}P2\discretionary {-}{}{}D\discretionary {-}{}{}::\discretionary {-}{}{}O\discretionary {-}{}{}M\discretionary {-}{}{}P2\discretionary {-}{}{}D}, 
+		\hyperpage{17}
+  \item {calc\discretionary {-}{}{}Index\discretionary {-}{}{}Yand\discretionary {-}{}{}X}
+    \subitem {O\discretionary {-}{}{}M\discretionary {-}{}{}P2\discretionary {-}{}{}D\discretionary {-}{}{}::\discretionary {-}{}{}Pursuit\discretionary {-}{}{}Functions}, 
+		\hyperpage{18}
+  \item {calc\discretionary {-}{}{}Residule\discretionary {-}{}{}O\discretionary {-}{}{}M\discretionary {-}{}{}P}
+    \subitem {O\discretionary {-}{}{}M\discretionary {-}{}{}P2\discretionary {-}{}{}D\discretionary {-}{}{}::\discretionary {-}{}{}Pursuit\discretionary {-}{}{}Functions}, 
+		\hyperpage{18}
+  \item {choose\discretionary {-}{}{}Atom\discretionary {-}{}{}O\discretionary {-}{}{}M\discretionary {-}{}{}P2\discretionary {-}{}{}D}
+    \subitem {O\discretionary {-}{}{}M\discretionary {-}{}{}P2\discretionary {-}{}{}D\discretionary {-}{}{}::\discretionary {-}{}{}Pursuit\discretionary {-}{}{}Functions}, 
+		\hyperpage{18}
+
+  \indexspace
+
+  \item {Incompatible\discretionary {-}{}{}Dimensions\discretionary {-}{}{}Exception}
+    \subitem {O\discretionary {-}{}{}M\discretionary {-}{}{}P2\discretionary {-}{}{}D\discretionary {-}{}{}::\discretionary {-}{}{}Matrix\discretionary {-}{}{}Operations\discretionary {-}{}{}::\discretionary {-}{}{}Incompatible\discretionary {-}{}{}Dimensions\discretionary {-}{}{}Exception}, 
+		\hyperpage{11}
+
+  \indexspace
+
+  \item {kron\discretionary {-}{}{}Atom}
+    \subitem {O\discretionary {-}{}{}M\discretionary {-}{}{}P2\discretionary {-}{}{}D\discretionary {-}{}{}::\discretionary {-}{}{}Matrix\discretionary {-}{}{}Operations}, 
+		\hyperpage{13}
+
+  \indexspace
+
+  \item {matrix\discretionary {-}{}{}Multiply}
+    \subitem {O\discretionary {-}{}{}M\discretionary {-}{}{}P2\discretionary {-}{}{}D\discretionary {-}{}{}::\discretionary {-}{}{}Matrix\discretionary {-}{}{}Operations}, 
+		\hyperpage{13}
+  \item {max\discretionary {-}{}{}Abs}
+    \subitem {O\discretionary {-}{}{}M\discretionary {-}{}{}P2\discretionary {-}{}{}D\discretionary {-}{}{}::\discretionary {-}{}{}Matrix\discretionary {-}{}{}Operations}, 
+		\hyperpage{14}
+  \item {mean}
+    \subitem {O\discretionary {-}{}{}M\discretionary {-}{}{}P2\discretionary {-}{}{}D\discretionary {-}{}{}::\discretionary {-}{}{}Pursuit\discretionary {-}{}{}Functions}, 
+		\hyperpage{19}
+  \item {min}
+    \subitem {O\discretionary {-}{}{}M\discretionary {-}{}{}P2\discretionary {-}{}{}D\discretionary {-}{}{}::\discretionary {-}{}{}Pursuit\discretionary {-}{}{}Functions}, 
+		\hyperpage{19}
+  \item {multiply\discretionary {-}{}{}Matrix\discretionary {-}{}{}Vector}
+    \subitem {O\discretionary {-}{}{}M\discretionary {-}{}{}P2\discretionary {-}{}{}D\discretionary {-}{}{}::\discretionary {-}{}{}Matrix\discretionary {-}{}{}Operations}, 
+		\hyperpage{14}
+
+  \indexspace
+
+  \item {norm}
+    \subitem {O\discretionary {-}{}{}M\discretionary {-}{}{}P2\discretionary {-}{}{}D\discretionary {-}{}{}::\discretionary {-}{}{}Matrix\discretionary {-}{}{}Operations}, 
+		\hyperpage{14}
+  \item {normalize}
+    \subitem {O\discretionary {-}{}{}M\discretionary {-}{}{}P2\discretionary {-}{}{}D\discretionary {-}{}{}::\discretionary {-}{}{}Matrix\discretionary {-}{}{}Operations}, 
+		\hyperpage{15}
+
+  \indexspace
+
+  \item {O\discretionary {-}{}{}M\discretionary {-}{}{}P2\discretionary {-}{}{}D}, 
+		\hyperpage{9}
+    \subitem {O\discretionary {-}{}{}M\discretionary {-}{}{}P2\discretionary {-}{}{}D\discretionary {-}{}{}::\discretionary {-}{}{}O\discretionary {-}{}{}M\discretionary {-}{}{}P2\discretionary {-}{}{}D}, 
+		\hyperpage{17}
+  \item {O\discretionary {-}{}{}M\discretionary {-}{}{}P2\discretionary {-}{}{}D.\discretionary {-}{}{}Matrix\discretionary {-}{}{}Operations}, 
+		\hyperpage{11}
+  \item {O\discretionary {-}{}{}M\discretionary {-}{}{}P2\discretionary {-}{}{}D.\discretionary {-}{}{}Matrix\discretionary {-}{}{}Operations.\discretionary {-}{}{}Incompatible\discretionary {-}{}{}Dimensions\discretionary {-}{}{}Exception}, 
+		\hyperpage{11}
+  \item {O\discretionary {-}{}{}M\discretionary {-}{}{}P2\discretionary {-}{}{}D.\discretionary {-}{}{}O\discretionary {-}{}{}M\discretionary {-}{}{}P2\discretionary {-}{}{}D}, 
+		\hyperpage{17}
+  \item {O\discretionary {-}{}{}M\discretionary {-}{}{}P2\discretionary {-}{}{}D.\discretionary {-}{}{}Pursuit\discretionary {-}{}{}Functions}, 
+		\hyperpage{17}
+  \item {O\discretionary {-}{}{}M\discretionary {-}{}{}P2\discretionary {-}{}{}D\discretionary {-}{}{}::\discretionary {-}{}{}Matrix\discretionary {-}{}{}Operations}
+    \subitem {add\discretionary {-}{}{}Vectors}, \hyperpage{12}
+    \subitem {allocate\discretionary {-}{}{}Elements}, \hyperpage{13}
+    \subitem {kron\discretionary {-}{}{}Atom}, \hyperpage{13}
+    \subitem {matrix\discretionary {-}{}{}Multiply}, \hyperpage{13}
+    \subitem {max\discretionary {-}{}{}Abs}, \hyperpage{14}
+    \subitem {multiply\discretionary {-}{}{}Matrix\discretionary {-}{}{}Vector}, 
+		\hyperpage{14}
+    \subitem {norm}, \hyperpage{14}
+    \subitem {normalize}, \hyperpage{15}
+    \subitem {outer\discretionary {-}{}{}Product}, \hyperpage{15}
+    \subitem {real\discretionary {-}{}{}Inner\discretionary {-}{}{}Product}, 
+		\hyperpage{16}
+    \subitem {scale\discretionary {-}{}{}Vector}, \hyperpage{16}
+    \subitem {vector\discretionary {-}{}{}Matrix\discretionary {-}{}{}Vector}, 
+		\hyperpage{16}
+  \item {O\discretionary {-}{}{}M\discretionary {-}{}{}P2\discretionary {-}{}{}D\discretionary {-}{}{}::\discretionary {-}{}{}Matrix\discretionary {-}{}{}Operations\discretionary {-}{}{}::\discretionary {-}{}{}Incompatible\discretionary {-}{}{}Dimensions\discretionary {-}{}{}Exception}
+    \subitem {Incompatible\discretionary {-}{}{}Dimensions\discretionary {-}{}{}Exception}, 
+		\hyperpage{11}
+  \item {O\discretionary {-}{}{}M\discretionary {-}{}{}P2\discretionary {-}{}{}D\discretionary {-}{}{}::\discretionary {-}{}{}O\discretionary {-}{}{}M\discretionary {-}{}{}P2\discretionary {-}{}{}D}
+    \subitem {calc\discretionary {-}{}{}Block}, \hyperpage{17}
+    \subitem {O\discretionary {-}{}{}M\discretionary {-}{}{}P2\discretionary {-}{}{}D}, 
+		\hyperpage{17}
+  \item {O\discretionary {-}{}{}M\discretionary {-}{}{}P2\discretionary {-}{}{}D\discretionary {-}{}{}::\discretionary {-}{}{}Pursuit\discretionary {-}{}{}Functions}
+    \subitem {calc\discretionary {-}{}{}Biorthogonal}, \hyperpage{18}
+    \subitem {calc\discretionary {-}{}{}Index\discretionary {-}{}{}Yand\discretionary {-}{}{}X}, 
+		\hyperpage{18}
+    \subitem {calc\discretionary {-}{}{}Residule\discretionary {-}{}{}O\discretionary {-}{}{}M\discretionary {-}{}{}P}, 
+		\hyperpage{18}
+    \subitem {choose\discretionary {-}{}{}Atom\discretionary {-}{}{}O\discretionary {-}{}{}M\discretionary {-}{}{}P2\discretionary {-}{}{}D}, 
+		\hyperpage{18}
+    \subitem {mean}, \hyperpage{19}
+    \subitem {min}, \hyperpage{19}
+    \subitem {orthogonalize\discretionary {-}{}{}O\discretionary {-}{}{}M\discretionary {-}{}{}P}, 
+		\hyperpage{19}
+    \subitem {reorthogonalize}, \hyperpage{19}
+  \item {orthogonalize\discretionary {-}{}{}O\discretionary {-}{}{}M\discretionary {-}{}{}P}
+    \subitem {O\discretionary {-}{}{}M\discretionary {-}{}{}P2\discretionary {-}{}{}D\discretionary {-}{}{}::\discretionary {-}{}{}Pursuit\discretionary {-}{}{}Functions}, 
+		\hyperpage{19}
+  \item {outer\discretionary {-}{}{}Product}
+    \subitem {O\discretionary {-}{}{}M\discretionary {-}{}{}P2\discretionary {-}{}{}D\discretionary {-}{}{}::\discretionary {-}{}{}Matrix\discretionary {-}{}{}Operations}, 
+		\hyperpage{15}
+
+  \indexspace
+
+  \item {real\discretionary {-}{}{}Inner\discretionary {-}{}{}Product}
+    \subitem {O\discretionary {-}{}{}M\discretionary {-}{}{}P2\discretionary {-}{}{}D\discretionary {-}{}{}::\discretionary {-}{}{}Matrix\discretionary {-}{}{}Operations}, 
+		\hyperpage{16}
+  \item {reorthogonalize}
+    \subitem {O\discretionary {-}{}{}M\discretionary {-}{}{}P2\discretionary {-}{}{}D\discretionary {-}{}{}::\discretionary {-}{}{}Pursuit\discretionary {-}{}{}Functions}, 
+		\hyperpage{19}
+
+  \indexspace
+
+  \item {scale\discretionary {-}{}{}Vector}
+    \subitem {O\discretionary {-}{}{}M\discretionary {-}{}{}P2\discretionary {-}{}{}D\discretionary {-}{}{}::\discretionary {-}{}{}Matrix\discretionary {-}{}{}Operations}, 
+		\hyperpage{16}
+  \item {src/\discretionary {-}{}{}O\discretionary {-}{}{}M\discretionary {-}{}{}P2\discretionary {-}{}{}D/\discretionary {-}{}{}Matrix\discretionary {-}{}{}Operations.\discretionary {-}{}{}java}, 
+		\hyperpage{21}
+  \item {src/\discretionary {-}{}{}O\discretionary {-}{}{}M\discretionary {-}{}{}P2\discretionary {-}{}{}D/\discretionary {-}{}{}O\discretionary {-}{}{}M\discretionary {-}{}{}P2\discretionary {-}{}{}D.\discretionary {-}{}{}java}, 
+		\hyperpage{21}
+  \item {src/\discretionary {-}{}{}O\discretionary {-}{}{}M\discretionary {-}{}{}P2\discretionary {-}{}{}D/\discretionary {-}{}{}Pursuit\discretionary {-}{}{}Functions.\discretionary {-}{}{}java}, 
+		\hyperpage{21}
+
+  \indexspace
+
+  \item {vector\discretionary {-}{}{}Matrix\discretionary {-}{}{}Vector}
+    \subitem {O\discretionary {-}{}{}M\discretionary {-}{}{}P2\discretionary {-}{}{}D\discretionary {-}{}{}::\discretionary {-}{}{}Matrix\discretionary {-}{}{}Operations}, 
+		\hyperpage{16}
+
+\end{theindex}

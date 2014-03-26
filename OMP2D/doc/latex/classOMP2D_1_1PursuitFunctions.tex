@@ -1,0 +1,194 @@
+\hypertarget{classOMP2D_1_1PursuitFunctions}{\section{O\-M\-P2\-D.\-Pursuit\-Functions Class Reference}
+\label{classOMP2D_1_1PursuitFunctions}\index{O\-M\-P2\-D.\-Pursuit\-Functions@{O\-M\-P2\-D.\-Pursuit\-Functions}}
+}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static double \hyperlink{classOMP2D_1_1PursuitFunctions_ae298b0982a3eed827a2a786f818c8187}{choose\-Atom\-O\-M\-P2\-D} (double\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]} dict\-Y, double\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]} dict\-X, double\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]} residule, int num\-Atoms\-Y, int num\-Atoms\-X)  throws Incompatible\-Dimensions\-Exception 
+\item 
+static double\mbox{[}$\,$\mbox{]} \hyperlink{classOMP2D_1_1PursuitFunctions_a07a83d52e273a22419e9f93bd9b86a3d}{calc\-Residule\-O\-M\-P} (double\mbox{[}$\,$\mbox{]} signal, double\mbox{[}$\,$\mbox{]} orthogonal)  throws Incompatible\-Dimensions\-Exception 
+\item 
+static void \hyperlink{classOMP2D_1_1PursuitFunctions_a8a639235f7f39322c766a6255ce19aa1}{orthogonalize\-O\-M\-P} (double\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]} orthogonal\-Dict, double\mbox{[}$\,$\mbox{]} vector)  throws Incompatible\-Dimensions\-Exception 
+\item 
+static void \hyperlink{classOMP2D_1_1PursuitFunctions_aa0a440a028eb56652ac02cd12cc56296}{calc\-Biorthogonal} (double\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]} biorthogonal, double\mbox{[}$\,$\mbox{]} new\-Atom, double\mbox{[}$\,$\mbox{]} orthogonal\-Atom, double norm\-Atom)  throws Incompatible\-Dimensions\-Exception 
+\item 
+static double \hyperlink{classOMP2D_1_1PursuitFunctions_a20c61d43f381c055a43bfa5b1ce5292a}{mean} (double\mbox{[}$\,$\mbox{]} vector)
+\item 
+static void \hyperlink{classOMP2D_1_1PursuitFunctions_a62c1ea90fe6ac2265d29a65bdd211918}{reorthogonalize} (double\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]} orthogonal\-Dict, int row, int repetitions)  throws Incompatible\-Dimensions\-Exception 
+\item 
+static void \hyperlink{classOMP2D_1_1PursuitFunctions_abedfd952415a788c1fc65baec60c10b1}{calc\-Index\-Yand\-X} ()
+\item 
+static int \hyperlink{classOMP2D_1_1PursuitFunctions_a80d1393500edc3e8053211092ef2d141}{min} (int a, int b)
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classOMP2D_1_1PursuitFunctions_aa0a440a028eb56652ac02cd12cc56296}{\index{O\-M\-P2\-D\-::\-Pursuit\-Functions@{O\-M\-P2\-D\-::\-Pursuit\-Functions}!calc\-Biorthogonal@{calc\-Biorthogonal}}
+\index{calc\-Biorthogonal@{calc\-Biorthogonal}!OMP2D::PursuitFunctions@{O\-M\-P2\-D\-::\-Pursuit\-Functions}}
+\subsubsection[{calc\-Biorthogonal}]{\setlength{\rightskip}{0pt plus 5cm}static void O\-M\-P2\-D.\-Pursuit\-Functions.\-calc\-Biorthogonal (
+\begin{DoxyParamCaption}
+\item[{double}]{biorthogonal\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]}, }
+\item[{double\mbox{[}$\,$\mbox{]}}]{new\-Atom, }
+\item[{double\mbox{[}$\,$\mbox{]}}]{orthogonal\-Atom, }
+\item[{double}]{norm\-Atom}
+\end{DoxyParamCaption}
+) throws {\bf Incompatible\-Dimensions\-Exception}\hspace{0.3cm}{\ttfamily [static]}}}\label{classOMP2D_1_1PursuitFunctions_aa0a440a028eb56652ac02cd12cc56296}
+
+\begin{DoxyParams}{Parameters}
+{\em biorthogonal} & \\
+\hline
+{\em new\-Atom} & \\
+\hline
+{\em orthogonal\-Atom} & \\
+\hline
+{\em norm\-Atom} & \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Incompatible\-Dimensions\-Exception} & \\
+\hline
+\end{DoxyExceptions}
+\hypertarget{classOMP2D_1_1PursuitFunctions_abedfd952415a788c1fc65baec60c10b1}{\index{O\-M\-P2\-D\-::\-Pursuit\-Functions@{O\-M\-P2\-D\-::\-Pursuit\-Functions}!calc\-Index\-Yand\-X@{calc\-Index\-Yand\-X}}
+\index{calc\-Index\-Yand\-X@{calc\-Index\-Yand\-X}!OMP2D::PursuitFunctions@{O\-M\-P2\-D\-::\-Pursuit\-Functions}}
+\subsubsection[{calc\-Index\-Yand\-X}]{\setlength{\rightskip}{0pt plus 5cm}static void O\-M\-P2\-D.\-Pursuit\-Functions.\-calc\-Index\-Yand\-X (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{classOMP2D_1_1PursuitFunctions_abedfd952415a788c1fc65baec60c10b1}
+\hypertarget{classOMP2D_1_1PursuitFunctions_a07a83d52e273a22419e9f93bd9b86a3d}{\index{O\-M\-P2\-D\-::\-Pursuit\-Functions@{O\-M\-P2\-D\-::\-Pursuit\-Functions}!calc\-Residule\-O\-M\-P@{calc\-Residule\-O\-M\-P}}
+\index{calc\-Residule\-O\-M\-P@{calc\-Residule\-O\-M\-P}!OMP2D::PursuitFunctions@{O\-M\-P2\-D\-::\-Pursuit\-Functions}}
+\subsubsection[{calc\-Residule\-O\-M\-P}]{\setlength{\rightskip}{0pt plus 5cm}static double \mbox{[}$\,$\mbox{]} O\-M\-P2\-D.\-Pursuit\-Functions.\-calc\-Residule\-O\-M\-P (
+\begin{DoxyParamCaption}
+\item[{double\mbox{[}$\,$\mbox{]}}]{signal, }
+\item[{double\mbox{[}$\,$\mbox{]}}]{orthogonal}
+\end{DoxyParamCaption}
+) throws {\bf Incompatible\-Dimensions\-Exception}\hspace{0.3cm}{\ttfamily [static]}}}\label{classOMP2D_1_1PursuitFunctions_a07a83d52e273a22419e9f93bd9b86a3d}
+Q\-U\-E\-S\-T\-I\-O\-N This function should really be accepting matrices. Maybe create calc\-Residule\-O\-M\-P2\-D? 
+\begin{DoxyParams}{Parameters}
+{\em signal} & \\
+\hline
+{\em orthogonal} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Incompatible\-Dimensions\-Exception} & \\
+\hline
+\end{DoxyExceptions}
+\hypertarget{classOMP2D_1_1PursuitFunctions_ae298b0982a3eed827a2a786f818c8187}{\index{O\-M\-P2\-D\-::\-Pursuit\-Functions@{O\-M\-P2\-D\-::\-Pursuit\-Functions}!choose\-Atom\-O\-M\-P2\-D@{choose\-Atom\-O\-M\-P2\-D}}
+\index{choose\-Atom\-O\-M\-P2\-D@{choose\-Atom\-O\-M\-P2\-D}!OMP2D::PursuitFunctions@{O\-M\-P2\-D\-::\-Pursuit\-Functions}}
+\subsubsection[{choose\-Atom\-O\-M\-P2\-D}]{\setlength{\rightskip}{0pt plus 5cm}static double O\-M\-P2\-D.\-Pursuit\-Functions.\-choose\-Atom\-O\-M\-P2\-D (
+\begin{DoxyParamCaption}
+\item[{double}]{dict\-Y\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]}, }
+\item[{double}]{dict\-X\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]}, }
+\item[{double}]{residule\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{num\-Atoms\-Y, }
+\item[{int}]{num\-Atoms\-X}
+\end{DoxyParamCaption}
+) throws {\bf Incompatible\-Dimensions\-Exception}\hspace{0.3cm}{\ttfamily [static]}}}\label{classOMP2D_1_1PursuitFunctions_ae298b0982a3eed827a2a786f818c8187}
+Selects an Atom from a given dictionary 
+\begin{DoxyParams}{Parameters}
+{\em dict\-Y} & \\
+\hline
+{\em dict\-X} & \\
+\hline
+{\em residule} & \\
+\hline
+{\em num\-Atoms\-Y} & \\
+\hline
+{\em num\-Atoms\-X} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+An Atom Q\-U\-E\-S\-T\-I\-O\-N not sure what's being returned 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Incompatible\-Dimensions\-Exception} & \\
+\hline
+\end{DoxyExceptions}
+\hypertarget{classOMP2D_1_1PursuitFunctions_a20c61d43f381c055a43bfa5b1ce5292a}{\index{O\-M\-P2\-D\-::\-Pursuit\-Functions@{O\-M\-P2\-D\-::\-Pursuit\-Functions}!mean@{mean}}
+\index{mean@{mean}!OMP2D::PursuitFunctions@{O\-M\-P2\-D\-::\-Pursuit\-Functions}}
+\subsubsection[{mean}]{\setlength{\rightskip}{0pt plus 5cm}static double O\-M\-P2\-D.\-Pursuit\-Functions.\-mean (
+\begin{DoxyParamCaption}
+\item[{double\mbox{[}$\,$\mbox{]}}]{vector}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{classOMP2D_1_1PursuitFunctions_a20c61d43f381c055a43bfa5b1ce5292a}
+Finds of mean of all values in a vector 
+\begin{DoxyParams}{Parameters}
+{\em vector} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The mean value 
+\end{DoxyReturn}
+\hypertarget{classOMP2D_1_1PursuitFunctions_a80d1393500edc3e8053211092ef2d141}{\index{O\-M\-P2\-D\-::\-Pursuit\-Functions@{O\-M\-P2\-D\-::\-Pursuit\-Functions}!min@{min}}
+\index{min@{min}!OMP2D::PursuitFunctions@{O\-M\-P2\-D\-::\-Pursuit\-Functions}}
+\subsubsection[{min}]{\setlength{\rightskip}{0pt plus 5cm}static int O\-M\-P2\-D.\-Pursuit\-Functions.\-min (
+\begin{DoxyParamCaption}
+\item[{int}]{a, }
+\item[{int}]{b}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{classOMP2D_1_1PursuitFunctions_a80d1393500edc3e8053211092ef2d141}
+Finds the smallest of two values 
+\begin{DoxyParams}{Parameters}
+{\em a} & \\
+\hline
+{\em b} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The smaller value 
+\end{DoxyReturn}
+\hypertarget{classOMP2D_1_1PursuitFunctions_a8a639235f7f39322c766a6255ce19aa1}{\index{O\-M\-P2\-D\-::\-Pursuit\-Functions@{O\-M\-P2\-D\-::\-Pursuit\-Functions}!orthogonalize\-O\-M\-P@{orthogonalize\-O\-M\-P}}
+\index{orthogonalize\-O\-M\-P@{orthogonalize\-O\-M\-P}!OMP2D::PursuitFunctions@{O\-M\-P2\-D\-::\-Pursuit\-Functions}}
+\subsubsection[{orthogonalize\-O\-M\-P}]{\setlength{\rightskip}{0pt plus 5cm}static void O\-M\-P2\-D.\-Pursuit\-Functions.\-orthogonalize\-O\-M\-P (
+\begin{DoxyParamCaption}
+\item[{double}]{orthogonal\-Dict\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]}, }
+\item[{double\mbox{[}$\,$\mbox{]}}]{vector}
+\end{DoxyParamCaption}
+) throws {\bf Incompatible\-Dimensions\-Exception}\hspace{0.3cm}{\ttfamily [static]}}}\label{classOMP2D_1_1PursuitFunctions_a8a639235f7f39322c766a6255ce19aa1}
+
+\begin{DoxyParams}{Parameters}
+{\em orthogonal\-Dict} & \\
+\hline
+{\em vector} & \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Incompatible\-Dimensions\-Exception} & \\
+\hline
+\end{DoxyExceptions}
+\hypertarget{classOMP2D_1_1PursuitFunctions_a62c1ea90fe6ac2265d29a65bdd211918}{\index{O\-M\-P2\-D\-::\-Pursuit\-Functions@{O\-M\-P2\-D\-::\-Pursuit\-Functions}!reorthogonalize@{reorthogonalize}}
+\index{reorthogonalize@{reorthogonalize}!OMP2D::PursuitFunctions@{O\-M\-P2\-D\-::\-Pursuit\-Functions}}
+\subsubsection[{reorthogonalize}]{\setlength{\rightskip}{0pt plus 5cm}static void O\-M\-P2\-D.\-Pursuit\-Functions.\-reorthogonalize (
+\begin{DoxyParamCaption}
+\item[{double}]{orthogonal\-Dict\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]}, }
+\item[{int}]{row, }
+\item[{int}]{repetitions}
+\end{DoxyParamCaption}
+) throws {\bf Incompatible\-Dimensions\-Exception}\hspace{0.3cm}{\ttfamily [static]}}}\label{classOMP2D_1_1PursuitFunctions_a62c1ea90fe6ac2265d29a65bdd211918}
+
+\begin{DoxyParams}{Parameters}
+{\em orthogonal\-Dict} & \\
+\hline
+{\em row} & \\
+\hline
+{\em repetitions} & \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Incompatible\-Dimensions\-Exception} & \\
+\hline
+\end{DoxyExceptions}
+
+
+The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+/home/matt/cuda-\/workspace/\-O\-M\-P2\-D Java/src/\-O\-M\-P2\-D/\hyperlink{PursuitFunctions_8java}{Pursuit\-Functions.\-java}\end{DoxyCompactItemize}

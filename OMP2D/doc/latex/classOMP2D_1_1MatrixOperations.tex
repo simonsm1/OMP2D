@@ -1,0 +1,375 @@
+\hypertarget{classOMP2D_1_1MatrixOperations}{\section{O\-M\-P2\-D.\-Matrix\-Operations Class Reference}
+\label{classOMP2D_1_1MatrixOperations}\index{O\-M\-P2\-D.\-Matrix\-Operations@{O\-M\-P2\-D.\-Matrix\-Operations}}
+}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classOMP2D_1_1MatrixOperations_1_1IncompatibleDimensionsException}{Incompatible\-Dimensions\-Exception}
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static double \hyperlink{classOMP2D_1_1MatrixOperations_a0ffd0bed3beb6b14b1e6c80259fdb2fc}{real\-Inner\-Product} (double\mbox{[}$\,$\mbox{]} vector1, double\mbox{[}$\,$\mbox{]} vector2)  throws Incompatible\-Dimensions\-Exception 
+\item 
+static double\mbox{[}$\,$\mbox{]} \hyperlink{classOMP2D_1_1MatrixOperations_a9f4c857451b167cc252827d17cd1413c}{normalize} (double\mbox{[}$\,$\mbox{]} vector, double norm\-Vector)
+\item 
+static double\mbox{[}$\,$\mbox{]} \hyperlink{classOMP2D_1_1MatrixOperations_a435ecf7d2a5c1dff9f70ef542b17804b}{normalize} (double\mbox{[}$\,$\mbox{]} vector)  throws Incompatible\-Dimensions\-Exception 
+\item 
+static double \hyperlink{classOMP2D_1_1MatrixOperations_ad4e2f7e46255b1af0dc78b06151ce0a1}{norm} (double\mbox{[}$\,$\mbox{]} vector)  throws Incompatible\-Dimensions\-Exception 
+\item 
+static double\mbox{[}$\,$\mbox{]} \hyperlink{classOMP2D_1_1MatrixOperations_a4fbee19c7844db28af5203a2b6087206}{add\-Vectors} (double\mbox{[}$\,$\mbox{]} vector1, double\mbox{[}$\,$\mbox{]} vector2, double scalar)  throws Incompatible\-Dimensions\-Exception 
+\item 
+static double\mbox{[}$\,$\mbox{]} \hyperlink{classOMP2D_1_1MatrixOperations_aaeb17605f361eadab3ffb12918d24496}{add\-Vectors} (double\mbox{[}$\,$\mbox{]} vector1, double\mbox{[}$\,$\mbox{]} vector2)  throws Incompatible\-Dimensions\-Exception 
+\item 
+static double\mbox{[}$\,$\mbox{]} \hyperlink{classOMP2D_1_1MatrixOperations_aaa1507cc4bd3d390fea146ab29abb5bf}{multiply\-Matrix\-Vector} (double\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]} matrix, double\mbox{[}$\,$\mbox{]} vector, char thing)  throws Incompatible\-Dimensions\-Exception 
+\item 
+static double\mbox{[}$\,$\mbox{]} \hyperlink{classOMP2D_1_1MatrixOperations_af63d77a6ef1d2bae746c7f47099f01ed}{scale\-Vector} (double\mbox{[}$\,$\mbox{]} vector, double factor)
+\item 
+static double\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]} \hyperlink{classOMP2D_1_1MatrixOperations_a3f7a1739a39b7bc42567c8011694bb5f}{outer\-Product} (double\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]} matrix, double\mbox{[}$\,$\mbox{]} vector, double\mbox{[}$\,$\mbox{]} vector\-Scalar)  throws Incompatible\-Dimensions\-Exception 
+\item 
+static double\mbox{[}$\,$\mbox{]} \hyperlink{classOMP2D_1_1MatrixOperations_aee29169db5db03e194c041f89399b35c}{kron\-Atom} (double\mbox{[}$\,$\mbox{]} vector1, double\mbox{[}$\,$\mbox{]} vector2)  throws Incompatible\-Dimensions\-Exception 
+\item 
+static double \hyperlink{classOMP2D_1_1MatrixOperations_a20c8df75f73908438dd418cb803d077e}{max\-Abs} (double\mbox{[}$\,$\mbox{]} vector)
+\item 
+static double \hyperlink{classOMP2D_1_1MatrixOperations_a3326a590f1c188296d0e14cd6f5476ad}{max\-Abs} (double\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]} matrix)
+\item 
+static void \hyperlink{classOMP2D_1_1MatrixOperations_a9dfd3ba69faf8f5c905a5c9dcac30cdd}{allocate\-Elements} (double\mbox{[}$\,$\mbox{]} vector, double value, int num)
+\item 
+static double\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]} \hyperlink{classOMP2D_1_1MatrixOperations_a66a0e1bf820558880db67d2efac229cb}{matrix\-Multiply} (double\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]} matrix1, double\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]} matrix2, char thing1, char thing2)  throws Incompatible\-Dimensions\-Exception 
+\item 
+static double \hyperlink{classOMP2D_1_1MatrixOperations_aa2f4938d53dcbb632fbf2e499705f29f}{vector\-Matrix\-Vector} (double\mbox{[}$\,$\mbox{]} vector1, double\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]} matrix, double\mbox{[}$\,$\mbox{]} vector2)  throws Incompatible\-Dimensions\-Exception 
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classOMP2D_1_1MatrixOperations_a4fbee19c7844db28af5203a2b6087206}{\index{O\-M\-P2\-D\-::\-Matrix\-Operations@{O\-M\-P2\-D\-::\-Matrix\-Operations}!add\-Vectors@{add\-Vectors}}
+\index{add\-Vectors@{add\-Vectors}!OMP2D::MatrixOperations@{O\-M\-P2\-D\-::\-Matrix\-Operations}}
+\subsubsection[{add\-Vectors}]{\setlength{\rightskip}{0pt plus 5cm}static double \mbox{[}$\,$\mbox{]} O\-M\-P2\-D.\-Matrix\-Operations.\-add\-Vectors (
+\begin{DoxyParamCaption}
+\item[{double\mbox{[}$\,$\mbox{]}}]{vector1, }
+\item[{double\mbox{[}$\,$\mbox{]}}]{vector2, }
+\item[{double}]{scalar}
+\end{DoxyParamCaption}
+) throws {\bf Incompatible\-Dimensions\-Exception}\hspace{0.3cm}{\ttfamily [static]}}}\label{classOMP2D_1_1MatrixOperations_a4fbee19c7844db28af5203a2b6087206}
+Adds and scales the first vector T\-O\-D\-O This should be handle outside this class 
+\begin{DoxyParams}{Parameters}
+{\em vector1} & \\
+\hline
+{\em vector2} & \\
+\hline
+{\em scalar} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \hyperlink{classOMP2D_1_1MatrixOperations_1_1IncompatibleDimensionsException}{Incompatible\-Dimensions\-Exception}} & \\
+\hline
+\end{DoxyExceptions}
+\hypertarget{classOMP2D_1_1MatrixOperations_aaeb17605f361eadab3ffb12918d24496}{\index{O\-M\-P2\-D\-::\-Matrix\-Operations@{O\-M\-P2\-D\-::\-Matrix\-Operations}!add\-Vectors@{add\-Vectors}}
+\index{add\-Vectors@{add\-Vectors}!OMP2D::MatrixOperations@{O\-M\-P2\-D\-::\-Matrix\-Operations}}
+\subsubsection[{add\-Vectors}]{\setlength{\rightskip}{0pt plus 5cm}static double \mbox{[}$\,$\mbox{]} O\-M\-P2\-D.\-Matrix\-Operations.\-add\-Vectors (
+\begin{DoxyParamCaption}
+\item[{double\mbox{[}$\,$\mbox{]}}]{vector1, }
+\item[{double\mbox{[}$\,$\mbox{]}}]{vector2}
+\end{DoxyParamCaption}
+) throws {\bf Incompatible\-Dimensions\-Exception}\hspace{0.3cm}{\ttfamily [static]}}}\label{classOMP2D_1_1MatrixOperations_aaeb17605f361eadab3ffb12918d24496}
+Adds two vectors of the same length together 
+\begin{DoxyParams}{Parameters}
+{\em vector1} & \\
+\hline
+{\em vector2} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The resulting vector 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \hyperlink{classOMP2D_1_1MatrixOperations_1_1IncompatibleDimensionsException}{Incompatible\-Dimensions\-Exception}} & \\
+\hline
+\end{DoxyExceptions}
+\hypertarget{classOMP2D_1_1MatrixOperations_a9dfd3ba69faf8f5c905a5c9dcac30cdd}{\index{O\-M\-P2\-D\-::\-Matrix\-Operations@{O\-M\-P2\-D\-::\-Matrix\-Operations}!allocate\-Elements@{allocate\-Elements}}
+\index{allocate\-Elements@{allocate\-Elements}!OMP2D::MatrixOperations@{O\-M\-P2\-D\-::\-Matrix\-Operations}}
+\subsubsection[{allocate\-Elements}]{\setlength{\rightskip}{0pt plus 5cm}static void O\-M\-P2\-D.\-Matrix\-Operations.\-allocate\-Elements (
+\begin{DoxyParamCaption}
+\item[{double\mbox{[}$\,$\mbox{]}}]{vector, }
+\item[{double}]{value, }
+\item[{int}]{num}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{classOMP2D_1_1MatrixOperations_a9dfd3ba69faf8f5c905a5c9dcac30cdd}
+Fills a vector with a given value up the {\itshape n}-\/th element Not necessary in Java for we have Array.\-fill() 
+\begin{DoxyParams}{Parameters}
+{\em vector} & The vector to be filled \\
+\hline
+{\em value} & The value which will be inserted \\
+\hline
+{\em num} & The last numbered index which will be filled 0 to num inclusive \\
+\hline
+\end{DoxyParams}
+\hypertarget{classOMP2D_1_1MatrixOperations_aee29169db5db03e194c041f89399b35c}{\index{O\-M\-P2\-D\-::\-Matrix\-Operations@{O\-M\-P2\-D\-::\-Matrix\-Operations}!kron\-Atom@{kron\-Atom}}
+\index{kron\-Atom@{kron\-Atom}!OMP2D::MatrixOperations@{O\-M\-P2\-D\-::\-Matrix\-Operations}}
+\subsubsection[{kron\-Atom}]{\setlength{\rightskip}{0pt plus 5cm}static double \mbox{[}$\,$\mbox{]} O\-M\-P2\-D.\-Matrix\-Operations.\-kron\-Atom (
+\begin{DoxyParamCaption}
+\item[{double\mbox{[}$\,$\mbox{]}}]{vector1, }
+\item[{double\mbox{[}$\,$\mbox{]}}]{vector2}
+\end{DoxyParamCaption}
+) throws {\bf Incompatible\-Dimensions\-Exception}\hspace{0.3cm}{\ttfamily [static]}}}\label{classOMP2D_1_1MatrixOperations_aee29169db5db03e194c041f89399b35c}
+Applies the Kronecker product of two vectors (Q\-U\-E\-S\-T\-I\-O\-N should this be matrices as well?) 
+\begin{DoxyParams}{Parameters}
+{\em vector1} & \\
+\hline
+{\em vector2} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \hyperlink{classOMP2D_1_1MatrixOperations_1_1IncompatibleDimensionsException}{Incompatible\-Dimensions\-Exception}} & \\
+\hline
+\end{DoxyExceptions}
+\hypertarget{classOMP2D_1_1MatrixOperations_a66a0e1bf820558880db67d2efac229cb}{\index{O\-M\-P2\-D\-::\-Matrix\-Operations@{O\-M\-P2\-D\-::\-Matrix\-Operations}!matrix\-Multiply@{matrix\-Multiply}}
+\index{matrix\-Multiply@{matrix\-Multiply}!OMP2D::MatrixOperations@{O\-M\-P2\-D\-::\-Matrix\-Operations}}
+\subsubsection[{matrix\-Multiply}]{\setlength{\rightskip}{0pt plus 5cm}static double \mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]} O\-M\-P2\-D.\-Matrix\-Operations.\-matrix\-Multiply (
+\begin{DoxyParamCaption}
+\item[{double}]{matrix1\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]}, }
+\item[{double}]{matrix2\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]}, }
+\item[{char}]{thing1, }
+\item[{char}]{thing2}
+\end{DoxyParamCaption}
+) throws {\bf Incompatible\-Dimensions\-Exception}\hspace{0.3cm}{\ttfamily [static]}}}\label{classOMP2D_1_1MatrixOperations_a66a0e1bf820558880db67d2efac229cb}
+Performs the dot product of two matrices 
+\begin{DoxyParams}{Parameters}
+{\em matrix1} & A matrix defined as $M^{x \times y}$ \\
+\hline
+{\em matrix2} & A matrix defined as $N^{y \times z}$ \\
+\hline
+{\em thing1} & (Q\-U\-E\-S\-T\-I\-O\-N not sure what this is) \\
+\hline
+{\em thing2} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The resulting matrix 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \hyperlink{classOMP2D_1_1MatrixOperations_1_1IncompatibleDimensionsException}{Incompatible\-Dimensions\-Exception}} & \\
+\hline
+\end{DoxyExceptions}
+\hypertarget{classOMP2D_1_1MatrixOperations_a20c8df75f73908438dd418cb803d077e}{\index{O\-M\-P2\-D\-::\-Matrix\-Operations@{O\-M\-P2\-D\-::\-Matrix\-Operations}!max\-Abs@{max\-Abs}}
+\index{max\-Abs@{max\-Abs}!OMP2D::MatrixOperations@{O\-M\-P2\-D\-::\-Matrix\-Operations}}
+\subsubsection[{max\-Abs}]{\setlength{\rightskip}{0pt plus 5cm}static double O\-M\-P2\-D.\-Matrix\-Operations.\-max\-Abs (
+\begin{DoxyParamCaption}
+\item[{double\mbox{[}$\,$\mbox{]}}]{vector}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{classOMP2D_1_1MatrixOperations_a20c8df75f73908438dd418cb803d077e}
+Finds the largest absolute value of a given vector 
+\begin{DoxyParams}{Parameters}
+{\em vector} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the largest absolute value 
+\end{DoxyReturn}
+\hypertarget{classOMP2D_1_1MatrixOperations_a3326a590f1c188296d0e14cd6f5476ad}{\index{O\-M\-P2\-D\-::\-Matrix\-Operations@{O\-M\-P2\-D\-::\-Matrix\-Operations}!max\-Abs@{max\-Abs}}
+\index{max\-Abs@{max\-Abs}!OMP2D::MatrixOperations@{O\-M\-P2\-D\-::\-Matrix\-Operations}}
+\subsubsection[{max\-Abs}]{\setlength{\rightskip}{0pt plus 5cm}static double O\-M\-P2\-D.\-Matrix\-Operations.\-max\-Abs (
+\begin{DoxyParamCaption}
+\item[{double}]{matrix\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{classOMP2D_1_1MatrixOperations_a3326a590f1c188296d0e14cd6f5476ad}
+Finds the largest absolute value of a given matrix 
+\begin{DoxyParams}{Parameters}
+{\em matrix} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\hypertarget{classOMP2D_1_1MatrixOperations_aaa1507cc4bd3d390fea146ab29abb5bf}{\index{O\-M\-P2\-D\-::\-Matrix\-Operations@{O\-M\-P2\-D\-::\-Matrix\-Operations}!multiply\-Matrix\-Vector@{multiply\-Matrix\-Vector}}
+\index{multiply\-Matrix\-Vector@{multiply\-Matrix\-Vector}!OMP2D::MatrixOperations@{O\-M\-P2\-D\-::\-Matrix\-Operations}}
+\subsubsection[{multiply\-Matrix\-Vector}]{\setlength{\rightskip}{0pt plus 5cm}static double \mbox{[}$\,$\mbox{]} O\-M\-P2\-D.\-Matrix\-Operations.\-multiply\-Matrix\-Vector (
+\begin{DoxyParamCaption}
+\item[{double}]{matrix\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]}, }
+\item[{double\mbox{[}$\,$\mbox{]}}]{vector, }
+\item[{char}]{thing}
+\end{DoxyParamCaption}
+) throws {\bf Incompatible\-Dimensions\-Exception}\hspace{0.3cm}{\ttfamily [static]}}}\label{classOMP2D_1_1MatrixOperations_aaa1507cc4bd3d390fea146ab29abb5bf}
+Multiplies a given matrix and vector 
+\begin{DoxyParams}{Parameters}
+{\em matrix} & A matrix of dimensions (m,n) \\
+\hline
+{\em vector} & A vector of dimension m \\
+\hline
+{\em thing} & (Q\-U\-E\-S\-T\-I\-O\-N I'm not sure what this is...) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the resulting vector 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \hyperlink{classOMP2D_1_1MatrixOperations_1_1IncompatibleDimensionsException}{Incompatible\-Dimensions\-Exception}} & \\
+\hline
+\end{DoxyExceptions}
+\hypertarget{classOMP2D_1_1MatrixOperations_ad4e2f7e46255b1af0dc78b06151ce0a1}{\index{O\-M\-P2\-D\-::\-Matrix\-Operations@{O\-M\-P2\-D\-::\-Matrix\-Operations}!norm@{norm}}
+\index{norm@{norm}!OMP2D::MatrixOperations@{O\-M\-P2\-D\-::\-Matrix\-Operations}}
+\subsubsection[{norm}]{\setlength{\rightskip}{0pt plus 5cm}static double O\-M\-P2\-D.\-Matrix\-Operations.\-norm (
+\begin{DoxyParamCaption}
+\item[{double\mbox{[}$\,$\mbox{]}}]{vector}
+\end{DoxyParamCaption}
+) throws {\bf Incompatible\-Dimensions\-Exception}\hspace{0.3cm}{\ttfamily [static]}}}\label{classOMP2D_1_1MatrixOperations_ad4e2f7e46255b1af0dc78b06151ce0a1}
+Performs the Euclidean norm operation on a vector 
+\begin{DoxyParams}{Parameters}
+{\em vector} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The Euclidean norm 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \hyperlink{classOMP2D_1_1MatrixOperations_1_1IncompatibleDimensionsException}{Incompatible\-Dimensions\-Exception}} & \\
+\hline
+\end{DoxyExceptions}
+\hypertarget{classOMP2D_1_1MatrixOperations_a9f4c857451b167cc252827d17cd1413c}{\index{O\-M\-P2\-D\-::\-Matrix\-Operations@{O\-M\-P2\-D\-::\-Matrix\-Operations}!normalize@{normalize}}
+\index{normalize@{normalize}!OMP2D::MatrixOperations@{O\-M\-P2\-D\-::\-Matrix\-Operations}}
+\subsubsection[{normalize}]{\setlength{\rightskip}{0pt plus 5cm}static double \mbox{[}$\,$\mbox{]} O\-M\-P2\-D.\-Matrix\-Operations.\-normalize (
+\begin{DoxyParamCaption}
+\item[{double\mbox{[}$\,$\mbox{]}}]{vector, }
+\item[{double}]{norm\-Vector}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{classOMP2D_1_1MatrixOperations_a9f4c857451b167cc252827d17cd1413c}
+This is especially silly 
+\begin{DoxyParams}{Parameters}
+{\em vector} & \\
+\hline
+{\em norm\-Vector} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\hypertarget{classOMP2D_1_1MatrixOperations_a435ecf7d2a5c1dff9f70ef542b17804b}{\index{O\-M\-P2\-D\-::\-Matrix\-Operations@{O\-M\-P2\-D\-::\-Matrix\-Operations}!normalize@{normalize}}
+\index{normalize@{normalize}!OMP2D::MatrixOperations@{O\-M\-P2\-D\-::\-Matrix\-Operations}}
+\subsubsection[{normalize}]{\setlength{\rightskip}{0pt plus 5cm}static double \mbox{[}$\,$\mbox{]} O\-M\-P2\-D.\-Matrix\-Operations.\-normalize (
+\begin{DoxyParamCaption}
+\item[{double\mbox{[}$\,$\mbox{]}}]{vector}
+\end{DoxyParamCaption}
+) throws {\bf Incompatible\-Dimensions\-Exception}\hspace{0.3cm}{\ttfamily [static]}}}\label{classOMP2D_1_1MatrixOperations_a435ecf7d2a5c1dff9f70ef542b17804b}
+Q\-U\-E\-S\-T\-I\-O\-N What is the purpose of this method given I already have norm 
+\begin{DoxyParams}{Parameters}
+{\em vector} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \hyperlink{classOMP2D_1_1MatrixOperations_1_1IncompatibleDimensionsException}{Incompatible\-Dimensions\-Exception}} & \\
+\hline
+\end{DoxyExceptions}
+\hypertarget{classOMP2D_1_1MatrixOperations_a3f7a1739a39b7bc42567c8011694bb5f}{\index{O\-M\-P2\-D\-::\-Matrix\-Operations@{O\-M\-P2\-D\-::\-Matrix\-Operations}!outer\-Product@{outer\-Product}}
+\index{outer\-Product@{outer\-Product}!OMP2D::MatrixOperations@{O\-M\-P2\-D\-::\-Matrix\-Operations}}
+\subsubsection[{outer\-Product}]{\setlength{\rightskip}{0pt plus 5cm}static double \mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]} O\-M\-P2\-D.\-Matrix\-Operations.\-outer\-Product (
+\begin{DoxyParamCaption}
+\item[{double}]{matrix\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]}, }
+\item[{double\mbox{[}$\,$\mbox{]}}]{vector, }
+\item[{double\mbox{[}$\,$\mbox{]}}]{vector\-Scalar}
+\end{DoxyParamCaption}
+) throws {\bf Incompatible\-Dimensions\-Exception}\hspace{0.3cm}{\ttfamily [static]}}}\label{classOMP2D_1_1MatrixOperations_a3f7a1739a39b7bc42567c8011694bb5f}
+Performs the outer product 
+\begin{DoxyParams}{Parameters}
+{\em matrix} & A transposed vector \\
+\hline
+{\em vector} & \\
+\hline
+{\em vector\-Scalar} & T\-O\-D\-O this should be done outside this method \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \hyperlink{classOMP2D_1_1MatrixOperations_1_1IncompatibleDimensionsException}{Incompatible\-Dimensions\-Exception}} & \\
+\hline
+\end{DoxyExceptions}
+\hypertarget{classOMP2D_1_1MatrixOperations_a0ffd0bed3beb6b14b1e6c80259fdb2fc}{\index{O\-M\-P2\-D\-::\-Matrix\-Operations@{O\-M\-P2\-D\-::\-Matrix\-Operations}!real\-Inner\-Product@{real\-Inner\-Product}}
+\index{real\-Inner\-Product@{real\-Inner\-Product}!OMP2D::MatrixOperations@{O\-M\-P2\-D\-::\-Matrix\-Operations}}
+\subsubsection[{real\-Inner\-Product}]{\setlength{\rightskip}{0pt plus 5cm}static double O\-M\-P2\-D.\-Matrix\-Operations.\-real\-Inner\-Product (
+\begin{DoxyParamCaption}
+\item[{double\mbox{[}$\,$\mbox{]}}]{vector1, }
+\item[{double\mbox{[}$\,$\mbox{]}}]{vector2}
+\end{DoxyParamCaption}
+) throws {\bf Incompatible\-Dimensions\-Exception}\hspace{0.3cm}{\ttfamily [static]}}}\label{classOMP2D_1_1MatrixOperations_a0ffd0bed3beb6b14b1e6c80259fdb2fc}
+Performs the inner product operation on two vectors 
+\begin{DoxyParams}{Parameters}
+{\em vector1} & \\
+\hline
+{\em vector2} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The inner product 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \hyperlink{classOMP2D_1_1MatrixOperations_1_1IncompatibleDimensionsException}{Incompatible\-Dimensions\-Exception}} & \\
+\hline
+\end{DoxyExceptions}
+\hypertarget{classOMP2D_1_1MatrixOperations_af63d77a6ef1d2bae746c7f47099f01ed}{\index{O\-M\-P2\-D\-::\-Matrix\-Operations@{O\-M\-P2\-D\-::\-Matrix\-Operations}!scale\-Vector@{scale\-Vector}}
+\index{scale\-Vector@{scale\-Vector}!OMP2D::MatrixOperations@{O\-M\-P2\-D\-::\-Matrix\-Operations}}
+\subsubsection[{scale\-Vector}]{\setlength{\rightskip}{0pt plus 5cm}static double \mbox{[}$\,$\mbox{]} O\-M\-P2\-D.\-Matrix\-Operations.\-scale\-Vector (
+\begin{DoxyParamCaption}
+\item[{double\mbox{[}$\,$\mbox{]}}]{vector, }
+\item[{double}]{factor}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}}\label{classOMP2D_1_1MatrixOperations_af63d77a6ef1d2bae746c7f47099f01ed}
+Scales a vector by a given factor 
+\begin{DoxyParams}{Parameters}
+{\em vector} & \\
+\hline
+{\em factor} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The vector scaled 
+\end{DoxyReturn}
+\hypertarget{classOMP2D_1_1MatrixOperations_aa2f4938d53dcbb632fbf2e499705f29f}{\index{O\-M\-P2\-D\-::\-Matrix\-Operations@{O\-M\-P2\-D\-::\-Matrix\-Operations}!vector\-Matrix\-Vector@{vector\-Matrix\-Vector}}
+\index{vector\-Matrix\-Vector@{vector\-Matrix\-Vector}!OMP2D::MatrixOperations@{O\-M\-P2\-D\-::\-Matrix\-Operations}}
+\subsubsection[{vector\-Matrix\-Vector}]{\setlength{\rightskip}{0pt plus 5cm}static double O\-M\-P2\-D.\-Matrix\-Operations.\-vector\-Matrix\-Vector (
+\begin{DoxyParamCaption}
+\item[{double\mbox{[}$\,$\mbox{]}}]{vector1, }
+\item[{double}]{matrix\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]}, }
+\item[{double\mbox{[}$\,$\mbox{]}}]{vector2}
+\end{DoxyParamCaption}
+) throws {\bf Incompatible\-Dimensions\-Exception}\hspace{0.3cm}{\ttfamily [static]}}}\label{classOMP2D_1_1MatrixOperations_aa2f4938d53dcbb632fbf2e499705f29f}
+Performs the (Q\-U\-E\-S\-T\-I\-O\-N is there an official name for this?) 
+\begin{DoxyParams}{Parameters}
+{\em vector1} & \\
+\hline
+{\em matrix} & \\
+\hline
+{\em vector2} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The resulting value 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \hyperlink{classOMP2D_1_1MatrixOperations_1_1IncompatibleDimensionsException}{Incompatible\-Dimensions\-Exception}} & \\
+\hline
+\end{DoxyExceptions}
+
+
+The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+/home/matt/cuda-\/workspace/\-O\-M\-P2\-D Java/src/\-O\-M\-P2\-D/\hyperlink{MatrixOperations_8java}{Matrix\-Operations.\-java}\end{DoxyCompactItemize}
