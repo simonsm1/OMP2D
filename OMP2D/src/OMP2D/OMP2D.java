@@ -1,7 +1,5 @@
 package OMP2D;
 
-import OMP2D.Matrix.IncompatibleDimensionsException;
-
 public class OMP2D {
 	private Matrix imageBlock, approxBlock;
 	private Matrix residue;
@@ -15,23 +13,25 @@ public class OMP2D {
 	private int curRowAtom, curColAtom;
 	private Matrix orthogonal = null;
 
-	public OMP2D(double[] imageBlock, int width, double tol) throws IncompatibleDimensionsException {
+	public OMP2D(double[] imageBlock, int width, double tol) throws BadDimensionsException{
 		this.imageBlock = new Matrix(width, imageBlock);
 		TOLERANCE = tol;
-		this.WIDTH = width;
+		WIDTH = width;
+		
 		dictX = new Dictionary();
-		dictY = dictX.clone();
-		dictX.transpose();
+		dictY = new Dictionary();
+		dictY.transpose();
 		residue = this.imageBlock.clone();
 	}
 	
-	public OMP2D(Matrix imageBlock, double tol) throws IncompatibleDimensionsException {
+	public OMP2D(Matrix imageBlock, double tol) throws BadDimensionsException{
 		this.imageBlock = imageBlock;
 		TOLERANCE = tol;
-		this.WIDTH = imageBlock.getWidth();
+		WIDTH = imageBlock.getWidth();
+		
 		dictX = new Dictionary();
-		dictY = dictX.clone();
-		dictX.transpose();
+		dictY = new Dictionary();
+		dictY.transpose();
 		residue = this.imageBlock.clone();
 	}
 	
@@ -40,9 +40,9 @@ public class OMP2D {
 	 * @param imageBlock
 	 * 
 	 * @return the index of the the chosen atom to represent this block.
-	 * @throws IncompatibleDimensionsException 
+	 * @throws BadDimensionsException
 	 */
-	public void calcBlock() throws IncompatibleDimensionsException {
+	public void calcBlock() throws BadDimensionsException{
 		
 		//First iteration
 		double acceptance = chooseAtom();
@@ -107,7 +107,7 @@ public class OMP2D {
 	 * @return iChosenAtomx and y and xy
 	 * @throws IncompatibleDimensionsException
 	 */
-	public double chooseAtom() throws IncompatibleDimensionsException {
+	public double chooseAtom() throws BadDimensionsException{
 		Matrix temp = Matrix.multiply(dictY, residue);
 		Matrix innerProducts = Matrix.multiply(temp, dictX);
 		
@@ -130,7 +130,7 @@ public class OMP2D {
 	 * @param normAtom
 	 * @throws IncompatibleDimensionsException
 	 */
-	public void getBiorthogonal(Matrix beta, Matrix newAtom, Vector orthogonalAtom, double rowNorm) throws IncompatibleDimensionsException {
+	public void getBiorthogonal(Matrix beta, Matrix newAtom, Vector orthogonalAtom, double rowNorm) throws BadDimensionsException{
 		
 		Vector alpha = new Vector(beta.getHeight());
 		for(int j = 0; j < beta.getHeight(); j++) {
@@ -151,9 +151,9 @@ public class OMP2D {
 	 * @param signal
 	 * @param orthogonal
 	 * @return
-	 * @throws IncompatibleDimensionsException 
+	 * @throws BadDimensionsException
 	 */
-	public void getResidual(Matrix residue, Matrix m1, Matrix m2) throws IncompatibleDimensionsException {
+	public void getResidual(Matrix residue, Matrix m1, Matrix m2) throws BadDimensionsException{
 		m1.transpose();
 		residue.transpose();
 		double scalar = Matrix.innerProduct(m1, m2);
@@ -170,7 +170,7 @@ public class OMP2D {
 	 * @param vector
 	 * @throws IncompatibleDimensionsException
 	 */
-	public void orthogonalize(Vector vector) throws IncompatibleDimensionsException {
+	public void orthogonalize(Vector vector) throws BadDimensionsException{
 		vector.transpose();
 		double scalar = Matrix.innerProduct(orthogonal.getRow(orthogonal.getHeight()-1), vector);
 		int row = orthogonal.getHeight();
@@ -191,7 +191,7 @@ public class OMP2D {
 	 * @param repetitions
 	 * @throws IncompatibleDimensionsException
 	 */
-	public void reorthogonalize(int repetitions) throws IncompatibleDimensionsException {
+	public void reorthogonalize(int repetitions) throws BadDimensionsException{
 		int row = orthogonal.getHeight()-1;
 		for(int r = 0; r < repetitions; r++) {
 			for(int j = 0; j < row; j++) {

@@ -4,21 +4,6 @@ import java.util.Arrays;
 
 public class Matrix 
 {
-	@SuppressWarnings("serial")
-	public static class IncompatibleDimensionsException extends Exception {
-
-		public IncompatibleDimensionsException() {
-			super("Expected a combination of vectors and/or matrices of equal length");
-		}
-		
-		public IncompatibleDimensionsException(String msg) {
-			super(msg);
-		}
-		
-		public IncompatibleDimensionsException(String msg, int expected, int actual) {
-			super(msg + "\nExpected Dimension: " + expected + "\nActual Dimension: " + actual);
-		}
-	}
 	
 	/**
 	 * Returns the inner product of two matrices
@@ -27,9 +12,9 @@ public class Matrix
 	 * @return
 	 * @throws IncompatibleDimensionsException
 	 */
-	public static double innerProduct(Matrix matrix1, Matrix matrix2) throws IncompatibleDimensionsException {
+	public static double innerProduct(Matrix matrix1, Matrix matrix2) throws BadDimensionsException {
 		if(matrix1.getSize() != matrix2.getSize()) {
-			throw new IncompatibleDimensionsException("Matrices should be the same dimension");
+			throw new BadDimensionsException("Matrices should be the same dimension");
 		}
 		
 		double innerProduct = 0;
@@ -44,15 +29,15 @@ public class Matrix
 	 * @param matrix1 A matrix defined as \f$M^{x \times y}\f$
 	 * @param matrix2 A matrix defined as \f$N^{y \times z}\f$
 	 * @return The resulting matrix
-	 * @throws IncompatibleDimensionsException 
+	 * @throws BadDimensionsException
 	 */
-	public static Matrix multiply(Matrix matrix1, Matrix matrix2) throws IncompatibleDimensionsException {
+	public static Matrix multiply(Matrix matrix1, Matrix matrix2) throws BadDimensionsException{
 		//matrix1[m][n] matrix2[p][q]
 		int mMax = matrix1.getHeight(); int nMax = matrix1.getWidth();
 		int pMax = matrix2.getHeight(); int qMax = matrix2.getWidth();
 		
 		if(nMax != pMax) {
-			throw new IncompatibleDimensionsException("Expected matrices of (m,n)x(n,q)\n" +
+			throw new BadDimensionsException("Expected matrices of (m,n)x(n,q)\n" +
 					"Recieved (" + mMax + "," + nMax + ")x(" + pMax + "," + qMax + ")");
 		}
 
@@ -75,7 +60,6 @@ public class Matrix
 	protected boolean transposed = false;
 	
 	protected double maxAbs;
-
 	protected int maxAbsRow, maxAbsCol;
 	
 	public Matrix(int width, double... vals) {
@@ -183,9 +167,9 @@ public class Matrix
 	 * Performs the Euclidean norm operation on this vector
 	 * @param vector
 	 * @return The Euclidean norm 
-	 * @throws IncompatibleDimensionsException 
+	 * @throws BadDimensionsException
 	 */
-	public double getNorm() throws IncompatibleDimensionsException {
+	public double getNorm() throws BadDimensionsException{
 		return Math.sqrt(innerProduct(this, this));
 	}
 	
@@ -193,9 +177,9 @@ public class Matrix
 	 * Performs the Euclidean norm operation on this vector
 	 * @param vector
 	 * @return The Euclidean norm 
-	 * @throws IncompatibleDimensionsException 
+	 * @throws BadDimensionsException
 	 */
-	public double getNorm(int row) throws IncompatibleDimensionsException {
+	public double getNorm(int row) throws BadDimensionsException{
 		return Math.sqrt(innerProduct(this.getRow(row), this.getRow(row)));
 	}
 	
@@ -230,15 +214,15 @@ public class Matrix
 	 * @param matrix1 A matrix defined as \f$M^{x \times y}\f$
 	 * @param matrix2 A matrix defined as \f$N^{y \times z}\f$
 	 * @return The resulting matrix
-	 * @throws IncompatibleDimensionsException 
+	 * @throws BadDimensionsException
 	 */
-	public void multiply(Matrix matrix) throws IncompatibleDimensionsException {
+	public void multiply(Matrix matrix) throws BadDimensionsException{
 		//matrix1[m][n] matrix2[p][q]
 		int mMax = this.getHeight(); int nMax = this.getWidth();
 		int pMax = matrix.getHeight(); int qMax = matrix.getWidth();
 		
 		if(nMax != pMax) {
-			throw new IncompatibleDimensionsException("Expected matrices of (m,n)x(n,q)\n" +
+			throw new BadDimensionsException("Expected matrices of (m,n)x(n,q)\n" +
 					"Recieved (" + mMax + "," + nMax + ")x(" + pMax + "," + qMax + ")");
 		}
 
@@ -262,14 +246,14 @@ public class Matrix
 	 * @param vector A vector of dimension m
 	 * @param thing (QUESTION I'm not sure what this is...)
 	 * @return the resulting vector
-	 * @throws IncompatibleDimensionsException 
+	 * @throws BadDimensionsException
 	 */
-	public void multiply(Vector vector) throws IncompatibleDimensionsException {
+	public void multiply(Vector vector) throws BadDimensionsException{
 		int n = vector.getSize();
 		int m = this.width;
 		
 		if(n != m) {
-			throw new IncompatibleDimensionsException();
+			throw new BadDimensionsException();
 		}
 		
 		double result[] = new double[this.height];
@@ -286,7 +270,7 @@ public class Matrix
 		height = m;
 	}
 
-	public double normalizeRow(int row) throws IncompatibleDimensionsException {
+	public double normalizeRow(int row) throws BadDimensionsException{
 		double normVector = getNorm(row);
 		for(int i = 0; i < width; i++) {
 			set(i, row, get(i, row)/normVector);

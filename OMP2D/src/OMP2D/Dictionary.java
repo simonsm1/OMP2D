@@ -27,7 +27,6 @@ public class Dictionary extends Matrix {
 	
 	public Dictionary() {
 		super(80, sixteenByEighty);
-		this.transpose();
 	}
 	
 	/**

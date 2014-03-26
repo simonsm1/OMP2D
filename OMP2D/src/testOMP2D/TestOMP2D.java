@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 import OMP2D.Matrix;
-import OMP2D.Matrix.IncompatibleDimensionsException;
+import OMP2D.BadDimensionsException;
 import OMP2D.OMP2D;
 import OMP2D.Vector;
 
@@ -81,7 +81,7 @@ public class TestOMP2D {
 	}
 
 	@Test
-	public void fullTest() throws IncompatibleDimensionsException {
+	public void fullTest() throws BadDimensionsException {
 		double tolerance = (MAX_INTENSITY*MAX_INTENSITY)/(Math.pow(10, (PSS/10.0)));
 		Matrix imageBlock = new Matrix(BLOCK_DIM, BLOCK_DATA);
 		OMP2D blockProcessor = new OMP2D(imageBlock, tolerance);

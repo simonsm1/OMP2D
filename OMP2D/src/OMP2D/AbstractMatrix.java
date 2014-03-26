@@ -1,8 +1,6 @@
 package OMP2D;
 
-import java.util.Arrays;
-
-import OMP2D.JavaMatrix.IncompatibleDimensionsException;
+import OMP2D.BadDimensionsException;
 
 public abstract class AbstractMatrix 
 {
@@ -20,20 +18,14 @@ public abstract class AbstractMatrix
 	public abstract void transpose();
 	public abstract double get(int x, int y);
 	public abstract double get(int i);
-	public abstract Vector getRow(int r);	
-	public abstract Matrix getRow(int start, int end);
+	public abstract AbstractMatrix getRow(int r);	
+	public abstract AbstractMatrix getRow(int start, int end);
 	
 	public abstract void add(Matrix m);
 	
 	public abstract double getFrobeniusNorm();
-	
-	public abstract Matrix getSubMatrix(int startX, int startY, int endX, int endY);
-	
-	public abstract Matrix getSubMatrix(int blockSize, int iteration);
-	
 
-	public abstract void multiply(Matrix matrix) throws IncompatibleDimensionsException;
-	public abstract void multiply(Vector vector) throws IncompatibleDimensionsException;
+	public abstract void multiply(AbstractMatrix matrix) throws BadDimensionsException;
 	
 	public abstract void set(int x, int y, double value);
 	public abstract void scale(double factor);
@@ -43,8 +35,6 @@ public abstract class AbstractMatrix
 	public abstract double abs(int x, int y);
 	
 	public abstract double[] to1DArray();
-	
-	public abstract double[][] to2DArray();
 	
 	public abstract double getMean();
 	

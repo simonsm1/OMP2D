@@ -21,9 +21,9 @@ public class Vector extends Matrix {
 	/**
 	 * @param vector
 	 * @return
-	 * @throws IncompatibleDimensionsException 
+	 * @throws BadDimensionsException 
 	 */
-	public void normalize() throws IncompatibleDimensionsException {
+	public void normalize() throws BadDimensionsException {
 		double normVector = getNorm();
 		scale(1/normVector);
 	}
@@ -32,9 +32,9 @@ public class Vector extends Matrix {
 	 * Performs the Euclidean norm operation on this vector
 	 * @param vector
 	 * @return The Euclidean norm 
-	 * @throws IncompatibleDimensionsException 
+	 * @throws BadDimensionsException 
 	 */
-	public double getNorm() throws IncompatibleDimensionsException {
+	public double getNorm() throws BadDimensionsException {
 		return Math.sqrt(innerProduct(this, this));
 	}
 	
@@ -43,11 +43,11 @@ public class Vector extends Matrix {
 	 * @param vector1
 	 * @param vector2
 	 * @return The inner product
-	 * @throws IncompatibleDimensionsException
+	 * @throws BadDimensionsException
 	 */
-	public static double innerProduct(Vector vector1, Vector vector2) throws IncompatibleDimensionsException {
+	public static double innerProduct(Vector vector1, Vector vector2) throws BadDimensionsException {
 		if(vector1.getSize() != vector2.getSize()) {
-			throw new IncompatibleDimensionsException();
+			throw new BadDimensionsException();
 		}
 		
 		int length = vector1.getSize();
@@ -63,11 +63,11 @@ public class Vector extends Matrix {
 	 * @param vector1
 	 * @param vector2
 	 * @return
-	 * @throws IncompatibleDimensionsException 
+	 * @throws BadDimensionsException 
 	 */
-	public static Vector kronecker(Vector vector1, Vector vector2) throws IncompatibleDimensionsException {
+	public static Vector kronecker(Vector vector1, Vector vector2) throws BadDimensionsException {
 		if(vector1.getSize() != vector2.getSize()) {
-			throw new IncompatibleDimensionsException();
+			throw new BadDimensionsException();
 		}
 		int size = vector1.getSize();
 		

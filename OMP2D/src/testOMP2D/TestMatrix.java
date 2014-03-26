@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import OMP2D.Matrix;
-import OMP2D.Matrix.IncompatibleDimensionsException;
+import OMP2D.BadDimensionsException;
 
 public class TestMatrix {
 	Matrix m1, m2;
@@ -44,7 +44,7 @@ public class TestMatrix {
 	}
 	
 	@Test
-	public void innerProductTest() throws IncompatibleDimensionsException {
+	public void innerProductTest() throws BadDimensionsException {
 		assertEquals(INNER_PRODUCT, Matrix.innerProduct(m1, m1), 0);
 	}
 	
@@ -61,12 +61,12 @@ public class TestMatrix {
 	}
 	
 	@Test
-	public void dotProductTest() throws IncompatibleDimensionsException {
+	public void dotProductTest() throws BadDimensionsException {
 		m1.multiply(m1);
 	}
 	
-	@Test(expected=IncompatibleDimensionsException.class)
-	public void dotProductBadDimensionsTest() throws IncompatibleDimensionsException {
+	@Test(expected=BadDimensionsException.class)
+	public void dotProductBadDimensionsTest() throws BadDimensionsException {
 		m1.multiply(m2);
 	}
 	
@@ -101,7 +101,7 @@ public class TestMatrix {
 	}
 	
 	@Test
-	public void multiplyTest() throws IncompatibleDimensionsException {
+	public void multiplyTest() throws BadDimensionsException {
 		Matrix m3 = Matrix.multiply(m1, m1.clone());
 		double[] result = m3.to1DArray();
 		assertArrayEquals(MULTIPLIED, result, 0);
