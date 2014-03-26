@@ -286,11 +286,12 @@ public class Matrix
 		height = m;
 	}
 
-	public void normalize(int row) throws IncompatibleDimensionsException {
+	public double normalizeRow(int row) throws IncompatibleDimensionsException {
 		double normVector = getNorm(row);
 		for(int i = 0; i < width; i++) {
 			set(i, row, get(i, row)/normVector);
 		}
+		return normVector;
 	}
 	
 	/**

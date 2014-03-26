@@ -11,14 +11,14 @@ public class OMP2D {
 	private final int ITERATIONS = 25;
 	private final int MIN_ATOMS = 5;
 	private final int REORTH_ITERATIONS = 2;
-	private int width;
+	private final int WIDTH;
 	private int curRowAtom, curColAtom;
 	private Matrix orthogonal = null;
 
 	public OMP2D(double[] imageBlock, int width, double tol) throws IncompatibleDimensionsException {
 		this.imageBlock = new Matrix(width, imageBlock);
 		TOLERANCE = tol;
-		this.width = width;
+		this.WIDTH = width;
 		dictX = new Dictionary();
 		dictY = dictX.clone();
 		dictX.transpose();
@@ -28,7 +28,7 @@ public class OMP2D {
 	public OMP2D(Matrix imageBlock, double tol) throws IncompatibleDimensionsException {
 		this.imageBlock = imageBlock;
 		TOLERANCE = tol;
-		this.width = imageBlock.getWidth();
+		this.WIDTH = imageBlock.getWidth();
 		dictX = new Dictionary();
 		dictY = dictX.clone();
 		dictX.transpose();
@@ -43,41 +43,46 @@ public class OMP2D {
 	 * @throws IncompatibleDimensionsException 
 	 */
 	public void calcBlock() throws IncompatibleDimensionsException {
-		int numAtomsX = imageBlock.getWidth();
-		int numAtomsY = numAtomsX;
-		Matrix beta = null;
 		
-		for(int k = 0; k < ITERATIONS; k++) {
-			double acceptance = chooseAtom(numAtomsY, numAtomsX);
-			if(acceptance < INITIAL_TOL) { 
-				break;
-			}
-			
-			Vector chosenAtom = Vector.kronecker(dictX.getCol(curColAtom), dictY.getRow(curRowAtom));
-			if(k == 0) {
-				orthogonal = chosenAtom.clone();
-			} else {
-				orthogonalize(orthogonal, chosenAtom);
-				reorthogonalize(orthogonal, REORTH_ITERATIONS); 
-			}
-			
-			double normAtom = orthogonal.getRow(k).getNorm();
-			orthogonal.normalize(k); 
+		//First iteration
+		double acceptance = chooseAtom();
+		if(acceptance < INITIAL_TOL) { 
+			return;
+		}
+		
+		Vector chosenAtom = Vector.kronecker(dictX.getCol(curColAtom), dictY.getRow(curRowAtom));
+		orthogonal = chosenAtom.clone();
 
-			if(k > 0) {
-				Vector orthK = orthogonal.getRow(orthogonal.getHeight()-1);
-				getBiorthogonal(beta, chosenAtom, orthK, normAtom);
-				orthK.scale(1/normAtom);
-				beta = new Matrix(beta.getWidth(), beta.matrix, orthK.to1DArray());
-			} else {
-				beta = chosenAtom.clone();
-				beta.scale(1/normAtom);
-			}
+		double rowNorm = orthogonal.normalizeRow(0); 
+		Matrix beta = chosenAtom.clone();
+		beta.scale(1/rowNorm);
+		getResidual(residue, imageBlock, orthogonal.getRow(orthogonal.getHeight()-1));
+		acceptance = residue.getFrobeniusNorm() / (WIDTH*WIDTH);
+
+		if(acceptance < TOLERANCE) {
+			return;
+		}
+		
+		
+		for(int k = 1; k < ITERATIONS; k++) {
+			chooseAtom();
+			
+			chosenAtom = Vector.kronecker(dictX.getCol(curColAtom), dictY.getRow(curRowAtom));
+			
+			orthogonalize(chosenAtom);
+			reorthogonalize(REORTH_ITERATIONS); 
+			
+			rowNorm = orthogonal.normalizeRow(k); 
+
+			Vector orthK = orthogonal.getRow(k-1);
+			getBiorthogonal(beta, chosenAtom, orthK, rowNorm);
+			orthK.scale(1/rowNorm);
+			beta = new Matrix(beta.getWidth(), beta.matrix, orthK.to1DArray());
+
 			getResidual(residue, imageBlock, orthogonal.getRow(orthogonal.getHeight()-1));
-			double temp = residue.getFrobeniusNorm();
-			temp = temp / (width*width);
-			//System.out.println("interation " + k + ": " + temp);
-			if(temp < TOLERANCE) {
+			acceptance = residue.getFrobeniusNorm() / (WIDTH*WIDTH);
+
+			if(acceptance < TOLERANCE) {
 				break;
 			}
 		}
@@ -91,10 +96,8 @@ public class OMP2D {
 		}
 
 		imageBlock.transpose();
-		residue.scale(-1); //just make a subtract method
-		residue.add(imageBlock);
-		approxBlock = residue;
-
+		approxBlock = imageBlock.clone();
+		approxBlock.subtract(residue);
 	}
 	
 	/**
@@ -104,7 +107,7 @@ public class OMP2D {
 	 * @return iChosenAtomx and y and xy
 	 * @throws IncompatibleDimensionsException
 	 */
-	public double chooseAtom(int numAtomsY, int numAtomsX) throws IncompatibleDimensionsException {
+	public double chooseAtom() throws IncompatibleDimensionsException {
 		Matrix temp = Matrix.multiply(dictY, residue);
 		Matrix innerProducts = Matrix.multiply(temp, dictX);
 		
@@ -127,14 +130,14 @@ public class OMP2D {
 	 * @param normAtom
 	 * @throws IncompatibleDimensionsException
 	 */
-	public void getBiorthogonal(Matrix beta, Matrix newAtom, Vector orthogonalAtom, double normAtom) throws IncompatibleDimensionsException {
+	public void getBiorthogonal(Matrix beta, Matrix newAtom, Vector orthogonalAtom, double rowNorm) throws IncompatibleDimensionsException {
 		
 		Vector alpha = new Vector(beta.getHeight());
 		for(int j = 0; j < beta.getHeight(); j++) {
 			alpha.set(j, 0, Matrix.innerProduct(beta.getRow(j), newAtom));
 		}
 
-		alpha.scale(1/normAtom);
+		alpha.scale(1/rowNorm);
 
 		for(int j = 0; j < alpha.getSize(); j++) {
 			for(int i = 0; i < beta.getWidth(); i++) {
@@ -145,7 +148,6 @@ public class OMP2D {
 	}
 	
 	/**
-	 * QUESTION This function should really be accepting matrices. Maybe create calcResiduleOMP2D? Yes
 	 * @param signal
 	 * @param orthogonal
 	 * @return
@@ -168,7 +170,7 @@ public class OMP2D {
 	 * @param vector
 	 * @throws IncompatibleDimensionsException
 	 */
-	public void orthogonalize(Matrix orthogonal, Vector vector) throws IncompatibleDimensionsException {
+	public void orthogonalize(Vector vector) throws IncompatibleDimensionsException {
 		vector.transpose();
 		double scalar = Matrix.innerProduct(orthogonal.getRow(orthogonal.getHeight()-1), vector);
 		int row = orthogonal.getHeight();
@@ -189,15 +191,10 @@ public class OMP2D {
 	 * @param repetitions
 	 * @throws IncompatibleDimensionsException
 	 */
-	public void reorthogonalize(Matrix orthogonal, int repetitions) throws IncompatibleDimensionsException {
+	public void reorthogonalize(int repetitions) throws IncompatibleDimensionsException {
 		int row = orthogonal.getHeight()-1;
-		//System.out.println("row: " + row + " row2: " + row2);
 		for(int r = 0; r < repetitions; r++) {
-			//Vector rowVector = orthogonal.getRow(row);
-
 			for(int j = 0; j < row; j++) {
-				//Vector first = orthogonal.getRow(j);
-				//Vector second =  orthogonal.getRow(row);
 				double scalar = Matrix.innerProduct(orthogonal.getRow(j), orthogonal.getRow(row));
 				for(int i = 0; i < orthogonal.getWidth(); i++) {
 					orthogonal.set(i, row, orthogonal.get(i, row) - scalar*orthogonal.get(i, j));
