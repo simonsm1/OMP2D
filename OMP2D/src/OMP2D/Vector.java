@@ -59,31 +59,6 @@ public class Vector extends Matrix {
 	}
 	
 	/**
-	 * Performs the outer product
-	 * @param matrix A transposed vector
-	 * @param vector
-	 * @return
-	 * @throws IncompatibleDimensionsException 
-	 */
-	public static Matrix outerProduct(Vector vector1, Vector vector2) throws IncompatibleDimensionsException {
-		int n = vector2.getSize();
-		int m = vector1.getSize();
-		
-		if(n != m) {
-			throw new IncompatibleDimensionsException("The length of each vector should be equal");
-		}
-		
-		Matrix matrix = new Matrix(m, n);
-		
-		for(int j = 0; j < m; j++) { 
-			for(int i = 0; i < n; i++) {
-				matrix.set(i, j, vector1.get(j) * vector2.get(i));
-			}
-		}
-		return matrix;
-	}
-	
-	/**
 	 * Applies the Kronecker product of two vectors (QUESTION should this be matrices as well? No)
 	 * @param vector1
 	 * @param vector2

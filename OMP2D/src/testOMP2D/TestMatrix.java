@@ -102,7 +102,7 @@ public class TestMatrix {
 	
 	@Test
 	public void multiplyTest() throws IncompatibleDimensionsException {
-		Matrix m3 = Matrix.matrixMultiply(m1, m1.clone());
+		Matrix m3 = Matrix.multiply(m1, m1.clone());
 		double[] result = m3.to1DArray();
 		assertArrayEquals(MULTIPLIED, result, 0);
 	}

@@ -8,14 +8,12 @@ public class OMP2D {
 	private Matrix dictX, dictY;
 	private final double INITIAL_TOL = 1e-10;
 	private final double TOLERANCE;
-	private final int ITERATIONS = 25; //what should this be set to? 25 seems to be max given the size of orthogonal... or maybe the number of rows in dictionary
-	private final int MIN_ATOMS = 5; //what should this be set to?
+	private final int ITERATIONS = 25;
+	private final int MIN_ATOMS = 5;
 	private final int REORTH_ITERATIONS = 2;
 	private int width;
 	private int curRowAtom, curColAtom;
 	private Matrix orthogonal = null;
-	//private final double TOL3 = 1e-7;
-	
 
 	public OMP2D(double[] imageBlock, int width, double tol) throws IncompatibleDimensionsException {
 		this.imageBlock = new Matrix(width, imageBlock);
@@ -37,10 +35,6 @@ public class OMP2D {
 		residue = this.imageBlock.clone();
 	}
 	
-	public Matrix getApproxImage() {
-		return approxBlock;
-	}
-	
 	/**
 	 * 
 	 * @param imageBlock
@@ -52,32 +46,23 @@ public class OMP2D {
 		int numAtomsX = imageBlock.getWidth();
 		int numAtomsY = numAtomsX;
 		Matrix beta = null;
-		int k;
-		double ssResidual;
 		
-		
-		for(k = 0; k < ITERATIONS; k++) {
-			//if(k < numInd) {
-				//set iChosenAtom X Y XY
-			//} else {
-			//Chooseatom needs to set curColAtom and curRowAtom
+		for(int k = 0; k < ITERATIONS; k++) {
 			double acceptance = chooseAtom(numAtomsY, numAtomsX);
-			//System.out.println("current acceptance: " + acceptance);
 			if(acceptance < INITIAL_TOL) { 
 				break;
 			}
 			
-			//the rows which are selected are found in choose atom
 			Vector chosenAtom = Vector.kronecker(dictX.getCol(curColAtom), dictY.getRow(curRowAtom));
 			if(k == 0) {
 				orthogonal = chosenAtom.clone();
 			} else {
 				orthogonalize(orthogonal, chosenAtom);
-				reorthogonalize(orthogonal, REORTH_ITERATIONS); //Magic Number alert!
+				reorthogonalize(orthogonal, REORTH_ITERATIONS); 
 			}
 			
 			double normAtom = orthogonal.getRow(k).getNorm();
-			orthogonal.normalize(k); // normalize only the kth
+			orthogonal.normalize(k); 
 
 			if(k > 0) {
 				Vector orthK = orthogonal.getRow(orthogonal.getHeight()-1);
@@ -91,13 +76,12 @@ public class OMP2D {
 			getResidual(residue, imageBlock, orthogonal.getRow(orthogonal.getHeight()-1));
 			double temp = residue.getFrobeniusNorm();
 			temp = temp / (width*width);
-			//ssResidual = temp * temp;
-			System.out.println("interation " + k + ": " + temp);
+			//System.out.println("interation " + k + ": " + temp);
 			if(temp < TOLERANCE) {
-				k++;  //we're using k to direct the next part of assignment
 				break;
 			}
 		}
+		
 		imageBlock.transpose();
 		Vector v = new Vector(imageBlock.to1DArray());
 		v.transpose();
@@ -121,14 +105,61 @@ public class OMP2D {
 	 * @throws IncompatibleDimensionsException
 	 */
 	public double chooseAtom(int numAtomsY, int numAtomsX) throws IncompatibleDimensionsException {
-		Matrix temp = Matrix.matrixMultiply(dictY, residue);
-		Matrix innerProducts = Matrix.matrixMultiply(temp, dictX);
+		Matrix temp = Matrix.multiply(dictY, residue);
+		Matrix innerProducts = Matrix.multiply(temp, dictX);
 		
 		innerProducts.updateMaxAbs();
 		curRowAtom = innerProducts.getMaxAbsRow();
 		curColAtom = innerProducts.getMaxAbsCol();
 		
 		return innerProducts.getMaxAbs();
+	}
+	
+	public Matrix getApproxImage() {
+		return approxBlock;
+	}
+	
+	/**
+	 * 
+	 * @param biorthogonal
+	 * @param newAtom
+	 * @param orthogonalAtom
+	 * @param normAtom
+	 * @throws IncompatibleDimensionsException
+	 */
+	public void getBiorthogonal(Matrix beta, Matrix newAtom, Vector orthogonalAtom, double normAtom) throws IncompatibleDimensionsException {
+		
+		Vector alpha = new Vector(beta.getHeight());
+		for(int j = 0; j < beta.getHeight(); j++) {
+			alpha.set(j, 0, Matrix.innerProduct(beta.getRow(j), newAtom));
+		}
+
+		alpha.scale(1/normAtom);
+
+		for(int j = 0; j < alpha.getSize(); j++) {
+			for(int i = 0; i < beta.getWidth(); i++) {
+				beta.set(i, j, beta.get(i, j) - alpha.get(j)*orthogonalAtom.get(i));
+			}
+		}
+
+	}
+	
+	/**
+	 * QUESTION This function should really be accepting matrices. Maybe create calcResiduleOMP2D? Yes
+	 * @param signal
+	 * @param orthogonal
+	 * @return
+	 * @throws IncompatibleDimensionsException 
+	 */
+	public void getResidual(Matrix residue, Matrix m1, Matrix m2) throws IncompatibleDimensionsException {
+		m1.transpose();
+		residue.transpose();
+		double scalar = Matrix.innerProduct(m1, m2);
+		m2.scale(-scalar);
+		//residue.scale(-scalar);
+		residue.add(m2);
+		m1.transpose();
+		residue.transpose();
 	}
 	
 	/**
@@ -150,7 +181,7 @@ public class OMP2D {
 		}
 		this.orthogonal = newOrth;
 	}
-	
+
 	/**
 	 * 
 	 * @param orthogonalDict
@@ -173,67 +204,5 @@ public class OMP2D {
 				}
 			}
 		}
-	}
-	
-	/**
-	 * 
-	 * @param biorthogonal
-	 * @param newAtom
-	 * @param orthogonalAtom
-	 * @param normAtom
-	 * @throws IncompatibleDimensionsException
-	 
-	public void getBiorthogonal(Matrix beta, Matrix newAtom, Vector orthogonalAtom, double normAtom) throws IncompatibleDimensionsException {
-		newAtom.transpose();
-		Matrix alpha = Matrix.matrixMultiply(beta, newAtom);
-		alpha.scale(1/normAtom);
-		//TODO subtract
-		alpha.scale(-1);
-		beta.add(alpha);
-	}*/
-	
-	/**
-	 * 
-	 * @param biorthogonal
-	 * @param newAtom
-	 * @param orthogonalAtom
-	 * @param normAtom
-	 * @throws IncompatibleDimensionsException
-	 */
-	public void getBiorthogonal(Matrix beta, Matrix newAtom, Vector orthogonalAtom, double normAtom) throws IncompatibleDimensionsException {
-		
-		Vector alpha = new Vector(beta.getHeight());
-		for(int j = 0; j < beta.getHeight(); j++) {
-			alpha.set(j, 0, Matrix.innerProduct(beta.getRow(j), newAtom));
-		}
-
-		alpha.scale(1/normAtom);
-		//TODO subtract
-		//alpha.scale(-1);
-		//for each row add the corresponding alpha scale
-		for(int j = 0; j < alpha.getSize(); j++) {
-			for(int i = 0; i < beta.getWidth(); i++) {
-				beta.set(i, j, beta.get(i, j) - alpha.get(j)*orthogonalAtom.get(i));
-			}
-		}
-		//beta.add(alpha);
-	}
-
-	/**
-	 * QUESTION This function should really be accepting matrices. Maybe create calcResiduleOMP2D? Yes
-	 * @param signal
-	 * @param orthogonal
-	 * @return
-	 * @throws IncompatibleDimensionsException 
-	 */
-	public void getResidual(Matrix residue, Matrix m1, Matrix m2) throws IncompatibleDimensionsException {
-		m1.transpose();
-		residue.transpose();
-		double scalar = Matrix.innerProduct(m1, m2);
-		m2.scale(-scalar);
-		//residue.scale(-scalar);
-		residue.add(m2);
-		m1.transpose();
-		residue.transpose();
 	}
 }
