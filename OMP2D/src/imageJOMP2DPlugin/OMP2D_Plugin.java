@@ -11,7 +11,9 @@ import java.io.File;
 
 import javax.imageio.ImageIO;
 
+import OMP2D.BadDimensionsException;
 import OMP2D.Matrix;
+import OMP2D.OMP2D;
 
 public class OMP2D_Plugin implements PlugInFilter {
 	private double[] image;
@@ -21,6 +23,9 @@ public class OMP2D_Plugin implements PlugInFilter {
 	private int imageWidth, imageHeight;
 	private int numBlocksX, numBlocksY;
 	private final int BLOCK_DIM = 16;
+	private final double PSS = 49.87;
+	public static final int MAX_INTENSITY = 255;
+	private double tol;
 	ImagePlus imp;
 	private final String[] gpuOptions = new String[] {
 			"No GPU Acceleration",
@@ -35,6 +40,8 @@ public class OMP2D_Plugin implements PlugInFilter {
 		imageHeight = ip.getHeight();
 		numBlocksX = (int) Math.ceil(imageWidth / BLOCK_DIM);
 		numBlocksY = (int) Math.ceil(imageHeight / BLOCK_DIM);
+		
+		tol = (MAX_INTENSITY*MAX_INTENSITY)/(Math.pow(10, (PSS/10.0)));
 		
 		if(gpuOption.equals("No GPU Acceleration")) {
 			javaOnly(ip);
@@ -57,7 +64,20 @@ public class OMP2D_Plugin implements PlugInFilter {
 	}
 	
 	protected void javaOnly(ImageProcessor ip) {
-		
+		imageBlocks = makeBlocks();
+		double totPSNR = 0;
+		for(double[] block: imageBlocks) {
+			try {
+				OMP2D blockProcessor = new OMP2D(block, BLOCK_DIM, tol);
+				blockProcessor.calcBlock();
+				totPSNR += blockProcessor.getPSNR();
+			} catch (BadDimensionsException e) {
+				System.err.println("Uh Oh");
+				System.exit(1);
+			}
+		}
+		totPSNR /= numBlocksX*numBlocksY;
+		System.out.println(totPSNR);
 	}
 	
 	protected void cudaOnly(ImageProcessor ip) {

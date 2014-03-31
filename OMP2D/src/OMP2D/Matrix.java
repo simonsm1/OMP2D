@@ -241,10 +241,8 @@ public class Matrix
 	}
 	
 	/**
-	 * Multiplies a given matrix and vector
-	 * @param matrix A matrix of dimensions (m,n) 
+	 * Multiplies this matrix and vector
 	 * @param vector A vector of dimension m
-	 * @param thing (QUESTION I'm not sure what this is...)
 	 * @return the resulting vector
 	 * @throws BadDimensionsException
 	 */

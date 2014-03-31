@@ -42,7 +42,7 @@ public class OMP2D {
 	 * @return the index of the the chosen atom to represent this block.
 	 * @throws BadDimensionsException
 	 */
-	public void calcBlock() throws BadDimensionsException{
+	public void calcBlock() throws BadDimensionsException {
 		
 		//First iteration
 		double acceptance = chooseAtom();
@@ -98,6 +98,16 @@ public class OMP2D {
 		imageBlock.transpose();
 		approxBlock = imageBlock.clone();
 		approxBlock.subtract(residue);
+	}
+	
+	public double getPSNR() {
+		Matrix temp = imageBlock.clone();
+		temp.subtract(approxBlock);
+		for(int i = 0; i < imageBlock.getSize(); i++) {
+			temp.set(i, Math.pow(temp.get(i), 2));
+		}
+		double mse = temp.getSum() / (WIDTH*WIDTH);
+		return 10*Math.log10((255*255)/mse);
 	}
 	
 	/**
