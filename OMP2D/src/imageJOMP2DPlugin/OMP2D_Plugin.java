@@ -11,6 +11,8 @@ import java.io.File;
 
 import javax.imageio.ImageIO;
 
+import OMP2D.Matrix;
+
 public class OMP2D_Plugin implements PlugInFilter {
 	private double[] image;
 	private double[][] imageBlocks;
@@ -19,6 +21,7 @@ public class OMP2D_Plugin implements PlugInFilter {
 	private int imageWidth, imageHeight;
 	private int numBlocksX, numBlocksY;
 	private final int BLOCK_DIM = 16;
+	ImagePlus imp;
 	private final String[] gpuOptions = new String[] {
 			"No GPU Acceleration",
 			"CUDA Acceleration",
@@ -44,6 +47,7 @@ public class OMP2D_Plugin implements PlugInFilter {
 
 	@Override
 	public int setup(String arg, ImagePlus imp) {
+		this.imp = imp;
 		GenericDialog options = new GenericDialog("Processing Options");
 		options.addMessage("OMP2D Image Compression Options");
 		options.addRadioButtonGroup("GPU Acceleration?", gpuOptions, 3, 1, "No GPU Acceleration");
@@ -63,21 +67,19 @@ public class OMP2D_Plugin implements PlugInFilter {
 	protected void cudaAndBlas(ImageProcessor ip) {
 		imageBlocks = makeBlocks();
 		double[] newImage = buildImage();
-		
+		boolean ok = true;
+		for(int i = 0; i < imageWidth*imageHeight; i++) {
+			if(imagePixels[i] != newImage[i] - 128) {
+				ok = false;
+			}
+			//imagePixels[i] = (byte) (newImage[i] - 128);
+		}
+		if(ok) {
+			System.out.println("same image :)");
+		}
 	}
 	
-	public double[][] makeBlocks() {/*
-		double[][] blocks = new double[numBlocksX*numBlocksY][BLOCK_DIM*BLOCK_DIM];
-		for(int bY = 0; bY < numBlocksY; bY++) {
-			for(int v = 0; v < BLOCK_DIM; v++) {
-				for(int bX = 0; bX < numBlocksX; bX++) {
-					double[] block = new double[BLOCK_DIM*BLOCK_DIM];
-					for(int u = 0; u < BLOCK_DIM; u++) {
-						block[v*BLOCK_DIM + u] = imagePixels[bY*numBlocksX*BLOCK_DIM*BLOCK_DIM + v*BLOCK_DIM*numBlocksX + bX*BLOCK_DIM];
-					}
-				}
-			}
-		}*/
+	public double[][] makeBlocks() {
 		double[][] blocks = new double[numBlocksX*numBlocksY][BLOCK_DIM*BLOCK_DIM];
 		for(int bY = 0; bY < numBlocksY; bY++) {
 			for(int bX = 0; bX < numBlocksX; bX++) {
@@ -93,8 +95,7 @@ public class OMP2D_Plugin implements PlugInFilter {
     	for (int j = 0; j < n; j++) {
     		int offs = (y + j)*imageWidth;
     		for (int i = 0; i < n; i++) {
-    			pix2d[j*n+i] = (double) (imagePixels[offs+x+i]);
-    			//pix2d[j*n+i]= (pix2d[j*n+i]-128)/128.0;
+    			pix2d[j*n+i] = (double) (imagePixels[offs+x+i]) + 128;
     		}
     	}
     	return pix2d;
@@ -102,6 +103,15 @@ public class OMP2D_Plugin implements PlugInFilter {
 
 	public double[] buildImage() {
 		double[] img = new double[imageWidth*imageHeight];
+		for(int bY = 0; bY < numBlocksY; bY++) {
+			for(int bX = 0; bX < numBlocksX; bX++) {
+				for(int v = 0; v < BLOCK_DIM; v++) {
+					for(int u = 0; u < BLOCK_DIM; u++) {
+						img[(v+bY*BLOCK_DIM)*imageWidth + bX*BLOCK_DIM + u] = imageBlocks[bY*numBlocksX + bX][v*BLOCK_DIM + u];
+					}
+				}
+			}
+		}
 		return img;
 	}
 	
