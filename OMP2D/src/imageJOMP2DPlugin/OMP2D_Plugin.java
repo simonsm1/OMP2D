@@ -12,8 +12,13 @@ import java.io.File;
 import javax.imageio.ImageIO;
 
 public class OMP2D_Plugin implements PlugInFilter {
-	double[][] image;
-	String gpuOption;
+	private double[] image;
+	private double[][] imageBlocks;
+	private byte[] imagePixels;
+	private String gpuOption;
+	private int imageWidth, imageHeight;
+	private int numBlocksX, numBlocksY;
+	private final int BLOCK_DIM = 16;
 	private final String[] gpuOptions = new String[] {
 			"No GPU Acceleration",
 			"CUDA Acceleration",
@@ -22,7 +27,12 @@ public class OMP2D_Plugin implements PlugInFilter {
 
 	@Override
 	public void run(ImageProcessor ip) {
-		//int[] imagePixelsInt = (int[]) ip.getPixelsCopy();
+		imagePixels = (byte[]) ip.getPixels();
+		imageWidth = ip.getWidth();
+		imageHeight = ip.getHeight();
+		numBlocksX = (int) Math.ceil(imageWidth / BLOCK_DIM);
+		numBlocksY = (int) Math.ceil(imageHeight / BLOCK_DIM);
+		
 		if(gpuOption.equals("No GPU Acceleration")) {
 			javaOnly(ip);
 		} else if(gpuOption.equals("CUDA Acceleration")) {
@@ -51,9 +61,49 @@ public class OMP2D_Plugin implements PlugInFilter {
 	}
 	
 	protected void cudaAndBlas(ImageProcessor ip) {
+		imageBlocks = makeBlocks();
+		double[] newImage = buildImage();
 		
 	}
+	
+	public double[][] makeBlocks() {/*
+		double[][] blocks = new double[numBlocksX*numBlocksY][BLOCK_DIM*BLOCK_DIM];
+		for(int bY = 0; bY < numBlocksY; bY++) {
+			for(int v = 0; v < BLOCK_DIM; v++) {
+				for(int bX = 0; bX < numBlocksX; bX++) {
+					double[] block = new double[BLOCK_DIM*BLOCK_DIM];
+					for(int u = 0; u < BLOCK_DIM; u++) {
+						block[v*BLOCK_DIM + u] = imagePixels[bY*numBlocksX*BLOCK_DIM*BLOCK_DIM + v*BLOCK_DIM*numBlocksX + bX*BLOCK_DIM];
+					}
+				}
+			}
+		}*/
+		double[][] blocks = new double[numBlocksX*numBlocksY][BLOCK_DIM*BLOCK_DIM];
+		for(int bY = 0; bY < numBlocksY; bY++) {
+			for(int bX = 0; bX < numBlocksX; bX++) {
+				blocks[bY*numBlocksX + bX] = getBytePixels(bX, bY, BLOCK_DIM);
+			}
+		}
+		return blocks;
+	}
+	
+    protected double[] getBytePixels(int x, int y, int n) {
+    	x *= n; y *= n;
+    	double[] pix2d = new double[n*n];
+    	for (int j = 0; j < n; j++) {
+    		int offs = (y + j)*imageWidth;
+    		for (int i = 0; i < n; i++) {
+    			pix2d[j*n+i] = (double) (imagePixels[offs+x+i]);
+    			//pix2d[j*n+i]= (pix2d[j*n+i]-128)/128.0;
+    		}
+    	}
+    	return pix2d;
+    }
 
+	public double[] buildImage() {
+		double[] img = new double[imageWidth*imageHeight];
+		return img;
+	}
 	
 	private static ImagePlus getSampleImage(String title) {
 		BufferedImage bi = null;
