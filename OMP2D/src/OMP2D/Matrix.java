@@ -53,6 +53,7 @@ public class Matrix
 		
 		return new Matrix(qMax, result);
 	}
+	
 	protected double[] matrix;
 	
 	protected int width, height;

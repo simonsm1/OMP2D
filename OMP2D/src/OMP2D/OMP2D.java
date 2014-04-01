@@ -3,34 +3,35 @@ package OMP2D;
 public class OMP2D {
 	private Matrix imageBlock, approxBlock;
 	private Matrix residue;
+	private Matrix orthogonal;
 	private Matrix dictX, dictY;
+	
 	private final double INITIAL_TOL = 1e-10;
 	private final double TOLERANCE;
-	private final int ITERATIONS = 25;
-	private final int MIN_ATOMS = 5;
+	private final int ITERATIONS = 250;
 	private final int REORTH_ITERATIONS = 2;
 	private final int WIDTH;
 	private int curRowAtom, curColAtom;
-	private Matrix orthogonal = null;
+	private int numCoeffs;
+
 
 	public OMP2D(double[] imageBlock, int width, double tol) throws BadDimensionsException{
 		this.imageBlock = new Matrix(width, imageBlock);
 		TOLERANCE = tol;
 		WIDTH = width;
-		
-		dictX = new Dictionary();
-		dictY = new Dictionary();
-		dictY.transpose();
-		residue = this.imageBlock.clone();
+		setup();
 	}
 	
 	public OMP2D(Matrix imageBlock, double tol) throws BadDimensionsException{
 		this.imageBlock = imageBlock;
 		TOLERANCE = tol;
 		WIDTH = imageBlock.getWidth();
-		
-		dictX = new Dictionary();
-		dictY = new Dictionary();
+		setup();
+	}
+	
+	private void setup() {
+		dictX = new Dictionary(WIDTH);
+		dictY = new Dictionary(WIDTH);
 		dictY.transpose();
 		residue = this.imageBlock.clone();
 	}
@@ -60,6 +61,7 @@ public class OMP2D {
 		acceptance = residue.getFrobeniusNorm() / (WIDTH*WIDTH);
 
 		if(acceptance < TOLERANCE) {
+			numCoeffs = 1;
 			return;
 		}
 		
@@ -83,6 +85,7 @@ public class OMP2D {
 			acceptance = residue.getFrobeniusNorm() / (WIDTH*WIDTH);
 
 			if(acceptance < TOLERANCE) {
+				numCoeffs = k++;
 				break;
 			}
 		}
@@ -108,6 +111,10 @@ public class OMP2D {
 		}
 		double mse = temp.getSum() / (WIDTH*WIDTH);
 		return 10*Math.log10((255*255)/mse);
+	}
+	
+	public double getNumCoefficients() {
+		return numCoeffs;
 	}
 	
 	/**

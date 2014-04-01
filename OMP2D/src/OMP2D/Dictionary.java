@@ -79,8 +79,18 @@ public class Dictionary extends Matrix {
 	/**
 	 * Creates a Dictionary Matrix from the default 80x16 Matrix
 	 */
-	public Dictionary() {
-		super(80, sixteenByEighty);
+	public Dictionary(int dim) {
+		super(dim*5, getDict(dim));
+	}
+	
+	private static double[] getDict(int dim) {
+		if(dim == 8) {
+			return eightByFourty;
+		} else if(dim == 16){
+			return sixteenByEighty;
+		} else {
+			return thirtyTwoByOneHundredSixty;
+		}
 	}
 	
 	/**
