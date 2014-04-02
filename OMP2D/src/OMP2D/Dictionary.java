@@ -77,7 +77,7 @@ public class Dictionary extends Matrix {
 	}
 	
 	/**
-	 * Creates a Dictionary Matrix from the default 80x16 Matrix
+	 * Constructs a dictionary from the pre-calculated library
 	 */
 	public Dictionary(int dim) {
 		super(dim*5, getDict(dim));

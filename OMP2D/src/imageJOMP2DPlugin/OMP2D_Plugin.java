@@ -8,30 +8,34 @@ import ij.process.ByteProcessor;
 import ij.process.ImageProcessor;
 
 import java.io.File;
+import java.io.PrintWriter;
 
+import OMP2D.BadDimensionsException;
 import OMP2D.OMP2D;
 
 public class OMP2D_Plugin implements PlugInFilter {
-	private byte[] imagePixels;
-	private double[] image, approx;
 	
 	private double[][] imageBlocks, approxBlocks;
-
+	private byte[] imagePixels;
+	private double[] image, approx;
 
 	private int imageWidth, imageHeight;
 	private int numBlocksX, numBlocksY;
-	private int BLOCK_DIM;
-	private final double PSS = 49.87;
-	public static final int MAX_INTENSITY = 255;
-	private double TOLERANCE;
 	private ImagePlus imp, preview;
-	
 	private String gpuOption;
 	private final String[] gpuOptions = new String[] {
 			"No GPU Acceleration",
 			"CUDA Acceleration",
 			"CUDA and cuBLAS Acceleration"
 	};
+	
+	private int BLOCK_DIM;
+	private final double PSS = 49.87;
+	public static final int MAX_INTENSITY = 255;
+	private double TOLERANCE;
+
+	
+
 
 	@Override
 	public void run(ImageProcessor ip) {
@@ -77,15 +81,22 @@ public class OMP2D_Plugin implements PlugInFilter {
 	
 	protected void javaOnly(ImageProcessor ip) {
 		long start = System.currentTimeMillis();
+		
 		imageBlocks = makeBlocks();
+		PrintWriter pw = null;
+		try {
+			pw = new PrintWriter("/tmp/omp2d/H.txt", "UTF-8");
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		
+		int totalCoeffs = 0;
+		
 		for(int b = 0; b < imageBlocks.length; b++) {
 			try {
 				OMP2D blockProcessor = new OMP2D(imageBlocks[b], BLOCK_DIM, TOLERANCE);
 				blockProcessor.calcBlock();
-				if(blockProcessor.getNumCoefficients() < 2) {
-					System.err.println("here:");
-				}
-				System.out.println("Block " + b + ": " + blockProcessor.getNumCoefficients());
+				totalCoeffs += blockProcessor.getNumCoefficients();
 				approxBlocks[b] = blockProcessor.getApproxImage().to1DArray();
 			} catch (Exception e) {
 				System.err.println("Uh Oh! Block: " + b + " failed");
@@ -93,13 +104,26 @@ public class OMP2D_Plugin implements PlugInFilter {
 				System.exit(1);
 			}
 		}
+		
 		approx = buildBlocks(approxBlocks);
+		
+		for(double d : approx) {
+			pw.println(d);
+		}
+
+		pw.close();
 		long stop = System.currentTimeMillis();
 		image = buildBlocks(imageBlocks);
 		preview = buildImage(imageWidth, imageHeight, approx);
 		preview.show();
 		saveImage(preview);
-		IJ.showMessageWithCancel("Results", "PSNR: " + getPSNR(image, approx));
+		double sparsity = 262144.0/totalCoeffs;
+		
+		IJ.showMessageWithCancel("Results", "PSNR: " + getPSNR(image, approx) + 
+				"\nClassic: " + getPSNRClassic(image, approx) +
+				"\nTime Taken: " + ((stop - start)/1000.0) + "s" +
+				"\nSparsity: " + sparsity);
+		
 		//IJ.showTime(preview, start, stop);
 	}
 
@@ -112,7 +136,7 @@ public class OMP2D_Plugin implements PlugInFilter {
 		double[] newImage = buildBlocks(imageBlocks);
 		boolean ok = true;
 		for(int i = 0; i < imageWidth*imageHeight; i++) {
-			if(imagePixels[i] != newImage[i] - 128) {
+			if(imagePixels[i] != newImage[i]) {
 				ok = false;
 			}
 		}
@@ -122,6 +146,9 @@ public class OMP2D_Plugin implements PlugInFilter {
 	}
 	
 	public double getPSNR(double[] m1, double[] m2) {
+		if(m1.length != m2.length) {
+			System.out.println("badpsnr");
+		}
 		double mse = 0;
 
 		for(int i = 0; i < m1.length; i++) {
@@ -129,6 +156,18 @@ public class OMP2D_Plugin implements PlugInFilter {
 		}
 		mse /= (BLOCK_DIM*BLOCK_DIM);
 		return 10*Math.log10((MAX_INTENSITY*MAX_INTENSITY)/mse);
+	}
+	
+	public double getPSNRClassic(double[] m1, double[] m2) {
+		double[] temp = m1.clone();
+		double sum = 0;
+		for(int i = 0; i < m1.length; i++) {
+			temp[i] -= m2[i];
+			sum += Math.pow(temp[i], 2);
+		}
+
+		double mse = sum / (BLOCK_DIM*BLOCK_DIM);
+		return 10*Math.log10((255*255)/mse);
 	}
 	
 	public double[][] makeBlocks() {
@@ -147,7 +186,10 @@ public class OMP2D_Plugin implements PlugInFilter {
     	for (int j = 0; j < n; j++) {
     		int offs = (y + j)*imageWidth;
     		for (int i = 0; i < n; i++) {
-    			pix2d[j*n+i] = (double) (imagePixels[offs+x+i]) + 128;
+    			pix2d[j*n+i] = (double) (imagePixels[offs+x+i] + 128);
+    			if(pix2d[j*n+i] < 0 || pix2d[j*n+1] > 255) {
+    				System.out.println("Out of range in block(" + x + ", " + y + ") = " + pix2d[j*n+1]);
+    			}
     		}
     	}
     	return pix2d;
@@ -178,13 +220,13 @@ public class OMP2D_Plugin implements PlugInFilter {
 		if(!dir.exists()) {
 			dir.mkdir();
 		}
-		IJ.save(imp, "/tmp/omp2d/" + System.currentTimeMillis() + ".png");
+		IJ.save(img, "/tmp/omp2d/" + System.currentTimeMillis() + ".png");
 	}
 	
 	private byte[] doubleToByteArray(double[] d) {
 		byte[] b = new byte[d.length];
 		for(int i = 0; i < d.length; i++) {
-			b[i] = (byte) (d[i] - 127.0);
+			b[i] = (byte) (d[i] - 128);
 		}
 		return b;
 	}

@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
+import OMP2D.CleverPointer;
 import OMP2D.Matrix;
 import OMP2D.BadDimensionsException;
 import OMP2D.OMP2D;
@@ -80,9 +81,16 @@ public class TestOMP2D {
 	@Before
 	public void setUp() {	
 	}
+	
+	@Test
+	public void cudaTest() throws BadDimensionsException {
+		double tolerance = (MAX_INTENSITY*MAX_INTENSITY)/(Math.pow(10, (PSS/10.0)));
+		CleverPointer<double[]> dImageData = CleverPointer.copyDouble(BLOCK_DATA);
+		OMP2D blockProcessor = new OMP2D(dImageData, BLOCK_DIM, tolerance);
+	}
 
 	@Test
-	public void fullTest() throws BadDimensionsException {
+	public void javaTest() throws BadDimensionsException {
 		double tolerance = (MAX_INTENSITY*MAX_INTENSITY)/(Math.pow(10, (PSS/10.0)));
 		Matrix imageBlock = new Matrix(BLOCK_DIM, BLOCK_DATA);
 		OMP2D blockProcessor = new OMP2D(imageBlock, tolerance);

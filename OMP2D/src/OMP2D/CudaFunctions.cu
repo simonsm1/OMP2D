@@ -1,4 +1,29 @@
 extern "C"
+__global__ void scale(double *v1, int length, double factor)
+{
+	int index = blockIdx.x*threadIdx.x + threadIdx.x;
+	if(index < length)
+	{
+		v1[index] = v1[index] * factor;
+	}
+}
+
+extern "C"
+__global__ void innerProduct(double *v1, double *v2, int length)
+{
+	int index = blockIdx.x*threadIdx.x + threadIdx.x;
+	if(index < length)
+	{
+		v1[index] = v1[index] * v2[index];
+	}
+	__syncthreads();
+
+	//reduce(v1, length);
+}
+
+
+
+extern "C"
 __global__ void vectorDot(double *v1, double *v2, int length, double *v3)
 {
 	int index = blockIdx.x*threadIdx.x + threadIdx.x;
@@ -10,7 +35,7 @@ __global__ void vectorDot(double *v1, double *v2, int length, double *v3)
 }
 
 extern "C"
-__global__ void reduce(double *v1, int length)
+__device__ void reduce(double *v1, int length)
 {
 	__shared__ double sdata[1024];
 	int index = blockIdx.x*threadIdx.x + threadIdx.x;

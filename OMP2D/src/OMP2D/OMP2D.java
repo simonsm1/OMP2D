@@ -5,18 +5,19 @@ public class OMP2D {
 	private Matrix residue;
 	private Matrix orthogonal;
 	private Matrix dictX, dictY;
+	private Vector coefficients;
 	
 	private final double INITIAL_TOL = 1e-10;
 	private final double TOLERANCE;
-	private final int ITERATIONS = 250;
+	private final int MAX_ITERATIONS = 250;
 	private final int REORTH_ITERATIONS = 2;
 	private final int WIDTH;
+	
 	private int curRowAtom, curColAtom;
-	private int numCoeffs;
 
 
-	public OMP2D(double[] imageBlock, int width, double tol) throws BadDimensionsException{
-		this.imageBlock = new Matrix(width, imageBlock);
+	public OMP2D(double[] imageData, int width, double tol) throws BadDimensionsException{
+		this.imageBlock = new Matrix(width, imageData);
 		TOLERANCE = tol;
 		WIDTH = width;
 		setup();
@@ -29,20 +30,12 @@ public class OMP2D {
 		setup();
 	}
 	
-	private void setup() {
-		dictX = new Dictionary(WIDTH);
-		dictY = new Dictionary(WIDTH);
-		dictY.transpose();
-		residue = this.imageBlock.clone();
+	public OMP2D(CleverPointer<double[]> imagePointer, int width, double tol) {
+		TOLERANCE = tol;
+		WIDTH = width;
+		
 	}
 	
-	/**
-	 * 
-	 * @param imageBlock
-	 * 
-	 * @return the index of the the chosen atom to represent this block.
-	 * @throws BadDimensionsException
-	 */
 	public void calcBlock() throws BadDimensionsException {
 		
 		//First iteration
@@ -61,12 +54,11 @@ public class OMP2D {
 		acceptance = residue.getFrobeniusNorm() / (WIDTH*WIDTH);
 
 		if(acceptance < TOLERANCE) {
-			numCoeffs = 1;
 			return;
 		}
 		
 		
-		for(int k = 1; k < ITERATIONS; k++) {
+		for(int k = 1; k < MAX_ITERATIONS; k++) {
 			chooseAtom();
 			
 			chosenAtom = Vector.kronecker(dictX.getCol(curColAtom), dictY.getRow(curRowAtom));
@@ -85,7 +77,6 @@ public class OMP2D {
 			acceptance = residue.getFrobeniusNorm() / (WIDTH*WIDTH);
 
 			if(acceptance < TOLERANCE) {
-				numCoeffs = k++;
 				break;
 			}
 		}
@@ -93,9 +84,9 @@ public class OMP2D {
 		imageBlock.transpose();
 		Vector v = new Vector(imageBlock.to1DArray());
 		v.transpose();
-		Vector result = new Vector(beta.getHeight());
+		coefficients = new Vector(beta.getHeight());
 		for(int j = 0; j < beta.getHeight(); j++) {
-			result.set(j, 0, Matrix.innerProduct(beta.getRow(j), v));
+			coefficients.set(j, 0, Matrix.innerProduct(beta.getRow(j), v));
 		}
 
 		imageBlock.transpose();
@@ -103,26 +94,9 @@ public class OMP2D {
 		approxBlock.subtract(residue);
 	}
 	
-	public double getPSNR() {
-		Matrix temp = imageBlock.clone();
-		temp.subtract(approxBlock);
-		for(int i = 0; i < imageBlock.getSize(); i++) {
-			temp.set(i, Math.pow(temp.get(i), 2));
-		}
-		double mse = temp.getSum() / (WIDTH*WIDTH);
-		return 10*Math.log10((255*255)/mse);
-	}
-	
-	public double getNumCoefficients() {
-		return numCoeffs;
-	}
-	
 	/**
-	 * Selects an Atom from a given dictionary
-	 * @param numAtomsY
-	 * @param numAtomsX
-	 * @return iChosenAtomx and y and xy
-	 * @throws IncompatibleDimensionsException
+	 * Selects an Atom from the current dictionary
+	 * @return The maximum absolute value found in the dictionaries given the residue
 	 */
 	public double chooseAtom() throws BadDimensionsException{
 		Matrix temp = Matrix.multiply(dictY, residue);
@@ -135,17 +109,21 @@ public class OMP2D {
 		return innerProducts.getMaxAbs();
 	}
 	
+	/**
+	 * 
+	 * @return The approximated block calculated
+	 */
 	public Matrix getApproxImage() {
 		return approxBlock;
 	}
 	
 	/**
 	 * 
-	 * @param biorthogonal
+	 * @param beta
 	 * @param newAtom
 	 * @param orthogonalAtom
-	 * @param normAtom
-	 * @throws IncompatibleDimensionsException
+	 * @param rowNorm
+	 * @throws BadDimensionsException
 	 */
 	public void getBiorthogonal(Matrix beta, Matrix newAtom, Vector orthogonalAtom, double rowNorm) throws BadDimensionsException{
 		
@@ -161,13 +139,43 @@ public class OMP2D {
 				beta.set(i, j, beta.get(i, j) - alpha.get(j)*orthogonalAtom.get(i));
 			}
 		}
-
 	}
 	
 	/**
-	 * @param signal
-	 * @param orthogonal
-	 * @return
+	 * Returns the coefficients used to approximate this block as a Vector
+	 * @return the coefficients
+	 */
+	public Vector getCoefficients() {
+		return coefficients;
+	}
+	
+	/**
+	 * 
+	 * @return The number of coefficients used to approximate this block
+	 */
+	public double getNumCoefficients() {
+		return coefficients.getWidth();
+	}
+	
+	/**
+	 * Calculates and returns the PSNR of this block
+	 * @return PSNR
+	 */
+	public double getPSNR() {
+		Matrix temp = imageBlock.clone();
+		temp.subtract(approxBlock);
+		for(int i = 0; i < imageBlock.getSize(); i++) {
+			temp.set(i, Math.pow(temp.get(i), 2));
+		}
+		double mse = temp.getSum() / (WIDTH*WIDTH);
+		return 10*Math.log10((255*255)/mse);
+	}
+	
+	/**
+	 * 
+	 * @param residue
+	 * @param m1
+	 * @param m2
 	 * @throws BadDimensionsException
 	 */
 	public void getResidual(Matrix residue, Matrix m1, Matrix m2) throws BadDimensionsException{
@@ -183,9 +191,8 @@ public class OMP2D {
 	
 	/**
 	 * 
-	 * @param orthogonalDict
-	 * @param vector
-	 * @throws IncompatibleDimensionsException
+	 * @param vector 
+	 * @throws BadDimensionsException
 	 */
 	public void orthogonalize(Vector vector) throws BadDimensionsException{
 		vector.transpose();
@@ -200,13 +207,11 @@ public class OMP2D {
 		}
 		this.orthogonal = newOrth;
 	}
-
+	
 	/**
 	 * 
-	 * @param orthogonalDict
-	 * @param row
 	 * @param repetitions
-	 * @throws IncompatibleDimensionsException
+	 * @throws BadDimensionsException
 	 */
 	public void reorthogonalize(int repetitions) throws BadDimensionsException{
 		int row = orthogonal.getHeight()-1;
@@ -218,5 +223,15 @@ public class OMP2D {
 				}
 			}
 		}
+	}
+
+	/**
+	 * Initialisation of Matrices
+	 */
+	private void setup() {
+		dictX = new Dictionary(WIDTH);
+		dictY = new Dictionary(WIDTH);
+		dictY.transpose();
+		residue = this.imageBlock.clone();
 	}
 }
