@@ -18,7 +18,7 @@ __global__ void innerProduct(double *v1, double *v2, int length)
 	}
 	__syncthreads();
 
-	//reduce(v1, length);
+	reduce(v1, length);
 }
 
 
@@ -34,7 +34,6 @@ __global__ void vectorDot(double *v1, double *v2, int length, double *v3)
 	// returns *v3
 }
 
-extern "C"
 __device__ void reduce(double *v1, int length)
 {
 	__shared__ double sdata[1024];

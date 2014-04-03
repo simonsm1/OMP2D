@@ -8,6 +8,10 @@ public class CudaMatrix extends Matrix {
 		dMatrix = CleverPointer.copyDouble(vals);
 	}
 	
+	public CleverPointer<double[]> getPointer() {
+		return dMatrix;
+	}
+	
 	@Override
 	public void scale(double factor) {
 		CudaDirector.scale(dMatrix, factor);
@@ -16,6 +20,17 @@ public class CudaMatrix extends Matrix {
 	@Override
 	public double[] to1DArray() {
 		return dMatrix.getArray();
+	}
+	
+	public static double innerProduct(CudaMatrix matrix1, CudaMatrix matrix2) throws BadDimensionsException {
+		if(matrix1.getSize() != matrix2.getSize()) {
+			throw new BadDimensionsException("Matrices should be the same dimension");
+		}
+		int length = matrix1.getSize();
+		
+		CudaDirector.innerProduct(matrix1.getPointer(), matrix2.getPointer(), length);
+		
+		return 0.0;
 	}
 
 }

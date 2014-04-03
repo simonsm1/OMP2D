@@ -76,6 +76,8 @@ public class OMP2D {
 			getResidual(residue, imageBlock, orthogonal.getRow(orthogonal.getHeight()-1));
 			acceptance = residue.getFrobeniusNorm() / (WIDTH*WIDTH);
 
+			//As cuda memcpy is very slow get the acceptance in a sperate thread and continue running the 
+			//next iteration to prevent slow down while waiting for result to come back
 			if(acceptance < TOLERANCE) {
 				break;
 			}
