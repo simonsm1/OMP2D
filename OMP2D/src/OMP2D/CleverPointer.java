@@ -12,6 +12,7 @@ import java.util.WeakHashMap;
 
 import jcuda.Pointer;
 import jcuda.Sizeof;
+import jcuda.runtime.cudaStream_t;
 
 public class CleverPointer<V> extends Pointer {
 	private V array;

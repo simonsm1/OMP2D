@@ -158,7 +158,7 @@ public class OMP2D_Plugin implements PlugInFilter {
 		for(int i = 0; i < m1.length; i++) {
 			mse += Math.pow(m1[i]-m2[i], 2);
 		}
-		mse /= (BLOCK_DIM*BLOCK_DIM);
+		mse /= (imageWidth*imageHeight);
 		return 10*Math.log10((MAX_INTENSITY*MAX_INTENSITY)/mse);
 	}
 	
@@ -170,7 +170,7 @@ public class OMP2D_Plugin implements PlugInFilter {
 			sum += Math.pow(temp[i], 2);
 		}
 
-		double mse = sum / (BLOCK_DIM*BLOCK_DIM);
+		double mse = sum / (imageWidth*imageHeight);
 		return 10*Math.log10((255*255)/mse);
 	}
 	
@@ -190,7 +190,7 @@ public class OMP2D_Plugin implements PlugInFilter {
     	for (int j = 0; j < n; j++) {
     		int offs = (y + j)*imageWidth;
     		for (int i = 0; i < n; i++) {
-    			pix2d[j*n+i] = (double) (imagePixels[offs+x+i] + 128);
+    			pix2d[j*n+i] = (double) (imagePixels[offs+x+i]&0xff);
     			if(pix2d[j*n+i] < 0 || pix2d[j*n+1] > 255) {
     				System.out.println("Out of range in block(" + x + ", " + y + ") = " + pix2d[j*n+1]);
     			}
@@ -230,7 +230,7 @@ public class OMP2D_Plugin implements PlugInFilter {
 	private byte[] doubleToByteArray(double[] d) {
 		byte[] b = new byte[d.length];
 		for(int i = 0; i < d.length; i++) {
-			b[i] = (byte) (d[i] - 128);
+			b[i] = (byte) (d[i]);
 		}
 		return b;
 	}

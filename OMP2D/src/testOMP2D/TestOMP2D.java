@@ -108,6 +108,7 @@ public class TestOMP2D {
 		
 		double psnr = getPSNR(imageBlock, approxBlock);
 		assertEquals(PSNR, psnr, 0.0);
+		System.out.println(blockProcessor.getNumCoefficients());
 		//assertArrayEquals(OUTPUT_BLOCK_DATA, approxBlock.to1DArray(), 1e-12);
 	}
 	
