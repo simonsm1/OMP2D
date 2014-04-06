@@ -85,6 +85,10 @@ public class OMP2D_Plugin implements PlugInFilter {
 		imageBlocks = makeBlocks();
 		PrintWriter pw = null;
 		try {
+			File dir = new File("/tmp/omp2d");
+			if(!dir.exists()) {
+				dir.mkdir();
+			}
 			pw = new PrintWriter("/tmp/omp2d/H.txt", "UTF-8");
 		} catch (Exception e1) {
 			e1.printStackTrace();
