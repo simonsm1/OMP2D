@@ -3,9 +3,11 @@ package OMP2D;
 import static jcuda.runtime.JCuda.cudaFree;
 import static jcuda.runtime.JCuda.cudaMalloc;
 import static jcuda.runtime.JCuda.cudaMemcpy;
+import static jcuda.runtime.JCuda.cudaMemcpyAsync;
 import static jcuda.runtime.JCuda.cudaMemGetInfo;
 import static jcuda.runtime.cudaMemcpyKind.cudaMemcpyDeviceToHost;
 import static jcuda.runtime.cudaMemcpyKind.cudaMemcpyHostToDevice;
+import static jcuda.runtime.cudaMemcpyKind.cudaMemcpyDeviceToDevice;
 import static jcuda.runtime.cudaError.cudaSuccess;
 
 import java.util.WeakHashMap;
@@ -71,6 +73,18 @@ public class CleverPointer<V> extends Pointer {
 		}
 		allPointers.put(null, cp);
 		createShutdownHook();
+	}
+	
+	public CleverPointer<V> clone() {
+		CleverPointer<V> cp = new CleverPointer<V>(this.SIZE, this.TYPE, this.LENGTH);
+		cudaMemcpy(cp, this, SIZE, cudaMemcpyDeviceToDevice);
+		return cp;
+	}
+	
+	public CleverPointer<V> clone(cudaStream_t stream) {
+		CleverPointer<V> cp = new CleverPointer<V>(this.SIZE, this.TYPE, this.LENGTH);
+		cudaMemcpyAsync(cp, this, SIZE, cudaMemcpyDeviceToDevice, stream);
+		return cp;
 	}
 	
 	public static CleverPointer<byte[]> copyByte(byte[] array) {
@@ -232,6 +246,10 @@ public class CleverPointer<V> extends Pointer {
 	protected void finalize() throws Throwable {
 		allPointers.remove(this);
 		free();
+	}
+
+	public int getSize() {
+		return SIZE;
 	}
 	
 }
