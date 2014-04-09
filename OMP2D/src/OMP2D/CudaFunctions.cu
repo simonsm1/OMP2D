@@ -30,7 +30,7 @@ __global__ void scale(double *v1, int length, double factor)
 }
 
 extern "C"
-__global__ void power(double *v1, double factor)
+__global__ void power(double *v1, int length, double factor)
 {
 	int index = blockIdx.x*threadIdx.x + threadIdx.x;
 	if(index < length)
@@ -71,7 +71,7 @@ extern "C"
 __global__ void multiply(double *m1, double *m2, int width, int height, double *result)
 {
 	int index = blockIdx.x*threadIdx.x + threadIdx.x;
-	int corresponding =
+	//int corresponding =
 
 	//multiply each row and column and reduce atomic add maybe
 
