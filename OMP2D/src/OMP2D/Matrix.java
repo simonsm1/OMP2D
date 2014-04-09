@@ -1,5 +1,6 @@
 package OMP2D;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Matrix 
@@ -25,6 +26,49 @@ public class Matrix
 	}
 	
 	/**
+	 * Returns the inner product of two matrices
+	 * @param matrix1
+	 * @param matrix2
+	 * @return
+	 * @throws IncompatibleDimensionsException
+	 */
+	public static double innerProduct(double[] matrix1, double[] matrix2) throws BadDimensionsException {
+		if(matrix1.length != matrix2.length) {
+			throw new BadDimensionsException("Matrices should be the same dimension");
+		}
+		
+		double innerProduct = 0;
+		for (int i = 0; i < matrix1.length; i++) {
+			innerProduct += matrix1[i]*matrix2[i];
+		}
+		return innerProduct;
+	}
+	
+	/**
+	 * Applies the Kronecker product of two vectors
+	 * @param vector1
+	 * @param vector2
+	 * @return
+	 * @throws BadDimensionsException 
+	 */
+	public static double[] kronecker(double[] vector1, double[] vector2) throws BadDimensionsException {
+		if(vector1.length != vector2.length) {
+			throw new BadDimensionsException();
+		}
+		int size = vector1.length;
+		
+		double[] result = new double[size*size];
+
+		for(int j = 0; j < size; j++) {
+			double scaleFactor = vector1[j];
+			for(int i = 0; i < size; i++) {
+				result[j*size + i] = scaleFactor*vector2[i]; 
+			}
+		}
+		return result;
+	}
+	
+	/**
 	 * Performs the dot product of two matrices 
 	 * @param matrix1 A matrix defined as \f$M^{x \times y}\f$
 	 * @param matrix2 A matrix defined as \f$N^{y \times z}\f$
@@ -41,20 +85,42 @@ public class Matrix
 					"Recieved (" + mMax + "," + nMax + ")x(" + pMax + "," + qMax + ")");
 		}
 
-		double[] result = new double[mMax*qMax];
+		Matrix replacement = new Matrix(qMax);
+		
+		for(int m = 0; m < mMax; m++) {
+			double[] row = new double[qMax];
+			for(int q = 0; q < qMax; q++) {			
+				for(int product = 0; product < pMax; product++){
+					row[q] += matrix1.get(product, m) * matrix2.get(q, product);
+				}
+			}
+			replacement.addRow(row);
+		}
 
-		for(int m = 0; m < mMax; m++) {		
-			for(int q = 0; q < qMax; q++) {
-				for(int product = 0; product < nMax; product++) {
-					result[m*qMax + q] += matrix1.get(product, m) * matrix2.get(q, product);
+		return replacement;
+	}
+	
+	public static void permanentTranspose(double[] matrix, int height, int width) {
+		double[] newMatrix = new double[matrix.length];
+		for(int j = 0; j < height; j++) {
+			for(int i = 0; i < width; i++) {
+				if(width > height) {
+					newMatrix[i*height+j] = matrix[j*width+i];	
+				} else {
+					newMatrix[i*height+j] = matrix[j*width+i];
 				}
 			}
 		}
-		
-		return new Matrix(qMax, result);
+		matrix = newMatrix;
 	}
 	
-	protected double[] matrix;
+	public static void scale(double[] vector, double factor) {
+		for(int i = 0; i < vector.length; i++) {
+			vector[i] *= factor;
+		}
+	}
+	
+	protected ArrayList<double[]> matrix;
 	
 	protected int width, height;
 	
@@ -63,68 +129,79 @@ public class Matrix
 	protected double maxAbs;
 	protected int maxAbsRow, maxAbsCol;
 	
-	public Matrix(int width, double... vals) {
+	public Matrix(int width, double[]... vals) {
+		matrix = new ArrayList<double[]>();
 		this.width = width;
-		if(vals.length % width == 0) {
-			this.height = vals.length / width;
-		} else {
-			this.height = (vals.length / width) + 1;
-			//TODO add 0 padding
+		
+		for(double[] array : vals) {
+			for(int index = 0; index < array.length; index += width) {
+				double[] row = new double[width];
+				try {
+					System.arraycopy(array, index, row, 0, width);
+				} catch(IndexOutOfBoundsException e) {
+					addPadding(array, index, row);
+				}
+				matrix.add(row);
+			}
 		}
-		matrix = vals;
+		
+		height = matrix.size();
 	}
 	
-	public Matrix(int width, double[] vals, double[] vals2) {
-		this.width = width;
-		int length = vals.length+vals2.length;
-		if(length % width == 0) {
-			this.height = length / width;
-		} else {
-			this.height = (length / width) + 1;
-		} 
-		matrix = new double[length];
-		System.arraycopy(vals, 0, matrix, 0, vals.length);
-		System.arraycopy(vals2, 0, matrix, vals.length, vals2.length);
+	private void addPadding(double[] array, int startPos, double[] row) {
+		for(int i = 0; i < row.length; i++) {
+			if(startPos + i < array.length) {
+				row[i] = array[startPos + i];
+			} else {
+				row[i] = 0;
+			}
+		}
 	}
-	
+
 	public Matrix(int width, int height) {
 		this.width = width;
 		this.height = height;
-		matrix = new double[height*width];
-	}
-	
-	public double abs(int x, int y) {
-		return Math.abs(matrix[x*y]);
+		for(int i = 0; i < height; i++) {
+			matrix.add(new double[width]);
+		}
 	}
 	
 	public void add(Matrix m) {
 		for(int j = 0; j < m.getHeight(); j++) {
+			double[] row = matrix.get(j);
 			for(int i = 0; i < m.getWidth(); i++) {
-				matrix[j*width + i] += m.get(i, j);
+				row[i] += m.get(i, j);
 			}
 		}
 	}
 	
-	public Matrix clone() {
-		Matrix m = new Matrix(width, matrix.clone());
-		m.transposed = transposed;
-		return m;
+	public void addRow(double[] row) {
+		matrix.add(row);
+		height++;
 	}
 	
 	public double get(int i) {
-		return matrix[i];
+		int y = i / width;
+		int x = i % width;
+		return get(x, y);
 	}
 	
 	public double get(int x, int y) {
-		int index = y*width + x;
-		return matrix[index];
+		if(!transposed) {
+			return matrix.get(y)[x];
+		} else {
+			return matrix.get(x)[y];
+		}
+
 	}
 	
-	public Vector getCol(int c) {
-		this.transpose();
-		Vector v = getRow(c);
-		this.transpose();
-		return v;
+	public double[] getCol(int c) {
+		double[] col = new double[height];
+		for(int i = 0; i < height; i++) {
+			col[i] = matrix.get(i)[c];
+		}
+		
+		return col;
 	}
 	
 	public double getFrobeniusNorm() {
@@ -137,6 +214,10 @@ public class Matrix
 	
 	public int getHeight() {
 		return height;
+	}
+	
+	public ArrayList<double[]> getMatrixValues() {
+		return matrix;
 	}
 	
 	public double getMaxAbs() {
@@ -152,56 +233,42 @@ public class Matrix
 	}
 	
 	/**
-	 * Finds of mean of all values in a vector.
-	 * @param vector
+	 * Finds of mean of all values in this matrix.
 	 * @return The mean value
 	 */
 	public double getMean() {
-		double sum = 0;
-		for(double d: matrix) {
-			sum += d;
+		return getSum()/getSize();
+	}
+	
+	/**
+	 * Performs the Euclidean norm operation on this vector
+	 * @param vector
+	 * @return The Euclidean norm 
+	 * @throws BadDimensionsException
+	 */
+	public double getRowNorm(int rowIndex) throws BadDimensionsException{
+		double innerProduct = 0;
+		double[] row = matrix.get(rowIndex);
+		for(int i = 0; i < row.length; i++) {
+			innerProduct += row[i]*row[i];
 		}
-		return sum/getSize();
+		return Math.sqrt(innerProduct);
 	}
 	
-	/**
-	 * Performs the Euclidean norm operation on this vector
-	 * @param vector
-	 * @return The Euclidean norm 
-	 * @throws BadDimensionsException
-	 */
-	public double getNorm() throws BadDimensionsException{
-		return Math.sqrt(innerProduct(this, this));
-	}
-	
-	/**
-	 * Performs the Euclidean norm operation on this vector
-	 * @param vector
-	 * @return The Euclidean norm 
-	 * @throws BadDimensionsException
-	 */
-	public double getNorm(int row) throws BadDimensionsException{
-		return Math.sqrt(innerProduct(this.getRow(row), this.getRow(row)));
-	}
-	
-	public Vector getRow(int r) {
-		double[] temp = Arrays.copyOfRange(matrix, width*r, width*(r+1));
-		return new Vector(temp);
-	}
-	
-	public Matrix getRow(int start, int end) {
-		double[] temp = Arrays.copyOfRange(matrix, width*start, width*end);
-		return new Matrix((end - start), temp);
+	public double[] getRow(int r) {
+		return matrix.get(r);
 	}
 	
 	public int getSize() {
-		return matrix.length;
+		return width*height;
 	}
 	
 	public double getSum() {
 		double sum = 0;
-		for(double i : matrix) {
-			sum += i;
+		for(double[] row : matrix) {
+			for(double d: row) {
+				sum += d;
+			}
 		}
 		return sum;
 	}
@@ -227,114 +294,94 @@ public class Matrix
 					"Recieved (" + mMax + "," + nMax + ")x(" + pMax + "," + qMax + ")");
 		}
 
-		double[] result = new double[mMax*qMax];
+		Matrix replacement = new Matrix(qMax);
 		
 		for(int m = 0; m < mMax; m++) {
+			double[] row = new double[qMax];
 			for(int q = 0; q < qMax; q++) {			
 				for(int product = 0; product < pMax; product++){
-					result[q*qMax + m] += this.get(product, m) * matrix.get(q, product);
+					row[q] += this.get(product, m) * matrix.get(q, product);
 				}
 			}
+			replacement.addRow(row);
 		}
-		this.matrix = result;
+		this.matrix = replacement.getMatrixValues();
 		this.width = qMax;
 		this.height = pMax;
 	}
-	
-	/**
-	 * Multiplies this matrix and vector
-	 * @param vector A vector of dimension m
-	 * @return the resulting vector
-	 * @throws BadDimensionsException
-	 */
-	public void multiply(Vector vector) throws BadDimensionsException{
-		int n = vector.getSize();
-		int m = this.width;
-		
-		if(n != m) {
-			throw new BadDimensionsException();
-		}
-		
-		double result[] = new double[this.height];
-		
-		for(int j = 0; j < this.height; j++) {
-			result[j] = 0;
-			for(int i = 0; i < n; i++) {
-				result[j] += matrix[m*j + i] * vector.get(i);
-			}
-		}
-		
-		matrix = result;
-		width = 1;
-		height = m;
-	}
 
-	public double normalizeRow(int row) throws BadDimensionsException{
-		double normVector = getNorm(row);
+	public double normalizeRow(int rowIndex) throws BadDimensionsException{
+		double rowNorm = getRowNorm(rowIndex);
+		double[] row = matrix.get(rowIndex);
 		for(int i = 0; i < width; i++) {
-			set(i, row, get(i, row)/normVector);
+			row[i] /= rowNorm;
 		}
-		return normVector;
+		return rowNorm;
 	}
 	
 	/**
-	 * Scales a vector by a given factor
-	 * @param vector
+	 * Scales the matrix by a given factor
 	 * @param factor
-	 * @return The vector scaled
 	 */
 	public void scale(double factor) {
-		for(int i = 0; i < matrix.length; i++) {
-			matrix[i] = matrix[i] * factor;
+		for(double[] row : matrix) {
+			for(int i = 0; i < width; i++) {
+				row[i] *= factor;
+			}
 		}
 	}
 	
-	public void set(int x, double value) {
-		matrix[x] = value;
+	public void set(int i, double value) {
+		int y = i / width;
+		int x = i % width;
+		set(x, y, value);
 	}
 	
 	public void set(int x, int y, double value) {
-		matrix[width*y + x] = value;
+		matrix.get(y)[x] = value;
 	}
 	
 	public void subtract(Matrix m) {
 		for(int j = 0; j < m.getHeight(); j++) {
+			double[] row = matrix.get(j);
 			for(int i = 0; i < m.getWidth(); i++) {
-				matrix[j*width + i] -= m.get(i, j);
+				row[i] -= m.get(i, j);
+			}
+		}
+	}
+	
+	public void subtract(double[] m, double scalar) {
+		for(int j = 0; j < this.getHeight(); j++) {
+			double[] row = matrix.get(j);
+			for(int i = 0; i < this.getWidth(); i++) {
+				row[i] -= m[j*width+i]*scalar;
 			}
 		}
 	}
 	
 	public double[] to1DArray() {
-		return matrix;
+		double[] array = new double[height*width];
+		for(int j = 0; j < height; j++) {
+			System.arraycopy(matrix.get(j), 0, array, j*width, width);
+		}
+		return array;
 	}
 	
 	public void transpose() {
-		double[] newMatrix = new double[matrix.length];
-		for(int j = 0; j < height; j++) {
-			for(int i = 0; i < width; i++) {
-				if(width > height) {
-					newMatrix[i*height+j] = matrix[j*width+i];	
-				} else {
-					newMatrix[i*height+j] = matrix[j*width+i];
-				}
-			}
-		}
+		transposed = !transposed;
 		int temp = width;
 		width = height;
 		height = temp;
-		matrix = newMatrix;
-		transposed = !transposed;
 	}
 
 	/**
 	 * Finds the largest absolute value of a given vector
-	 * @return the largest absolute value
 	 */
 	public void updateMaxAbs() {
 		for(int j = 0; j < height; j++) {
+			double[] row = matrix.get(j);
 			for(int i = 0; i < width; i++) {
-				double abs = Math.abs(matrix[j*width+i]);
+				double abs = Math.abs(row[i]);
 				if(abs > maxAbs) {
 					maxAbs = abs;
 					maxAbsRow = j;
