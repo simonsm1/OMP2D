@@ -9,6 +9,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import ij.ImagePlus;
+import ij.plugin.filter.PlugInFilter;
 import ij.process.ByteProcessor;
 import ij.process.ImageProcessor;
 
@@ -47,8 +48,11 @@ public class OMP2DPluginTest {
 	public void astroTest() throws IOException {
 		OMP2D_Plugin operation = new OMP2D_Plugin();
 		ImagePlus original = getSampleImage("Orginal Sample Image");
-		operation.setup(null, original);
-		operation.run(original.getProcessor());
+		
+		if(operation.setup(null, original) != PlugInFilter.DONE) {
+			operation.run(original.getProcessor());
+		}
+
 	}
 	
 	private static ImagePlus getSampleImage(String title) throws IOException {
