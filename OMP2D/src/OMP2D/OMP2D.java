@@ -9,7 +9,7 @@ public class OMP2D {
 	
 	private final double INITIAL_TOL = 1e-10;
 	private final double TOLERANCE;
-	private final int MAX_ITERATIONS = 250;
+	private final int MAX_ITERATIONS;
 	private final int REORTH_ITERATIONS = 2;
 	private final int WIDTH;
 	
@@ -20,6 +20,15 @@ public class OMP2D {
 		this.imageBlock = new Matrix(width, imageData);
 		TOLERANCE = tol;
 		WIDTH = width;
+		MAX_ITERATIONS = 250;
+		setup();
+	}
+	
+	public OMP2D(double[] imageData, int width, double tol, int maxIterations) throws BadDimensionsException{
+		this.imageBlock = new Matrix(width, imageData);
+		TOLERANCE = tol;
+		WIDTH = width;
+		MAX_ITERATIONS = maxIterations;
 		setup();
 	}
 	
@@ -27,13 +36,22 @@ public class OMP2D {
 		this.imageBlock = imageBlock;
 		TOLERANCE = tol;
 		WIDTH = imageBlock.getWidth();
+		MAX_ITERATIONS = 250;
+		setup();
+	}
+	
+	public OMP2D(Matrix imageBlock, double tol, int maxIterations) throws BadDimensionsException{
+		this.imageBlock = imageBlock;
+		TOLERANCE = tol;
+		WIDTH = imageBlock.getWidth();
+		MAX_ITERATIONS = maxIterations;
 		setup();
 	}
 	
 	public OMP2D(CleverPointer<double[]> imagePointer, int width, double tol) {
 		TOLERANCE = tol;
 		WIDTH = width;
-		
+		MAX_ITERATIONS = 250;
 	}
 	
 	public void calcBlock() throws BadDimensionsException {
