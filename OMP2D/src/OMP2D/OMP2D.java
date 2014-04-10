@@ -1,11 +1,14 @@
 package OMP2D;
 
 public class OMP2D {
+	private double[] imageBlockData;
+	private double[] approxBlockData;
 	private Matrix imageBlock, approxBlock;
+	private Matrix imageBlockTransposed;
 	private Matrix residue;
 	private Matrix orthogonal;
 	private Matrix dictX, dictY;
-	private Vector coefficients;
+	private double[] coefficients;
 	
 	private final double INITIAL_TOL = 1e-10;
 	private final double TOLERANCE;
@@ -18,6 +21,12 @@ public class OMP2D {
 
 	public OMP2D(double[] imageData, int width, double tol) throws BadDimensionsException{
 		this.imageBlock = new Matrix(width, imageData);
+		this.imageBlockData = imageData;
+		this.approxBlockData = imageData.clone();
+		
+		double[] tData = Matrix.transpose(imageData.clone(), width, width);
+		this.imageBlockTransposed = new Matrix(width, tData);
+
 		TOLERANCE = tol;
 		WIDTH = width;
 		MAX_ITERATIONS = 250;
@@ -26,6 +35,12 @@ public class OMP2D {
 	
 	public OMP2D(double[] imageData, int width, double tol, int maxIterations) throws BadDimensionsException{
 		this.imageBlock = new Matrix(width, imageData);
+		this.imageBlockData = imageData;
+		this.approxBlockData = imageData.clone();
+		
+		double[] tData = Matrix.transpose(imageData.clone(), width, width);
+		this.imageBlockTransposed = new Matrix(width, tData);
+
 		TOLERANCE = tol;
 		WIDTH = width;
 		MAX_ITERATIONS = maxIterations;
@@ -34,6 +49,8 @@ public class OMP2D {
 	
 	public OMP2D(Matrix imageBlock, double tol) throws BadDimensionsException{
 		this.imageBlock = imageBlock;
+		this.imageBlockData = imageBlock.to1DArray();
+		//imageBlockTransposed.transpose();
 		TOLERANCE = tol;
 		WIDTH = imageBlock.getWidth();
 		MAX_ITERATIONS = 250;
@@ -42,6 +59,8 @@ public class OMP2D {
 	
 	public OMP2D(Matrix imageBlock, double tol, int maxIterations) throws BadDimensionsException{
 		this.imageBlock = imageBlock;
+		this.imageBlockData = imageBlock.to1DArray();
+		imageBlockTransposed.transpose();
 		TOLERANCE = tol;
 		WIDTH = imageBlock.getWidth();
 		MAX_ITERATIONS = maxIterations;
@@ -57,18 +76,19 @@ public class OMP2D {
 	public void calcBlock() throws BadDimensionsException {
 		
 		//First iteration
-		double acceptance = chooseAtom();
+		double acceptance = findNextAtom();
 		if(acceptance < INITIAL_TOL) { 
 			return;
 		}
 		
-		Vector chosenAtom = Vector.kronecker(dictX.getCol(curColAtom), dictY.getRow(curRowAtom));
-		orthogonal = chosenAtom.clone();
+		double[] chosenAtom = Matrix.kronecker(dictX.getCol(curColAtom), dictY.getRow(curRowAtom));
+		orthogonal = new Matrix(chosenAtom.length, chosenAtom.clone());
+		Matrix beta = new Matrix(chosenAtom.length, chosenAtom.clone());
 
+		//both same at this point might as well only do it once
 		double rowNorm = orthogonal.normalizeRow(0); 
-		Matrix beta = chosenAtom.clone();
 		beta.scale(1/rowNorm);
-		getResidual(residue, imageBlock, orthogonal.getRow(orthogonal.getHeight()-1));
+		updateResidual(orthogonal.getRow(orthogonal.getHeight()-1));
 		acceptance = residue.getFrobeniusNorm() / (WIDTH*WIDTH);
 
 		if(acceptance < TOLERANCE) {
@@ -77,48 +97,50 @@ public class OMP2D {
 		
 		
 		for(int k = 1; k < MAX_ITERATIONS; k++) {
-			chooseAtom();
+			findNextAtom();
 			
-			chosenAtom = Vector.kronecker(dictX.getCol(curColAtom), dictY.getRow(curRowAtom));
+			chosenAtom = Matrix.kronecker(dictX.getCol(curColAtom), dictY.getRow(curRowAtom));
 			
-			orthogonalize(chosenAtom);
+			orthogonalize(chosenAtom.clone());
 			reorthogonalize(REORTH_ITERATIONS); 
 			
 			rowNorm = orthogonal.normalizeRow(k); 
 
-			Vector orthK = orthogonal.getRow(k-1);
+			double[] orthK = orthogonal.getRow(k-1).clone();//need copy not actual
 			getBiorthogonal(beta, chosenAtom, orthK, rowNorm);
-			orthK.scale(1/rowNorm);
-			beta = new Matrix(beta.getWidth(), beta.matrix, orthK.to1DArray());
+			Matrix.scale(orthK, 1/rowNorm);
+			beta.addRow(orthK);
 
-			getResidual(residue, imageBlock, orthogonal.getRow(orthogonal.getHeight()-1));
+			updateResidual(orthogonal.getRow(orthogonal.getHeight()-1));
 			acceptance = residue.getFrobeniusNorm() / (WIDTH*WIDTH);
 
-			//As cuda memcpy is very slow get the acceptance in a sperate thread and continue running the 
+			//As cuda memcpy is very slow get the acceptance in a separate thread and continue running the 
 			//next iteration to prevent slow down while waiting for result to come back
 			if(acceptance < TOLERANCE) {
 				break;
 			}
 		}
 		
-		imageBlock.transpose();
-		Vector v = new Vector(imageBlock.to1DArray());
-		v.transpose();
-		coefficients = new Vector(beta.getHeight());
+		//imageBlock.transpose();
+		//Vector v = new Vector(imageBlock.to1DArray());
+		//v.transpose();
+		coefficients = new double[beta.getHeight()];
 		for(int j = 0; j < beta.getHeight(); j++) {
-			coefficients.set(j, 0, Matrix.innerProduct(beta.getRow(j), v));
+			coefficients[j] = Matrix.innerProduct(beta.getRow(j), imageBlockTransposed.to1DArray());
 		}
 
-		imageBlock.transpose();
-		approxBlock = imageBlock.clone();
+		//imageBlock.transpose();
+		approxBlock = imageBlockTransposed;
 		approxBlock.subtract(residue);
+		approxBlock = new Matrix(WIDTH, Matrix.transpose(approxBlock.to1DArray(), WIDTH, WIDTH));
 	}
 	
 	/**
 	 * Selects an Atom from the current dictionary
-	 * @return The maximum absolute value found in the dictionaries given the residue
+	 * @return The maximum absolute value found in the dictionaries given the residue,
+	 *  a.k.a the initial tolerance level
 	 */
-	public double chooseAtom() throws BadDimensionsException{
+	public double findNextAtom() throws BadDimensionsException{
 		Matrix temp = Matrix.multiply(dictY, residue);
 		Matrix innerProducts = Matrix.multiply(temp, dictX);
 		
@@ -145,18 +167,20 @@ public class OMP2D {
 	 * @param rowNorm
 	 * @throws BadDimensionsException
 	 */
-	public void getBiorthogonal(Matrix beta, Matrix newAtom, Vector orthogonalAtom, double rowNorm) throws BadDimensionsException{
+	public void getBiorthogonal(Matrix beta, double[] newAtom, double[] orthogonalAtom, double rowNorm) throws BadDimensionsException{
 		
-		Vector alpha = new Vector(beta.getHeight());
+		double[] alpha = new double[beta.getHeight()];
 		for(int j = 0; j < beta.getHeight(); j++) {
-			alpha.set(j, 0, Matrix.innerProduct(beta.getRow(j), newAtom));
+			alpha[j] = Matrix.innerProduct(beta.getRow(j), newAtom);
 		}
 
-		alpha.scale(1/rowNorm);
+		Matrix.scale(alpha, 1/rowNorm);
 
-		for(int j = 0; j < alpha.getSize(); j++) {
+		for(int j = 0; j < alpha.length; j++) {
+			double[] row = beta.getRow(j); //new bit
 			for(int i = 0; i < beta.getWidth(); i++) {
-				beta.set(i, j, beta.get(i, j) - alpha.get(j)*orthogonalAtom.get(i));
+				row[i] -= alpha[j]*orthogonalAtom[i];
+				//beta.set(i, j, beta.get(i, j) - alpha[j]*orthogonalAtom[i]);
 			}
 		}
 	}
@@ -165,7 +189,7 @@ public class OMP2D {
 	 * Returns the coefficients used to approximate this block as a Vector
 	 * @return the coefficients
 	 */
-	public Vector getCoefficients() {
+	public double[] getCoefficients() {
 		return coefficients;
 	}
 	
@@ -174,7 +198,7 @@ public class OMP2D {
 	 * @return The number of coefficients used to approximate this block
 	 */
 	public double getNumCoefficients() {
-		return coefficients.getWidth();
+		return coefficients.length;
 	}
 	
 	/**
@@ -182,31 +206,36 @@ public class OMP2D {
 	 * @return PSNR
 	 */
 	public double getPSNR() {
-		Matrix temp = imageBlock.clone();
-		temp.subtract(approxBlock);
+		double[] temp = imageBlockData.clone();
+		double sum = 0;
 		for(int i = 0; i < imageBlock.getSize(); i++) {
-			temp.set(i, Math.pow(temp.get(i), 2));
+			temp[i] -= approxBlockData[i];
+			sum += temp[i] * temp[i];
 		}
-		double mse = temp.getSum() / (WIDTH*WIDTH);
+		double mse = sum / (WIDTH*WIDTH);
 		return 10*Math.log10((255*255)/mse);
 	}
 	
 	/**
-	 * 
+	 * QUESTION is there a way to do this without transposing?
 	 * @param residue
-	 * @param m1
-	 * @param m2
+	 * @param m1 imageBlock
+	 * @param m2 currentRow
 	 * @throws BadDimensionsException
 	 */
-	public void getResidual(Matrix residue, Matrix m1, Matrix m2) throws BadDimensionsException{
-		m1.transpose();
-		residue.transpose();
-		double scalar = Matrix.innerProduct(m1, m2);
-		m2.scale(-scalar);
-		//residue.scale(-scalar);
-		residue.add(m2);
-		m1.transpose();
-		residue.transpose();
+	public void updateResidual(double[] m2) throws BadDimensionsException {
+		//imageBlock.transpose();
+		//residue.transpose();
+		double scalar = Matrix.innerProduct(imageBlock, m2);
+		//residue.subtract(m2, scalar);
+		for(int j = 0; j < residue.getHeight(); j++) {
+			double[] row = residue.getRow(j);
+			for(int i = 0; i < residue.getWidth(); i++) {
+				row[i] -= m2[i*residue.getWidth()+j]*scalar;
+			}
+		}
+		//imageBlock.transpose();
+		//residue.transpose();
 	}
 	
 	/**
@@ -214,18 +243,20 @@ public class OMP2D {
 	 * @param vector 
 	 * @throws BadDimensionsException
 	 */
-	public void orthogonalize(Vector vector) throws BadDimensionsException{
-		vector.transpose();
+	public void orthogonalize(double[] vector) throws BadDimensionsException{
+		//vector.transpose();
 		double scalar = Matrix.innerProduct(orthogonal.getRow(orthogonal.getHeight()-1), vector);
-		int row = orthogonal.getHeight();
-		Matrix newOrth = new Matrix(orthogonal.getWidth(), orthogonal.to1DArray(), vector.to1DArray());
+		//int row = orthogonal.getHeight();
+		//Matrix newOrth = new Matrix(orthogonal.getWidth(), orthogonal.to1DArray(), vector);
 		
-		for(int n = 0; n < row; n++) {
-			for(int m = 0; m < newOrth.getWidth(); m++) {
-				newOrth.set(m, row, newOrth.get(m, row) - scalar*orthogonal.get(m,n));
+		for(int j = 0; j < orthogonal.getHeight(); j++) {
+			double[] row = orthogonal.getRow(j);
+			for(int i = 0; i < row.length; i++) {
+				vector[i] -= scalar*row[i];
+				//newOrth.set(m, row, newOrth.get(m, row) - scalar*orthogonal.get(m,n));
 			}
 		}
-		this.orthogonal = newOrth;
+		orthogonal.addRow(vector);
 	}
 	
 	/**
@@ -249,9 +280,10 @@ public class OMP2D {
 	 * Initialisation of Matrices
 	 */
 	private void setup() {
-		dictX = new Dictionary(WIDTH);
-		dictY = new Dictionary(WIDTH);
-		dictY.transpose();
-		residue = this.imageBlock.clone();
+		dictX = new DictionaryX(WIDTH);
+		dictY = new DictionaryY(WIDTH);
+		double[] tData = Matrix.transpose(imageBlockData.clone(), WIDTH, WIDTH);
+		this.residue = new Matrix(WIDTH, tData);
+		//residue = new Matrix(WIDTH, imageBlockDataTransposed);
 	}
 }

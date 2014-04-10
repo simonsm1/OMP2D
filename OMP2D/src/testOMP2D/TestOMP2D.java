@@ -93,7 +93,7 @@ public class TestOMP2D {
 	public void javaTest() throws BadDimensionsException {
 		double tolerance = (MAX_INTENSITY*MAX_INTENSITY)/(Math.pow(10, (PSS/10.0)));
 		Matrix imageBlock = new Matrix(BLOCK_DIM, BLOCK_DATA);
-		OMP2D blockProcessor = new OMP2D(imageBlock, tolerance);
+		OMP2D blockProcessor = new OMP2D(BLOCK_DATA, BLOCK_DIM, tolerance);
 		
 		blockProcessor.calcBlock();
 

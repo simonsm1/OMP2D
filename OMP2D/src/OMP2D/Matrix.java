@@ -32,6 +32,25 @@ public class Matrix
 	 * @return
 	 * @throws IncompatibleDimensionsException
 	 */
+	public static double innerProduct(Matrix matrix1, double[] matrix2) throws BadDimensionsException {
+		if(matrix1.getSize() != matrix2.length) {
+			throw new BadDimensionsException("Matrices should be the same dimension");
+		}
+		
+		double innerProduct = 0;
+		for (int i = 0; i < matrix1.getSize(); i++) {
+			innerProduct += matrix1.get(i)*matrix2[i];
+		}
+		return innerProduct;
+	}
+	
+	/**
+	 * Returns the inner product of two matrices
+	 * @param matrix1
+	 * @param matrix2
+	 * @return
+	 * @throws IncompatibleDimensionsException
+	 */
 	public static double innerProduct(double[] matrix1, double[] matrix2) throws BadDimensionsException {
 		if(matrix1.length != matrix2.length) {
 			throw new BadDimensionsException("Matrices should be the same dimension");
@@ -85,7 +104,7 @@ public class Matrix
 					"Recieved (" + mMax + "," + nMax + ")x(" + pMax + "," + qMax + ")");
 		}
 
-		Matrix replacement = new Matrix(qMax);
+		Matrix result = new Matrix(qMax);
 		
 		for(int m = 0; m < mMax; m++) {
 			double[] row = new double[qMax];
@@ -94,13 +113,13 @@ public class Matrix
 					row[q] += matrix1.get(product, m) * matrix2.get(q, product);
 				}
 			}
-			replacement.addRow(row);
+			result.addRow(row);
 		}
 
-		return replacement;
+		return result;
 	}
 	
-	public static void permanentTranspose(double[] matrix, int height, int width) {
+	public static double[] transpose(double[] matrix, int height, int width) {
 		double[] newMatrix = new double[matrix.length];
 		for(int j = 0; j < height; j++) {
 			for(int i = 0; i < width; i++) {
@@ -111,7 +130,7 @@ public class Matrix
 				}
 			}
 		}
-		matrix = newMatrix;
+		return newMatrix;
 	}
 	
 	public static void scale(double[] vector, double factor) {
@@ -294,7 +313,8 @@ public class Matrix
 					"Recieved (" + mMax + "," + nMax + ")x(" + pMax + "," + qMax + ")");
 		}
 
-		Matrix replacement = new Matrix(qMax);
+		//Matrix replacement = new Matrix(qMax);
+		ArrayList<double[]> replacement = new ArrayList<double[]>();
 		
 		for(int m = 0; m < mMax; m++) {
 			double[] row = new double[qMax];
@@ -303,9 +323,10 @@ public class Matrix
 					row[q] += this.get(product, m) * matrix.get(q, product);
 				}
 			}
-			replacement.addRow(row);
+			replacement.add(row);
+			//replacement.addRow(row);
 		}
-		this.matrix = replacement.getMatrixValues();
+		this.matrix = replacement;
 		this.width = qMax;
 		this.height = pMax;
 	}

@@ -1,12 +1,15 @@
 package testOMP2D;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+
+import java.util.Properties;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import OMP2D.Matrix;
 import OMP2D.BadDimensionsException;
+import OMP2D.Matrix;
 
 public class TestMatrix {
 	Matrix m1, m2;
@@ -414,14 +417,7 @@ public class TestMatrix {
 	@Test 
 	public void transposeTest() {
 		m1.transpose();
-		double[] actual;
-		/*for(int j = 0; j < m1.getHeight(); j++) {
-			for(int i = 0; i < m1.getWidth(); i++) {
-				actual[j*i+i] = m1.get(i, j);
-				System.out.print(m1.get(i, j) + ", ");
-			}
-		}*/
-		actual = m1.to1DArray();
+		double[] actual = m1.to1DArray();
 		assertArrayEquals(TRANSPOSED, actual, 0);
 		m2.transpose();
 		actual = new double[m2.getSize()];
@@ -437,7 +433,7 @@ public class TestMatrix {
 	
 	@Test
 	public void multiplyTest() throws BadDimensionsException {
-		Matrix m3 = Matrix.multiply(m1, m1.clone());
+		Matrix m3 = Matrix.multiply(m1, m1);
 		double[] result = m3.to1DArray();
 		assertArrayEquals(MULTIPLIED, result, 0);
 	}
@@ -445,7 +441,7 @@ public class TestMatrix {
 	@Test
 	public void largeMultiplyTest() throws BadDimensionsException {
 		Matrix large = new Matrix(64, BLOCK_64);
-		Matrix m3 = Matrix.multiply(large, large.clone());
+		Matrix m3 = Matrix.multiply(large, large);
 	}
 	
 	@Test
