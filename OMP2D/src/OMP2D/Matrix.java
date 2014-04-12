@@ -107,13 +107,84 @@ public class Matrix
 		Matrix result = new Matrix(qMax);
 		
 		for(int m = 0; m < mMax; m++) {
+			double[] m1Row = matrix1.getRow(m); 
 			double[] row = new double[qMax];
-			for(int q = 0; q < qMax; q++) {			
+			for(int q = 0; q < qMax; q++) {		
+				double[] m2Col = matrix2.getCol(q);
 				for(int product = 0; product < pMax; product++){
-					row[q] += matrix1.get(product, m) * matrix2.get(q, product);
+					//row[q] += matrix1.get(product, m) * matrix2.get(q, product);
+					row[q] += m1Row[product] * m2Col[product];
 				}
 			}
 			result.addRow(row);
+		}
+
+		return result;
+	}
+	
+	/**
+	 * Performs the dot product of two matrices 
+	 * @param matrix1 A matrix defined as \f$M^{x \times y}\f$
+	 * @param matrix2 A matrix defined as \f$N^{y \times z}\f$
+	 * @return The resulting matrix
+	 * @throws BadDimensionsException
+	 */
+	public static Matrix multiply2(Matrix matrix1, Matrix matrix2) throws BadDimensionsException{
+		//matrix1[m][n] matrix2[p][q]
+		int mMax = matrix1.getHeight(); int nMax = matrix1.getWidth();
+		int pMax = matrix2.getHeight(); int qMax = matrix2.getWidth();
+		
+		if(nMax != pMax) {
+			throw new BadDimensionsException("Expected matrices of (m,n)x(n,q)\n" +
+					"Recieved (" + mMax + "," + nMax + ")x(" + pMax + "," + qMax + ")");
+		}
+		
+		double[] m1 = matrix1.to1DArray(); double[] m2 = matrix2.to1DArray();
+
+		Matrix result = new Matrix(qMax);
+		
+		for(int m = 0; m < mMax; m++) {
+			double[] row = new double[qMax];
+			for(int q = 0; q < qMax; q++) {		
+				for(int product = 0; product < pMax; product++){
+					//row[q] += matrix1.get(product, m) * matrix2.get(q, product);
+					//row[q] += m1Row[product] * m2Col[product];
+					row[q] += m1[m*nMax+product] * m2[product*qMax+q];
+				}
+			}
+			result.addRow(row);
+		}
+
+		return result;
+	}
+	
+	/**
+	 * Performs the dot product of two matrices 
+	 * @param matrix1 A matrix defined as \f$M^{x \times y}\f$
+	 * @param matrix2 A matrix defined as \f$N^{y \times z}\f$
+	 * @return The resulting matrix
+	 * @throws BadDimensionsException
+	 */
+	public static double[] multiply3(Matrix matrix1, Matrix matrix2) throws BadDimensionsException{
+		//matrix1[m][n] matrix2[p][q]
+		int mMax = matrix1.getHeight(); int nMax = matrix1.getWidth();
+		int pMax = matrix2.getHeight(); int qMax = matrix2.getWidth();
+		
+		if(nMax != pMax) {
+			throw new BadDimensionsException("Expected matrices of (m,n)x(n,q)\n" +
+					"Recieved (" + mMax + "," + nMax + ")x(" + pMax + "," + qMax + ")");
+		}
+		
+		double[] m1 = matrix1.to1DArray(); double[] m2 = matrix2.to1DArray();
+
+		double[] result = new double[6400];
+		
+		for(int m = 0; m < mMax; m++) {
+			for(int q = 0; q < qMax; q++) {		
+				for(int product = 0; product < pMax; product++){
+					result[m*80+q] += m1[m*nMax+product] * m2[product*qMax+q];
+				}
+			}
 		}
 
 		return result;
@@ -150,6 +221,25 @@ public class Matrix
 	
 	public Matrix(int width, double[]... vals) {
 		matrix = new ArrayList<double[]>();
+		this.width = width;
+		
+		for(double[] array : vals) {
+			for(int index = 0; index < array.length; index += width) {
+				double[] row = new double[width];
+				try {
+					System.arraycopy(array, index, row, 0, width);
+				} catch(IndexOutOfBoundsException e) {
+					addPadding(array, index, row);
+				}
+				matrix.add(row);
+			}
+		}
+		
+		height = matrix.size();
+	}
+	
+	public Matrix(int width, int max, double[]... vals) {
+		matrix = new ArrayList<double[]>(max);
 		this.width = width;
 		
 		for(double[] array : vals) {
