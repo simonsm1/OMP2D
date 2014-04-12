@@ -9,6 +9,13 @@ import ij.process.ImageProcessor;
 
 import java.io.File;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import OMP2D.BadDimensionsException;
 import OMP2D.OMP2D;
@@ -18,25 +25,23 @@ public class OMP2D_Plugin implements PlugInFilter {
 	private double[][] imageBlocks, approxBlocks;
 	private byte[] imagePixels;
 	private double[] image, approx;
+	private int totalCoeffs;
 
 	private int imageWidth, imageHeight;
 	private int numBlocksX, numBlocksY;
 	private ImagePlus imp, preview;
 	private String gpuOption;
 	private final String[] gpuOptions = new String[] {
-			"No GPU Acceleration",
-			"CUDA Acceleration",
-			"CUDA and cuBLAS Acceleration"
+			"Single Threaded",
+			"Multi-Threaded",
 	};
 	
 	private int BLOCK_DIM;
-	private final double PSS = 49.87;
+	private double PSS = 49.87;
 	public static final int MAX_INTENSITY = 255;
 	private double TOLERANCE;
 	private int MAX_ITERATIONS = 250;
-
-	
-
+	private boolean debug;
 
 	@Override
 	public void run(ImageProcessor ip) {
@@ -50,24 +55,42 @@ public class OMP2D_Plugin implements PlugInFilter {
 		TOLERANCE = (MAX_INTENSITY*MAX_INTENSITY)/(Math.pow(10, (PSS/10.0)));
 		approxBlocks = new double[numBlocksX*numBlocksY][BLOCK_DIM*BLOCK_DIM];
 		
-		if(gpuOption.equals("No GPU Acceleration")) {
-			javaOnly(ip);
-		} else if(gpuOption.equals("CUDA Acceleration")) {
-			cudaOnly(ip);
-		} else {
-			cudaAndBlas(ip);
+		imageBlocks = makeBlocks();
+		totalCoeffs = 0;
+		
+		long start = System.currentTimeMillis();
+		
+		if(gpuOption.equals("Single Threaded")) {
+			singleThread(ip);
+		} else if(gpuOption.equals("Multi-Threaded")) {
+			multiThread(ip);
 		}
+		
+		long stop = System.currentTimeMillis();
+		
+		approx = buildBlocks(approxBlocks);
+		image = buildBlocks(imageBlocks);
+		
+		preview = buildImage(imageWidth, imageHeight, approx);
+		IJ.showTime(preview, stop - stop, "");
+		preview.show();
+		
+		if(debug) {
+			printApprox();
+			saveImage(preview);
+		}
+
+		
+		double sparsity = (imageWidth*imageHeight)/totalCoeffs;
+		IJ.showMessageWithCancel("Results", "PSNR: " + getPSNR(image, approx) + 
+				"\nTime Taken: " + ((stop - start)/1000.0) + "s" +
+				"\nSparsity: " + sparsity);
 	}
 
 	@Override
 	public int setup(String arg, ImagePlus imp) {
 		this.imp = imp;
-
-		
 		int result = displayOptions();
-		
-		
-		
 		return result;
 	}
 	
@@ -76,9 +99,11 @@ public class OMP2D_Plugin implements PlugInFilter {
 		do {
 			GenericDialog options = new GenericDialog("Processing Options");
 			options.addMessage("OMP2D Image Compression Options");
-			options.addRadioButtonGroup("GPU Acceleration?", gpuOptions, 3, 1, "No GPU Acceleration");
+			options.addRadioButtonGroup("GPU Acceleration?", gpuOptions, 3, 1, "Multi-Threaded");
 			options.addChoice("Block Size", new String[] {"8x8", "16x16", "32x32"}, "16x16");
 			options.addStringField("Maximum Iterations", "250");
+			options.addStringField("PSS", "50.0");
+			options.addCheckbox("Debug", false);
 			options.showDialog();
 
 			if(options.wasCanceled()) {
@@ -97,23 +122,26 @@ public class OMP2D_Plugin implements PlugInFilter {
 			}
 			
 			String maxIterations = options.getNextString();
+			String pss = options.getNextString();
 			try {
 				MAX_ITERATIONS = Integer.parseInt(maxIterations);
 				if(MAX_ITERATIONS < 1) {
 					throw new NumberFormatException();
 				}
+				PSS = Double.parseDouble(pss);
 				validOptions = true;
 			} catch(NumberFormatException e) {
 				IJ.error("Invalid Options", "The number entered for max iterations must be a positive integer");
 				continue;
 			}
+			
+			debug = options.getNextBoolean();
 		} while(!validOptions);
 		
 		return DOES_8G;
 	}
-
-	protected void javaOnly(ImageProcessor ip) {
-		imageBlocks = makeBlocks();
+	
+	private void printApprox() {
 		PrintWriter pw = null;
 		try {
 			File dir = new File("/tmp/omp2d");
@@ -121,16 +149,21 @@ public class OMP2D_Plugin implements PlugInFilter {
 				dir.mkdir();
 			}
 			pw = new PrintWriter("/tmp/omp2d/H.txt", "UTF-8");
-		} catch (Exception e1) {
-			e1.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		
-		int totalCoeffs = 0;
-		long start = System.currentTimeMillis();
-		
+		for(double d : approx) {
+			pw.println(d);
+		}
+
+		pw.close();
+	}
+
+	protected void singleThread(ImageProcessor ip) {
 		for(int b = 0; b < imageBlocks.length; b++) {
 			try {
-				OMP2D blockProcessor = new OMP2D(imageBlocks[b], BLOCK_DIM, TOLERANCE, MAX_ITERATIONS);
+				OMP2D blockProcessor = new OMP2D(imageBlocks[b], BLOCK_DIM, b, TOLERANCE, MAX_ITERATIONS);
 				blockProcessor.calcBlock();
 				totalCoeffs += blockProcessor.getNumCoefficients();
 				approxBlocks[b] = blockProcessor.getApproxImage().to1DArray();
@@ -141,45 +174,60 @@ public class OMP2D_Plugin implements PlugInFilter {
 				System.exit(1);
 			}
 		}
-		
-		long stop = System.currentTimeMillis();
-		
-		approx = buildBlocks(approxBlocks);
-		
-		for(double d : approx) {
-			pw.println(d);
-		}
-
-		pw.close();
-
-		image = buildBlocks(imageBlocks);
-		preview = buildImage(imageWidth, imageHeight, approx);
-		preview.show();
-		saveImage(preview);
-		double sparsity = 262144.0/totalCoeffs;
-		
-		IJ.showMessageWithCancel("Results", "PSNR: " + getPSNR(image, approx) + 
-				"\nTime Taken: " + ((stop - start)/1000.0) + "s" +
-				"\nSparsity: " + sparsity);
-		IJ.showTime(preview, stop - stop, "");
 	}
 
-	protected void cudaOnly(ImageProcessor ip) {
+	protected void multiThread(ImageProcessor ip) {
+		List<OMP2D> blockProcessors = new ArrayList<OMP2D>();
 		
-	}
-	
-	protected void cudaAndBlas(ImageProcessor ip) {
-		imageBlocks = makeBlocks();
-		double[] newImage = buildBlocks(imageBlocks);
-		boolean ok = true;
-		for(int i = 0; i < imageWidth*imageHeight; i++) {
-			if(imagePixels[i] != newImage[i]) {
-				ok = false;
+		for(int b = 0; b < imageBlocks.length; b++) {
+			try {
+				OMP2D blockProcessor = new OMP2D(imageBlocks[b], BLOCK_DIM, b, TOLERANCE, MAX_ITERATIONS);
+				blockProcessors.add(blockProcessor);
+			} catch (BadDimensionsException e) {
+				e.printStackTrace();
 			}
 		}
-		if(ok) {
-			System.out.println("same image :)");
+		
+		try {
+			processBlocks(blockProcessors);
+		} catch (InterruptedException | ExecutionException e) {
+			e.printStackTrace();
 		}
+	}
+	
+	public void processBlocks(List<OMP2D> blocks)
+	        throws InterruptedException, ExecutionException {
+
+	    int threads = Runtime.getRuntime().availableProcessors();
+	    ExecutorService service = Executors.newFixedThreadPool(threads);
+
+	    List<Future<OMP2D>> futures = new ArrayList<Future<OMP2D>>();
+	    for (final OMP2D block : blocks) {
+	        Callable<OMP2D> callable = new Callable<OMP2D>() {
+	            public OMP2D call() throws Exception {
+					block.calcBlock();
+					//totalCoeffs += block.getNumCoefficients();
+					//approxBlocks[block.BLOCK_ID] = block.getApproxImage().to1DArray();
+	                return block;
+	            }
+	        };
+	        //service.submit(callable);
+	        futures.add(service.submit(callable));
+	    }
+
+	    service.shutdown();
+	    long start = System.currentTimeMillis();
+	    List<OMP2D> outputs = new ArrayList<OMP2D>();
+	    int blockId = 0;
+	    for (Future<OMP2D> future : futures) {
+	    	OMP2D block = future.get();
+			totalCoeffs += block.getNumCoefficients();
+			approxBlocks[blockId] = block.getApproxImage().to1DArray();
+	        outputs.add(block);
+	        blockId++;
+	    }
+	    //System.out.println("Time seq: " + (System.currentTimeMillis()-start)/1000.0);
+	    //return outputs;
 	}
 	
 	public double getPSNR(double[] m1, double[] m2) {
@@ -251,6 +299,20 @@ public class OMP2D_Plugin implements PlugInFilter {
 			b[i] = (byte) d[i];
 		}
 		return b;
+	}
+	
+	protected void checkBlocking(ImageProcessor ip) {
+		imageBlocks = makeBlocks();
+		double[] newImage = buildBlocks(imageBlocks);
+		boolean ok = true;
+		for(int i = 0; i < imageWidth*imageHeight; i++) {
+			if(imagePixels[i] != newImage[i]) {
+				ok = false;
+			}
+		}
+		if(ok) {
+			System.out.println("same image :)");
+		}
 	}
 
 }
