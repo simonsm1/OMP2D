@@ -1,8 +1,8 @@
 package OMP2D;
 
 public class OMP2D {
-	private double[] imageBlockData;
-	private double[] approxBlockData;
+	private double[] imageData;
+	private double[] approxData;
 	private Matrix imageBlock, approxBlock;
 	private Matrix imageBlockTransposed;
 	private Matrix residue;
@@ -15,69 +15,56 @@ public class OMP2D {
 	private final int MAX_ITERATIONS;
 	private final int REORTH_ITERATIONS = 2;
 	private final int WIDTH;
+	public final int BLOCK_ID;
 	
 	private int curRowAtom, curColAtom;
-
-
-	public OMP2D(double[] imageData, int width, double tol) throws BadDimensionsException{
-		this.imageBlock = new Matrix(width, imageData);
-		this.imageBlockData = imageData;
-		this.approxBlockData = imageData.clone();
-		
-		double[] tData = Matrix.transpose(imageData.clone(), width, width);
-		this.imageBlockTransposed = new Matrix(width, tData);
-
-		TOLERANCE = tol;
-		WIDTH = width;
-		MAX_ITERATIONS = 250;
-		setup();
-	}
 	
-	public OMP2D(double[] imageData, int width, double tol, int maxIterations) throws BadDimensionsException{
-		this.imageBlock = new Matrix(width, imageData);
-		this.imageBlockData = imageData;
-		this.approxBlockData = imageData.clone();
-		
-		double[] tData = Matrix.transpose(imageData.clone(), width, width);
-		this.imageBlockTransposed = new Matrix(width, tData);
+	public OMP2D(double[] imageData, int width, int id, double tol, int maxIterations) throws BadDimensionsException{
+		this.imageData = imageData;
+		//this.approxData = imageData.clone();
 
 		TOLERANCE = tol;
 		WIDTH = width;
 		MAX_ITERATIONS = maxIterations;
-		setup();
+		BLOCK_ID = id;
+		//setup();
 	}
 	
-	public OMP2D(Matrix imageBlock, double tol) throws BadDimensionsException{
+	public OMP2D(Matrix imageBlock, int id, double tol, int maxIterations) throws BadDimensionsException{
 		this.imageBlock = imageBlock;
-		this.imageBlockData = imageBlock.to1DArray();
-		//imageBlockTransposed.transpose();
-		TOLERANCE = tol;
-		WIDTH = imageBlock.getWidth();
-		MAX_ITERATIONS = 250;
-		setup();
-	}
-	
-	public OMP2D(Matrix imageBlock, double tol, int maxIterations) throws BadDimensionsException{
-		this.imageBlock = imageBlock;
-		this.imageBlockData = imageBlock.to1DArray();
+		this.imageData = imageBlock.to1DArray();
 		imageBlockTransposed.transpose();
 		TOLERANCE = tol;
 		WIDTH = imageBlock.getWidth();
 		MAX_ITERATIONS = maxIterations;
-		setup();
+		BLOCK_ID = id;
+		//setup();
 	}
 	
-	public OMP2D(CleverPointer<double[]> imagePointer, int width, double tol) {
-		TOLERANCE = tol;
-		WIDTH = width;
-		MAX_ITERATIONS = 250;
+	/**
+	 * Initialisation of Matrices
+	 */
+	private void setup(double[] imageData, int width) {
+		imageBlock = new Matrix(width, imageData);
+		dictX = new DictionaryX(WIDTH);
+		dictY = new DictionaryY(WIDTH);
+		
+		double[] tData = Matrix.transpose(imageData.clone(), WIDTH, WIDTH);
+		this.imageBlockTransposed = new Matrix(width, tData);
+		this.residue = new Matrix(WIDTH, tData);
+		//residue = new Matrix(WIDTH, imageBlockDataTransposed);
 	}
 	
 	public void calcBlock() throws BadDimensionsException {
+		setup(imageData, WIDTH);
+		
 		
 		//First iteration
 		double acceptance = findNextAtom();
 		if(acceptance < INITIAL_TOL) { 
+			//no improvements to be made
+			approxBlock = imageBlock;
+			coefficients = new double[0];
 			return;
 		}
 		
@@ -92,7 +79,7 @@ public class OMP2D {
 		acceptance = residue.getFrobeniusNorm() / (WIDTH*WIDTH);
 
 		if(acceptance < TOLERANCE) {
-			return;
+			processResults(beta);
 		}
 		
 		
@@ -121,15 +108,15 @@ public class OMP2D {
 			}
 		}
 		
-		//imageBlock.transpose();
-		//Vector v = new Vector(imageBlock.to1DArray());
-		//v.transpose();
+		processResults(beta);
+	}
+	
+	private void processResults(Matrix beta) throws BadDimensionsException {
 		coefficients = new double[beta.getHeight()];
 		for(int j = 0; j < beta.getHeight(); j++) {
 			coefficients[j] = Matrix.innerProduct(beta.getRow(j), imageBlockTransposed.to1DArray());
 		}
 
-		//imageBlock.transpose();
 		approxBlock = imageBlockTransposed;
 		approxBlock.subtract(residue);
 		approxBlock = new Matrix(WIDTH, Matrix.transpose(approxBlock.to1DArray(), WIDTH, WIDTH));
@@ -141,14 +128,44 @@ public class OMP2D {
 	 *  a.k.a the initial tolerance level
 	 */
 	public double findNextAtom() throws BadDimensionsException{
-		Matrix temp = Matrix.multiply(dictY, residue);
-		Matrix innerProducts = Matrix.multiply(temp, dictX);
+		Matrix temp = Matrix.multiply2(dictY, residue);
+		Matrix innerProducts = Matrix.multiply2(temp, dictX);
+		//Matrix innerProducts = multiplyDictX(temp);
 		
 		innerProducts.updateMaxAbs();
 		curRowAtom = innerProducts.getMaxAbsRow();
 		curColAtom = innerProducts.getMaxAbsCol();
 		
 		return innerProducts.getMaxAbs();
+	}
+	
+	private Matrix multiplyDictX(Matrix temp) throws BadDimensionsException {
+		//matrix1[m][n] matrix2[p][q]
+		int mMax = 16; int nMax = 80;
+		int pMax = 80; int qMax = 80;
+		
+		if(nMax != pMax) {
+			throw new BadDimensionsException("Expected matrices of (m,n)x(n,q)\n" +
+					"Recieved (" + mMax + "," + nMax + ")x(" + pMax + "," + qMax + ")");
+		}
+		
+		double[] m1 = temp.to1DArray(); double[] m2 = DictionaryX.sixteenByEighty;
+
+		Matrix result = new Matrix(qMax);
+		
+		for(int m = 0; m < mMax; m++) {
+			double[] row = new double[qMax];
+			for(int q = 0; q < qMax; q++) {		
+				for(int product = 0; product < pMax; product++){
+					//row[q] += matrix1.get(product, m) * matrix2.get(q, product);
+					//row[q] += m1Row[product] * m2Col[product];
+					row[q] += m1[m*nMax+product] * m2[product*qMax+q];
+				}
+			}
+			result.addRow(row);
+		}
+
+		return result;
 	}
 	
 	/**
@@ -202,14 +219,14 @@ public class OMP2D {
 	}
 	
 	/**
-	 * Calculates and returns the PSNR of this block
+	 * Calculates and returns the PSNR of this block TODO fix approxData bug
 	 * @return PSNR
 	 */
 	public double getPSNR() {
-		double[] temp = imageBlockData.clone();
+		double[] temp = imageData.clone();
 		double sum = 0;
 		for(int i = 0; i < imageBlock.getSize(); i++) {
-			temp[i] -= approxBlockData[i];
+			temp[i] -= approxData[i];
 			sum += temp[i] * temp[i];
 		}
 		double mse = sum / (WIDTH*WIDTH);
@@ -274,16 +291,5 @@ public class OMP2D {
 				}
 			}
 		}
-	}
-
-	/**
-	 * Initialisation of Matrices
-	 */
-	private void setup() {
-		dictX = new DictionaryX(WIDTH);
-		dictY = new DictionaryY(WIDTH);
-		double[] tData = Matrix.transpose(imageBlockData.clone(), WIDTH, WIDTH);
-		this.residue = new Matrix(WIDTH, tData);
-		//residue = new Matrix(WIDTH, imageBlockDataTransposed);
 	}
 }
