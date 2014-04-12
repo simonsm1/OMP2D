@@ -54,6 +54,22 @@ public class OMP2DPluginTest {
 		}
 
 	}
+	/*
+	@Test
+	public void checkBlocking() {
+		OMP2D_Plugin operation = new OMP2D_Plugin();
+		operation.imageBlocks = makeBlocks();
+		double[] newImage = buildBlocks(imageBlocks);
+		boolean ok = true;
+		for(int i = 0; i < imageWidth*imageHeight; i++) {
+			if(imagePixels[i] != newImage[i]) {
+				ok = false;
+			}
+		}
+		if(ok) {
+			System.out.println("same image :)");
+		}
+	}*/
 	
 	private static ImagePlus getSampleImage(String title) throws IOException {
 		ImageProcessor pro = new ByteProcessor(ImageIO.read(new File("Astro_512_grey.jpg")));

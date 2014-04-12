@@ -8,7 +8,6 @@ import OMP2D.CleverPointer;
 import OMP2D.Matrix;
 import OMP2D.BadDimensionsException;
 import OMP2D.OMP2D;
-import OMP2D.Vector;
 
 public class TestOMP2D {
 	private final int BLOCK_DIM = 16;
@@ -81,19 +80,19 @@ public class TestOMP2D {
 	@Before
 	public void setUp() {	
 	}
-	
+	/*
 	@Test
 	public void cudaTest() throws BadDimensionsException {
 		double tolerance = (MAX_INTENSITY*MAX_INTENSITY)/(Math.pow(10, (PSS/10.0)));
 		CleverPointer<double[]> dImageData = CleverPointer.copyDouble(BLOCK_DATA);
 		OMP2D blockProcessor = new OMP2D(dImageData, BLOCK_DIM, tolerance);
-	}
+	}*/
 
 	@Test
 	public void javaTest() throws BadDimensionsException {
 		double tolerance = (MAX_INTENSITY*MAX_INTENSITY)/(Math.pow(10, (PSS/10.0)));
 		Matrix imageBlock = new Matrix(BLOCK_DIM, BLOCK_DATA);
-		OMP2D blockProcessor = new OMP2D(BLOCK_DATA, BLOCK_DIM, tolerance);
+		OMP2D blockProcessor = new OMP2D(BLOCK_DATA, BLOCK_DIM, tolerance, 250);
 		
 		blockProcessor.calcBlock();
 
@@ -108,7 +107,7 @@ public class TestOMP2D {
 		
 		double psnr = getPSNR(imageBlock, approxBlock);
 		assertEquals(PSNR, psnr, 0.0);
-		System.out.println(blockProcessor.getNumCoefficients());
+		//System.out.println(blockProcessor.getNumCoefficients());
 		//assertArrayEquals(OUTPUT_BLOCK_DATA, approxBlock.to1DArray(), 1e-12);
 	}
 	
