@@ -1,6 +1,6 @@
 var NAVTREE =
 [
-  [ "OMP2D Java", "index.html", [
+  [ "OMP2D ImageJ Plugin", "index.html", [
     [ "Packages", null, [
       [ "Packages", "namespaces.html", "namespaces" ]
     ] ],
@@ -10,7 +10,8 @@ var NAVTREE =
       [ "Class Hierarchy", "hierarchy.html", "hierarchy" ],
       [ "Class Members", "functions.html", [
         [ "All", "functions.html", null ],
-        [ "Functions", "functions_func.html", null ]
+        [ "Functions", "functions_func.html", null ],
+        [ "Variables", "functions_vars.html", null ]
       ] ]
     ] ],
     [ "Files", null, [
@@ -21,7 +22,7 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"MatrixOperations_8java.html"
+"BadDimensionsException_8java.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

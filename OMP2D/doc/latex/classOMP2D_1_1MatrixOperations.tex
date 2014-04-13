@@ -11,8 +11,6 @@ class \hyperlink{classOMP2D_1_1MatrixOperations_1_1IncompatibleDimensionsExcepti
 \item 
 static double \hyperlink{classOMP2D_1_1MatrixOperations_a0ffd0bed3beb6b14b1e6c80259fdb2fc}{real\-Inner\-Product} (double\mbox{[}$\,$\mbox{]} vector1, double\mbox{[}$\,$\mbox{]} vector2)  throws Incompatible\-Dimensions\-Exception 
 \item 
-static double\mbox{[}$\,$\mbox{]} \hyperlink{classOMP2D_1_1MatrixOperations_a9f4c857451b167cc252827d17cd1413c}{normalize} (double\mbox{[}$\,$\mbox{]} vector, double norm\-Vector)
-\item 
 static double\mbox{[}$\,$\mbox{]} \hyperlink{classOMP2D_1_1MatrixOperations_a435ecf7d2a5c1dff9f70ef542b17804b}{normalize} (double\mbox{[}$\,$\mbox{]} vector)  throws Incompatible\-Dimensions\-Exception 
 \item 
 static double \hyperlink{classOMP2D_1_1MatrixOperations_ad4e2f7e46255b1af0dc78b06151ce0a1}{norm} (double\mbox{[}$\,$\mbox{]} vector)  throws Incompatible\-Dimensions\-Exception 
@@ -117,7 +115,7 @@ Fills a vector with a given value up the {\itshape n}-\/th element Not necessary
 \item[{double\mbox{[}$\,$\mbox{]}}]{vector2}
 \end{DoxyParamCaption}
 ) throws {\bf Incompatible\-Dimensions\-Exception}\hspace{0.3cm}{\ttfamily [static]}}}\label{classOMP2D_1_1MatrixOperations_aee29169db5db03e194c041f89399b35c}
-Applies the Kronecker product of two vectors (Q\-U\-E\-S\-T\-I\-O\-N should this be matrices as well?) 
+Applies the Kronecker product of two vectors (Q\-U\-E\-S\-T\-I\-O\-N should this be matrices as well? No) 
 \begin{DoxyParams}{Parameters}
 {\em vector1} & \\
 \hline
@@ -237,24 +235,6 @@ The Euclidean norm
 {\em \hyperlink{classOMP2D_1_1MatrixOperations_1_1IncompatibleDimensionsException}{Incompatible\-Dimensions\-Exception}} & \\
 \hline
 \end{DoxyExceptions}
-\hypertarget{classOMP2D_1_1MatrixOperations_a9f4c857451b167cc252827d17cd1413c}{\index{O\-M\-P2\-D\-::\-Matrix\-Operations@{O\-M\-P2\-D\-::\-Matrix\-Operations}!normalize@{normalize}}
-\index{normalize@{normalize}!OMP2D::MatrixOperations@{O\-M\-P2\-D\-::\-Matrix\-Operations}}
-\subsubsection[{normalize}]{\setlength{\rightskip}{0pt plus 5cm}static double \mbox{[}$\,$\mbox{]} O\-M\-P2\-D.\-Matrix\-Operations.\-normalize (
-\begin{DoxyParamCaption}
-\item[{double\mbox{[}$\,$\mbox{]}}]{vector, }
-\item[{double}]{norm\-Vector}
-\end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [static]}}}\label{classOMP2D_1_1MatrixOperations_a9f4c857451b167cc252827d17cd1413c}
-This is especially silly 
-\begin{DoxyParams}{Parameters}
-{\em vector} & \\
-\hline
-{\em norm\-Vector} & \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-
-\end{DoxyReturn}
 \hypertarget{classOMP2D_1_1MatrixOperations_a435ecf7d2a5c1dff9f70ef542b17804b}{\index{O\-M\-P2\-D\-::\-Matrix\-Operations@{O\-M\-P2\-D\-::\-Matrix\-Operations}!normalize@{normalize}}
 \index{normalize@{normalize}!OMP2D::MatrixOperations@{O\-M\-P2\-D\-::\-Matrix\-Operations}}
 \subsubsection[{normalize}]{\setlength{\rightskip}{0pt plus 5cm}static double \mbox{[}$\,$\mbox{]} O\-M\-P2\-D.\-Matrix\-Operations.\-normalize (
@@ -262,7 +242,7 @@ This is especially silly
 \item[{double\mbox{[}$\,$\mbox{]}}]{vector}
 \end{DoxyParamCaption}
 ) throws {\bf Incompatible\-Dimensions\-Exception}\hspace{0.3cm}{\ttfamily [static]}}}\label{classOMP2D_1_1MatrixOperations_a435ecf7d2a5c1dff9f70ef542b17804b}
-Q\-U\-E\-S\-T\-I\-O\-N What is the purpose of this method given I already have norm 
+
 \begin{DoxyParams}{Parameters}
 {\em vector} & \\
 \hline
@@ -351,7 +331,7 @@ The vector scaled
 \item[{double\mbox{[}$\,$\mbox{]}}]{vector2}
 \end{DoxyParamCaption}
 ) throws {\bf Incompatible\-Dimensions\-Exception}\hspace{0.3cm}{\ttfamily [static]}}}\label{classOMP2D_1_1MatrixOperations_aa2f4938d53dcbb632fbf2e499705f29f}
-Performs the (Q\-U\-E\-S\-T\-I\-O\-N is there an official name for this?) 
+Performs the (Q\-U\-E\-S\-T\-I\-O\-N is there an official name for this?) Sandwich 
 \begin{DoxyParams}{Parameters}
 {\em vector1} & \\
 \hline

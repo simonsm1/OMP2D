@@ -83,8 +83,6 @@ Classes</h2></td></tr>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a0ffd0bed3beb6b14b1e6c80259fdb2fc"><td class="memItemLeft" align="right" valign="top">static double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOMP2D_1_1MatrixOperations.html#a0ffd0bed3beb6b14b1e6c80259fdb2fc">realInnerProduct</a> (double[] vector1, double[] vector2)  throws IncompatibleDimensionsException </td></tr>
 <tr class="separator:a0ffd0bed3beb6b14b1e6c80259fdb2fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9f4c857451b167cc252827d17cd1413c"><td class="memItemLeft" align="right" valign="top">static double[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOMP2D_1_1MatrixOperations.html#a9f4c857451b167cc252827d17cd1413c">normalize</a> (double[] vector, double normVector)</td></tr>
-<tr class="separator:a9f4c857451b167cc252827d17cd1413c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a435ecf7d2a5c1dff9f70ef542b17804b"><td class="memItemLeft" align="right" valign="top">static double[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOMP2D_1_1MatrixOperations.html#a435ecf7d2a5c1dff9f70ef542b17804b">normalize</a> (double[] vector)  throws IncompatibleDimensionsException </td></tr>
 <tr class="separator:a435ecf7d2a5c1dff9f70ef542b17804b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad4e2f7e46255b1af0dc78b06151ce0a1"><td class="memItemLeft" align="right" valign="top">static double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOMP2D_1_1MatrixOperations.html#ad4e2f7e46255b1af0dc78b06151ce0a1">norm</a> (double[] vector)  throws IncompatibleDimensionsException </td></tr>
@@ -298,7 +296,7 @@ Static Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Applies the Kronecker product of two vectors (QUESTION should this be matrices as well?) </p>
+<p>Applies the Kronecker product of two vectors (QUESTION should this be matrices as well? No) </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">vector1</td><td></td></tr>
@@ -537,49 +535,6 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a9f4c857451b167cc252827d17cd1413c"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static double [] OMP2D.MatrixOperations.normalize </td>
-          <td>(</td>
-          <td class="paramtype">double[]&#160;</td>
-          <td class="paramname"><em>vector</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>normVector</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p>This is especially silly </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">vector</td><td></td></tr>
-    <tr><td class="paramname">normVector</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd></dd></dl>
-
-</div>
-</div>
 <a class="anchor" id="a435ecf7d2a5c1dff9f70ef542b17804b"></a>
 <div class="memitem">
 <div class="memproto">
@@ -601,7 +556,6 @@ Static Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>QUESTION What is the purpose of this method given I already have norm </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">vector</td><td></td></tr>
@@ -803,7 +757,7 @@ Static Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Performs the (QUESTION is there an official name for this?) </p>
+<p>Performs the (QUESTION is there an official name for this?) Sandwich </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">vector1</td><td></td></tr>
@@ -831,7 +785,7 @@ Static Public Member Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceOMP2D.html">OMP2D</a></li><li class="navelem"><a class="el" href="classOMP2D_1_1MatrixOperations.html">MatrixOperations</a></li>
-    <li class="footer">Generated on Sun Mar 2 2014 23:49:41 for OMP2D Java by
+    <li class="footer">Generated on Sun Apr 13 2014 09:58:09 for OMP2D Java by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.6 </li>
   </ul>

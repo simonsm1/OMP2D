@@ -1,5 +1,31 @@
 var classOMP2D_1_1OMP2D =
 [
-    [ "OMP2D", "classOMP2D_1_1OMP2D.html#adda82b9feac12f10b4445d48efe7ace2", null ],
-    [ "calcBlock", "classOMP2D_1_1OMP2D.html#ae99cf374d875ce7914fc0da1962293a3", null ]
+    [ "OMP2D", "classOMP2D_1_1OMP2D.html#a985a251dd19cea942fc0065a9a5143d7", null ],
+    [ "OMP2D", "classOMP2D_1_1OMP2D.html#adff0f7494b751f2f20f94131fd4fa2fa", null ],
+    [ "calcBlock", "classOMP2D_1_1OMP2D.html#a8ae01caea958e334f9d341cf6b46e31c", null ],
+    [ "findNextAtom", "classOMP2D_1_1OMP2D.html#a6ac98d46391b2794c2d109efa8151a8b", null ],
+    [ "getApproxImage", "classOMP2D_1_1OMP2D.html#ad1b8c9f5c1f534f40fb72f6225153db6", null ],
+    [ "getBiorthogonal", "classOMP2D_1_1OMP2D.html#a03bfbeb0892de5f985e1dc79fa8630ba", null ],
+    [ "getCoefficients", "classOMP2D_1_1OMP2D.html#a520742808179d4bb600bcaeca6db1078", null ],
+    [ "getNumCoefficients", "classOMP2D_1_1OMP2D.html#a5f17f69611ecc22fadbc86099b7f6f0a", null ],
+    [ "getPSNR", "classOMP2D_1_1OMP2D.html#a0e7e5574e1bbef2cbf7c81e9cc8a7ac6", null ],
+    [ "multiplyDictX", "classOMP2D_1_1OMP2D.html#a47591a44fc5194d0add04b63b60098a5", null ],
+    [ "orthogonalize", "classOMP2D_1_1OMP2D.html#a3ef4a503bdcd3013d323b0172168ae12", null ],
+    [ "processResults", "classOMP2D_1_1OMP2D.html#a02281c6bdb3f7f6b6ceb9e1e64e82f71", null ],
+    [ "reorthogonalize", "classOMP2D_1_1OMP2D.html#a1dd8c38fd12b2c5713bad45a9d1ddd41", null ],
+    [ "setup", "classOMP2D_1_1OMP2D.html#af3097b03ec47d8fb4322e6606c58d334", null ],
+    [ "updateResidual", "classOMP2D_1_1OMP2D.html#ace00794c1b67988c574675531732194c", null ],
+    [ "coefficients", "classOMP2D_1_1OMP2D.html#a8af5ef6c4d66d21558f3a61dc6b80bdc", null ],
+    [ "curRowAtom", "classOMP2D_1_1OMP2D.html#a31148a069e4786564b9490f56e5d0288", null ],
+    [ "dictX", "classOMP2D_1_1OMP2D.html#a8836c70cb96a019f86ff8d41d4b3a3f6", null ],
+    [ "imageBlock", "classOMP2D_1_1OMP2D.html#a17850fb16a9721bfbb92db8ea8848215", null ],
+    [ "imageBlockTransposed", "classOMP2D_1_1OMP2D.html#a249a4c8483ae447b2b88d47ea6ed6f9c", null ],
+    [ "imageData", "classOMP2D_1_1OMP2D.html#aa03b270daab3c9ade9073fbb23032a22", null ],
+    [ "INITIAL_TOL", "classOMP2D_1_1OMP2D.html#ae838e473d8b5653fd07ed72a46389cd5", null ],
+    [ "MAX_ITERATIONS", "classOMP2D_1_1OMP2D.html#a48452fd4f5fb84d49a108d233a1be40e", null ],
+    [ "orthogonal", "classOMP2D_1_1OMP2D.html#a312e46e55e779f578a7b17f071bed5a9", null ],
+    [ "REORTH_ITERATIONS", "classOMP2D_1_1OMP2D.html#a704206f085ba68939282448f2c1eacd4", null ],
+    [ "residue", "classOMP2D_1_1OMP2D.html#a2f1ff4422989fc543c1f6f562b8b05fc", null ],
+    [ "TOLERANCE", "classOMP2D_1_1OMP2D.html#a5fe5837116b58dfb22450c0dc72dab41", null ],
+    [ "WIDTH", "classOMP2D_1_1OMP2D.html#ac885e11e3f91b4a1c2d7c4b997d48047", null ]
 ];

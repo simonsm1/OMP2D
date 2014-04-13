@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.6"/>
-<title>OMP2D Java: OMP2D.OMP2D Class Reference</title>
+<title>OMP2D ImageJ Plugin: OMP2D.OMP2D Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -24,7 +24,7 @@
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">OMP2D Java
+   <div id="projectname">OMP2D ImageJ Plugin
    </div>
   </td>
  </tr>
@@ -67,6 +67,8 @@ $(document).ready(function(){initNavTree('classOMP2D_1_1OMP2D.html','');});
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classOMP2D_1_1OMP2D-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">OMP2D.OMP2D Class Reference</div>  </div>
@@ -75,79 +77,97 @@ $(document).ready(function(){initNavTree('classOMP2D_1_1OMP2D.html','');});
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:adda82b9feac12f10b4445d48efe7ace2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOMP2D_1_1OMP2D.html#adda82b9feac12f10b4445d48efe7ace2">OMP2D</a> ()</td></tr>
-<tr class="separator:adda82b9feac12f10b4445d48efe7ace2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae99cf374d875ce7914fc0da1962293a3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOMP2D_1_1OMP2D.html#ae99cf374d875ce7914fc0da1962293a3">calcBlock</a> (double[][] imageBlock, int iterations, double[][] dictX, double[][] dictY, int numAtomsX, int numAtomsY, double[][] orthogonal, double[][] beta)</td></tr>
-<tr class="separator:ae99cf374d875ce7914fc0da1962293a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a985a251dd19cea942fc0065a9a5143d7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOMP2D_1_1OMP2D.html#a985a251dd19cea942fc0065a9a5143d7">OMP2D</a> (double[] <a class="el" href="classOMP2D_1_1OMP2D.html#aa03b270daab3c9ade9073fbb23032a22">imageData</a>, int width, double tol, int maxIterations)</td></tr>
+<tr class="separator:a985a251dd19cea942fc0065a9a5143d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adff0f7494b751f2f20f94131fd4fa2fa"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOMP2D_1_1OMP2D.html#adff0f7494b751f2f20f94131fd4fa2fa">OMP2D</a> (<a class="el" href="classOMP2D_1_1Matrix.html">Matrix</a> <a class="el" href="classOMP2D_1_1OMP2D.html#a17850fb16a9721bfbb92db8ea8848215">imageBlock</a>, double tol, int maxIterations)</td></tr>
+<tr class="separator:adff0f7494b751f2f20f94131fd4fa2fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ae01caea958e334f9d341cf6b46e31c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOMP2D_1_1OMP2D.html#a8ae01caea958e334f9d341cf6b46e31c">calcBlock</a> ()  throws BadDimensionsException </td></tr>
+<tr class="separator:a8ae01caea958e334f9d341cf6b46e31c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ac98d46391b2794c2d109efa8151a8b"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOMP2D_1_1OMP2D.html#a6ac98d46391b2794c2d109efa8151a8b">findNextAtom</a> ()  throws BadDimensionsException</td></tr>
+<tr class="separator:a6ac98d46391b2794c2d109efa8151a8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad1b8c9f5c1f534f40fb72f6225153db6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOMP2D_1_1Matrix.html">Matrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOMP2D_1_1OMP2D.html#ad1b8c9f5c1f534f40fb72f6225153db6">getApproxImage</a> ()</td></tr>
+<tr class="separator:ad1b8c9f5c1f534f40fb72f6225153db6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03bfbeb0892de5f985e1dc79fa8630ba"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOMP2D_1_1OMP2D.html#a03bfbeb0892de5f985e1dc79fa8630ba">getBiorthogonal</a> (<a class="el" href="classOMP2D_1_1Matrix.html">Matrix</a> beta, double[] newAtom, double[] orthogonalAtom, double rowNorm)  throws BadDimensionsException</td></tr>
+<tr class="separator:a03bfbeb0892de5f985e1dc79fa8630ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a520742808179d4bb600bcaeca6db1078"><td class="memItemLeft" align="right" valign="top">double[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOMP2D_1_1OMP2D.html#a520742808179d4bb600bcaeca6db1078">getCoefficients</a> ()</td></tr>
+<tr class="separator:a520742808179d4bb600bcaeca6db1078"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f17f69611ecc22fadbc86099b7f6f0a"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOMP2D_1_1OMP2D.html#a5f17f69611ecc22fadbc86099b7f6f0a">getNumCoefficients</a> ()</td></tr>
+<tr class="separator:a5f17f69611ecc22fadbc86099b7f6f0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e7e5574e1bbef2cbf7c81e9cc8a7ac6"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOMP2D_1_1OMP2D.html#a0e7e5574e1bbef2cbf7c81e9cc8a7ac6">getPSNR</a> ()</td></tr>
+<tr class="separator:a0e7e5574e1bbef2cbf7c81e9cc8a7ac6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace00794c1b67988c574675531732194c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOMP2D_1_1OMP2D.html#ace00794c1b67988c574675531732194c">updateResidual</a> (double[] m2)  throws BadDimensionsException </td></tr>
+<tr class="separator:ace00794c1b67988c574675531732194c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ef4a503bdcd3013d323b0172168ae12"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOMP2D_1_1OMP2D.html#a3ef4a503bdcd3013d323b0172168ae12">orthogonalize</a> (double[] vector)  throws BadDimensionsException</td></tr>
+<tr class="separator:a3ef4a503bdcd3013d323b0172168ae12"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1dd8c38fd12b2c5713bad45a9d1ddd41"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOMP2D_1_1OMP2D.html#a1dd8c38fd12b2c5713bad45a9d1ddd41">reorthogonalize</a> (int repetitions)  throws BadDimensionsException</td></tr>
+<tr class="separator:a1dd8c38fd12b2c5713bad45a9d1ddd41"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:af3097b03ec47d8fb4322e6606c58d334"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOMP2D_1_1OMP2D.html#af3097b03ec47d8fb4322e6606c58d334">setup</a> (double[] <a class="el" href="classOMP2D_1_1OMP2D.html#aa03b270daab3c9ade9073fbb23032a22">imageData</a>, int width)</td></tr>
+<tr class="separator:af3097b03ec47d8fb4322e6606c58d334"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a02281c6bdb3f7f6b6ceb9e1e64e82f71"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOMP2D_1_1OMP2D.html#a02281c6bdb3f7f6b6ceb9e1e64e82f71">processResults</a> (<a class="el" href="classOMP2D_1_1Matrix.html">Matrix</a> beta)  throws BadDimensionsException </td></tr>
+<tr class="separator:a02281c6bdb3f7f6b6ceb9e1e64e82f71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a47591a44fc5194d0add04b63b60098a5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOMP2D_1_1Matrix.html">Matrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOMP2D_1_1OMP2D.html#a47591a44fc5194d0add04b63b60098a5">multiplyDictX</a> (<a class="el" href="classOMP2D_1_1Matrix.html">Matrix</a> temp)  throws BadDimensionsException </td></tr>
+<tr class="separator:a47591a44fc5194d0add04b63b60098a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:aa03b270daab3c9ade9073fbb23032a22"><td class="memItemLeft" align="right" valign="top">double[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOMP2D_1_1OMP2D.html#aa03b270daab3c9ade9073fbb23032a22">imageData</a></td></tr>
+<tr class="separator:aa03b270daab3c9ade9073fbb23032a22"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a17850fb16a9721bfbb92db8ea8848215"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOMP2D_1_1Matrix.html">Matrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOMP2D_1_1OMP2D.html#a17850fb16a9721bfbb92db8ea8848215">imageBlock</a></td></tr>
+<tr class="separator:a17850fb16a9721bfbb92db8ea8848215"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a249a4c8483ae447b2b88d47ea6ed6f9c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOMP2D_1_1Matrix.html">Matrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOMP2D_1_1OMP2D.html#a249a4c8483ae447b2b88d47ea6ed6f9c">imageBlockTransposed</a></td></tr>
+<tr class="separator:a249a4c8483ae447b2b88d47ea6ed6f9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f1ff4422989fc543c1f6f562b8b05fc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOMP2D_1_1Matrix.html">Matrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOMP2D_1_1OMP2D.html#a2f1ff4422989fc543c1f6f562b8b05fc">residue</a></td></tr>
+<tr class="separator:a2f1ff4422989fc543c1f6f562b8b05fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a312e46e55e779f578a7b17f071bed5a9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOMP2D_1_1Matrix.html">Matrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOMP2D_1_1OMP2D.html#a312e46e55e779f578a7b17f071bed5a9">orthogonal</a></td></tr>
+<tr class="separator:a312e46e55e779f578a7b17f071bed5a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8836c70cb96a019f86ff8d41d4b3a3f6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classOMP2D_1_1Matrix.html">Matrix</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOMP2D_1_1OMP2D.html#a8836c70cb96a019f86ff8d41d4b3a3f6">dictX</a></td></tr>
+<tr class="separator:a8836c70cb96a019f86ff8d41d4b3a3f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8af5ef6c4d66d21558f3a61dc6b80bdc"><td class="memItemLeft" align="right" valign="top">double[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOMP2D_1_1OMP2D.html#a8af5ef6c4d66d21558f3a61dc6b80bdc">coefficients</a></td></tr>
+<tr class="separator:a8af5ef6c4d66d21558f3a61dc6b80bdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae838e473d8b5653fd07ed72a46389cd5"><td class="memItemLeft" align="right" valign="top">final double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOMP2D_1_1OMP2D.html#ae838e473d8b5653fd07ed72a46389cd5">INITIAL_TOL</a> = 1e-10</td></tr>
+<tr class="separator:ae838e473d8b5653fd07ed72a46389cd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a704206f085ba68939282448f2c1eacd4"><td class="memItemLeft" align="right" valign="top">final int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOMP2D_1_1OMP2D.html#a704206f085ba68939282448f2c1eacd4">REORTH_ITERATIONS</a> = 2</td></tr>
+<tr class="separator:a704206f085ba68939282448f2c1eacd4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5fe5837116b58dfb22450c0dc72dab41"><td class="memItemLeft" align="right" valign="top">final double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOMP2D_1_1OMP2D.html#a5fe5837116b58dfb22450c0dc72dab41">TOLERANCE</a></td></tr>
+<tr class="separator:a5fe5837116b58dfb22450c0dc72dab41"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a48452fd4f5fb84d49a108d233a1be40e"><td class="memItemLeft" align="right" valign="top">final int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOMP2D_1_1OMP2D.html#a48452fd4f5fb84d49a108d233a1be40e">MAX_ITERATIONS</a></td></tr>
+<tr class="separator:a48452fd4f5fb84d49a108d233a1be40e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac885e11e3f91b4a1c2d7c4b997d48047"><td class="memItemLeft" align="right" valign="top">final int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOMP2D_1_1OMP2D.html#ac885e11e3f91b4a1c2d7c4b997d48047">WIDTH</a></td></tr>
+<tr class="separator:ac885e11e3f91b4a1c2d7c4b997d48047"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a31148a069e4786564b9490f56e5d0288"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classOMP2D_1_1OMP2D.html#a31148a069e4786564b9490f56e5d0288">curRowAtom</a></td></tr>
+<tr class="separator:a31148a069e4786564b9490f56e5d0288"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="adda82b9feac12f10b4445d48efe7ace2"></a>
+<a class="anchor" id="a985a251dd19cea942fc0065a9a5143d7"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">OMP2D.OMP2D.OMP2D </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="ae99cf374d875ce7914fc0da1962293a3"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void OMP2D.OMP2D.calcBlock </td>
-          <td>(</td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>imageBlock</em>[][], </td>
+          <td class="paramtype">double[]&#160;</td>
+          <td class="paramname"><em>imageData</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>iterations</em>, </td>
+          <td class="paramname"><em>width</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>dictX</em>[][], </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>dictY</em>[][], </td>
+          <td class="paramname"><em>tol</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>numAtomsX</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>numAtomsY</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>orthogonal</em>[][], </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>beta</em>[][]&#160;</td>
+          <td class="paramname"><em>maxIterations</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -156,18 +176,625 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="adff0f7494b751f2f20f94131fd4fa2fa"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">OMP2D.OMP2D.OMP2D </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classOMP2D_1_1Matrix.html">Matrix</a>&#160;</td>
+          <td class="paramname"><em>imageBlock</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>tol</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>maxIterations</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="a8ae01caea958e334f9d341cf6b46e31c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OMP2D.OMP2D.calcBlock </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> throws <a class="el" href="classOMP2D_1_1BadDimensionsException.html">BadDimensionsException</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a6ac98d46391b2794c2d109efa8151a8b"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double OMP2D.OMP2D.findNextAtom </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> throws <a class="el" href="classOMP2D_1_1BadDimensionsException.html">BadDimensionsException</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Selects an Atom from the current dictionary </p>
+<dl class="section return"><dt>Returns</dt><dd>The maximum absolute value found in the dictionaries given the residue, a.k.a the initial tolerance level </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ad1b8c9f5c1f534f40fb72f6225153db6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classOMP2D_1_1Matrix.html">Matrix</a> OMP2D.OMP2D.getApproxImage </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>The approximated block calculated </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a03bfbeb0892de5f985e1dc79fa8630ba"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OMP2D.OMP2D.getBiorthogonal </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classOMP2D_1_1Matrix.html">Matrix</a>&#160;</td>
+          <td class="paramname"><em>beta</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double[]&#160;</td>
+          <td class="paramname"><em>newAtom</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double[]&#160;</td>
+          <td class="paramname"><em>orthogonalAtom</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>rowNorm</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> throws <a class="el" href="classOMP2D_1_1BadDimensionsException.html">BadDimensionsException</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">imageBlock</td><td></td></tr>
+    <tr><td class="paramname">beta</td><td></td></tr>
+    <tr><td class="paramname">newAtom</td><td></td></tr>
+    <tr><td class="paramname">orthogonalAtom</td><td></td></tr>
+    <tr><td class="paramname">rowNorm</td><td></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>the index of the the chosen atom to represent this block. </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="classOMP2D_1_1BadDimensionsException.html">BadDimensionsException</a></td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a520742808179d4bb600bcaeca6db1078"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double [] OMP2D.OMP2D.getCoefficients </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Returns the coefficients used to approximate this block as a Vector </p>
+<dl class="section return"><dt>Returns</dt><dd>the coefficients </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a5f17f69611ecc22fadbc86099b7f6f0a"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double OMP2D.OMP2D.getNumCoefficients </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>The number of coefficients used to approximate this block </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a0e7e5574e1bbef2cbf7c81e9cc8a7ac6"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double OMP2D.OMP2D.getPSNR </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Calculates and returns the PSNR of this block </p>
+<dl class="section return"><dt>Returns</dt><dd>PSNR </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a47591a44fc5194d0add04b63b60098a5"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classOMP2D_1_1Matrix.html">Matrix</a> OMP2D.OMP2D.multiplyDictX </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classOMP2D_1_1Matrix.html">Matrix</a>&#160;</td>
+          <td class="paramname"><em>temp</em></td><td>)</td>
+          <td> throws <a class="el" href="classOMP2D_1_1BadDimensionsException.html">BadDimensionsException</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a3ef4a503bdcd3013d323b0172168ae12"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OMP2D.OMP2D.orthogonalize </td>
+          <td>(</td>
+          <td class="paramtype">double[]&#160;</td>
+          <td class="paramname"><em>vector</em></td><td>)</td>
+          <td> throws <a class="el" href="classOMP2D_1_1BadDimensionsException.html">BadDimensionsException</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">vector</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="classOMP2D_1_1BadDimensionsException.html">BadDimensionsException</a></td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a02281c6bdb3f7f6b6ceb9e1e64e82f71"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OMP2D.OMP2D.processResults </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classOMP2D_1_1Matrix.html">Matrix</a>&#160;</td>
+          <td class="paramname"><em>beta</em></td><td>)</td>
+          <td> throws <a class="el" href="classOMP2D_1_1BadDimensionsException.html">BadDimensionsException</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a1dd8c38fd12b2c5713bad45a9d1ddd41"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OMP2D.OMP2D.reorthogonalize </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>repetitions</em></td><td>)</td>
+          <td> throws <a class="el" href="classOMP2D_1_1BadDimensionsException.html">BadDimensionsException</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">repetitions</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="classOMP2D_1_1BadDimensionsException.html">BadDimensionsException</a></td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="af3097b03ec47d8fb4322e6606c58d334"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OMP2D.OMP2D.setup </td>
+          <td>(</td>
+          <td class="paramtype">double[]&#160;</td>
+          <td class="paramname"><em>imageData</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>width</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Initialisation of Matrices </p>
+
+</div>
+</div>
+<a class="anchor" id="ace00794c1b67988c574675531732194c"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void OMP2D.OMP2D.updateResidual </td>
+          <td>(</td>
+          <td class="paramtype">double[]&#160;</td>
+          <td class="paramname"><em>m2</em></td><td>)</td>
+          <td> throws <a class="el" href="classOMP2D_1_1BadDimensionsException.html">BadDimensionsException</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">residue</td><td></td></tr>
+    <tr><td class="paramname">m1</td><td>imageBlock </td></tr>
+    <tr><td class="paramname">m2</td><td>currentRow </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="classOMP2D_1_1BadDimensionsException.html">BadDimensionsException</a></td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a class="anchor" id="a8af5ef6c4d66d21558f3a61dc6b80bdc"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double [] OMP2D.OMP2D.coefficients</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a31148a069e4786564b9490f56e5d0288"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int OMP2D.OMP2D.curRowAtom</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a8836c70cb96a019f86ff8d41d4b3a3f6"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classOMP2D_1_1Matrix.html">Matrix</a> OMP2D.OMP2D.dictX</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a17850fb16a9721bfbb92db8ea8848215"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classOMP2D_1_1Matrix.html">Matrix</a> OMP2D.OMP2D.imageBlock</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a249a4c8483ae447b2b88d47ea6ed6f9c"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classOMP2D_1_1Matrix.html">Matrix</a> OMP2D.OMP2D.imageBlockTransposed</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="aa03b270daab3c9ade9073fbb23032a22"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double [] OMP2D.OMP2D.imageData</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ae838e473d8b5653fd07ed72a46389cd5"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">final double OMP2D.OMP2D.INITIAL_TOL = 1e-10</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a48452fd4f5fb84d49a108d233a1be40e"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">final int OMP2D.OMP2D.MAX_ITERATIONS</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a312e46e55e779f578a7b17f071bed5a9"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classOMP2D_1_1Matrix.html">Matrix</a> OMP2D.OMP2D.orthogonal</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a704206f085ba68939282448f2c1eacd4"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">final int OMP2D.OMP2D.REORTH_ITERATIONS = 2</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a2f1ff4422989fc543c1f6f562b8b05fc"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classOMP2D_1_1Matrix.html">Matrix</a> OMP2D.OMP2D.residue</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a5fe5837116b58dfb22450c0dc72dab41"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">final double OMP2D.OMP2D.TOLERANCE</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ac885e11e3f91b4a1c2d7c4b997d48047"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">final int OMP2D.OMP2D.WIDTH</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>/home/matt/cuda-workspace/OMP2D Java/src/OMP2D/<a class="el" href="OMP2D_8java.html">OMP2D.java</a></li>
+<li>/home/matt/git/OMP2D/OMP2D/src/OMP2D/<a class="el" href="OMP2D_8java.html">OMP2D.java</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -175,7 +802,7 @@ Public Member Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceOMP2D.html">OMP2D</a></li><li class="navelem"><a class="el" href="classOMP2D_1_1OMP2D.html">OMP2D</a></li>
-    <li class="footer">Generated on Sun Mar 2 2014 23:49:41 for OMP2D Java by
+    <li class="footer">Generated on Sun Apr 13 2014 09:59:26 for OMP2D ImageJ Plugin by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.6 </li>
   </ul>

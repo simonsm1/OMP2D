@@ -10,7 +10,6 @@ var classOMP2D_1_1MatrixOperations =
     [ "maxAbs", "classOMP2D_1_1MatrixOperations.html#a3326a590f1c188296d0e14cd6f5476ad", null ],
     [ "multiplyMatrixVector", "classOMP2D_1_1MatrixOperations.html#aaa1507cc4bd3d390fea146ab29abb5bf", null ],
     [ "norm", "classOMP2D_1_1MatrixOperations.html#ad4e2f7e46255b1af0dc78b06151ce0a1", null ],
-    [ "normalize", "classOMP2D_1_1MatrixOperations.html#a9f4c857451b167cc252827d17cd1413c", null ],
     [ "normalize", "classOMP2D_1_1MatrixOperations.html#a435ecf7d2a5c1dff9f70ef542b17804b", null ],
     [ "outerProduct", "classOMP2D_1_1MatrixOperations.html#a3f7a1739a39b7bc42567c8011694bb5f", null ],
     [ "realInnerProduct", "classOMP2D_1_1MatrixOperations.html#a0ffd0bed3beb6b14b1e6c80259fdb2fc", null ],

@@ -4,47 +4,297 @@
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{classOMP2D_1_1OMP2D_adda82b9feac12f10b4445d48efe7ace2}{O\-M\-P2\-D} ()
+\hyperlink{classOMP2D_1_1OMP2D_a985a251dd19cea942fc0065a9a5143d7}{O\-M\-P2\-D} (double\mbox{[}$\,$\mbox{]} \hyperlink{classOMP2D_1_1OMP2D_aa03b270daab3c9ade9073fbb23032a22}{image\-Data}, int width, double tol, int max\-Iterations)
 \item 
-void \hyperlink{classOMP2D_1_1OMP2D_ae99cf374d875ce7914fc0da1962293a3}{calc\-Block} (double\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]} image\-Block, int iterations, double\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]} dict\-X, double\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]} dict\-Y, int num\-Atoms\-X, int num\-Atoms\-Y, double\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]} orthogonal, double\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]} beta)
+\hyperlink{classOMP2D_1_1OMP2D_adff0f7494b751f2f20f94131fd4fa2fa}{O\-M\-P2\-D} (\hyperlink{classOMP2D_1_1Matrix}{Matrix} \hyperlink{classOMP2D_1_1OMP2D_a17850fb16a9721bfbb92db8ea8848215}{image\-Block}, double tol, int max\-Iterations)
+\item 
+void \hyperlink{classOMP2D_1_1OMP2D_a8ae01caea958e334f9d341cf6b46e31c}{calc\-Block} ()  throws Bad\-Dimensions\-Exception 
+\item 
+double \hyperlink{classOMP2D_1_1OMP2D_a6ac98d46391b2794c2d109efa8151a8b}{find\-Next\-Atom} ()  throws Bad\-Dimensions\-Exception
+\item 
+\hyperlink{classOMP2D_1_1Matrix}{Matrix} \hyperlink{classOMP2D_1_1OMP2D_ad1b8c9f5c1f534f40fb72f6225153db6}{get\-Approx\-Image} ()
+\item 
+void \hyperlink{classOMP2D_1_1OMP2D_a03bfbeb0892de5f985e1dc79fa8630ba}{get\-Biorthogonal} (\hyperlink{classOMP2D_1_1Matrix}{Matrix} beta, double\mbox{[}$\,$\mbox{]} new\-Atom, double\mbox{[}$\,$\mbox{]} orthogonal\-Atom, double row\-Norm)  throws Bad\-Dimensions\-Exception
+\item 
+double\mbox{[}$\,$\mbox{]} \hyperlink{classOMP2D_1_1OMP2D_a520742808179d4bb600bcaeca6db1078}{get\-Coefficients} ()
+\item 
+double \hyperlink{classOMP2D_1_1OMP2D_a5f17f69611ecc22fadbc86099b7f6f0a}{get\-Num\-Coefficients} ()
+\item 
+double \hyperlink{classOMP2D_1_1OMP2D_a0e7e5574e1bbef2cbf7c81e9cc8a7ac6}{get\-P\-S\-N\-R} ()
+\item 
+void \hyperlink{classOMP2D_1_1OMP2D_ace00794c1b67988c574675531732194c}{update\-Residual} (double\mbox{[}$\,$\mbox{]} m2)  throws Bad\-Dimensions\-Exception 
+\item 
+void \hyperlink{classOMP2D_1_1OMP2D_a3ef4a503bdcd3013d323b0172168ae12}{orthogonalize} (double\mbox{[}$\,$\mbox{]} vector)  throws Bad\-Dimensions\-Exception
+\item 
+void \hyperlink{classOMP2D_1_1OMP2D_a1dd8c38fd12b2c5713bad45a9d1ddd41}{reorthogonalize} (int repetitions)  throws Bad\-Dimensions\-Exception
+\end{DoxyCompactItemize}
+\subsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{classOMP2D_1_1OMP2D_af3097b03ec47d8fb4322e6606c58d334}{setup} (double\mbox{[}$\,$\mbox{]} \hyperlink{classOMP2D_1_1OMP2D_aa03b270daab3c9ade9073fbb23032a22}{image\-Data}, int width)
+\item 
+void \hyperlink{classOMP2D_1_1OMP2D_a02281c6bdb3f7f6b6ceb9e1e64e82f71}{process\-Results} (\hyperlink{classOMP2D_1_1Matrix}{Matrix} beta)  throws Bad\-Dimensions\-Exception 
+\item 
+\hyperlink{classOMP2D_1_1Matrix}{Matrix} \hyperlink{classOMP2D_1_1OMP2D_a47591a44fc5194d0add04b63b60098a5}{multiply\-Dict\-X} (\hyperlink{classOMP2D_1_1Matrix}{Matrix} temp)  throws Bad\-Dimensions\-Exception 
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+double\mbox{[}$\,$\mbox{]} \hyperlink{classOMP2D_1_1OMP2D_aa03b270daab3c9ade9073fbb23032a22}{image\-Data}
+\item 
+\hyperlink{classOMP2D_1_1Matrix}{Matrix} \hyperlink{classOMP2D_1_1OMP2D_a17850fb16a9721bfbb92db8ea8848215}{image\-Block}
+\item 
+\hyperlink{classOMP2D_1_1Matrix}{Matrix} \hyperlink{classOMP2D_1_1OMP2D_a249a4c8483ae447b2b88d47ea6ed6f9c}{image\-Block\-Transposed}
+\item 
+\hyperlink{classOMP2D_1_1Matrix}{Matrix} \hyperlink{classOMP2D_1_1OMP2D_a2f1ff4422989fc543c1f6f562b8b05fc}{residue}
+\item 
+\hyperlink{classOMP2D_1_1Matrix}{Matrix} \hyperlink{classOMP2D_1_1OMP2D_a312e46e55e779f578a7b17f071bed5a9}{orthogonal}
+\item 
+\hyperlink{classOMP2D_1_1Matrix}{Matrix} \hyperlink{classOMP2D_1_1OMP2D_a8836c70cb96a019f86ff8d41d4b3a3f6}{dict\-X}
+\item 
+double\mbox{[}$\,$\mbox{]} \hyperlink{classOMP2D_1_1OMP2D_a8af5ef6c4d66d21558f3a61dc6b80bdc}{coefficients}
+\item 
+final double \hyperlink{classOMP2D_1_1OMP2D_ae838e473d8b5653fd07ed72a46389cd5}{I\-N\-I\-T\-I\-A\-L\-\_\-\-T\-O\-L} = 1e-\/10
+\item 
+final int \hyperlink{classOMP2D_1_1OMP2D_a704206f085ba68939282448f2c1eacd4}{R\-E\-O\-R\-T\-H\-\_\-\-I\-T\-E\-R\-A\-T\-I\-O\-N\-S} = 2
+\item 
+final double \hyperlink{classOMP2D_1_1OMP2D_a5fe5837116b58dfb22450c0dc72dab41}{T\-O\-L\-E\-R\-A\-N\-C\-E}
+\item 
+final int \hyperlink{classOMP2D_1_1OMP2D_a48452fd4f5fb84d49a108d233a1be40e}{M\-A\-X\-\_\-\-I\-T\-E\-R\-A\-T\-I\-O\-N\-S}
+\item 
+final int \hyperlink{classOMP2D_1_1OMP2D_ac885e11e3f91b4a1c2d7c4b997d48047}{W\-I\-D\-T\-H}
+\item 
+int \hyperlink{classOMP2D_1_1OMP2D_a31148a069e4786564b9490f56e5d0288}{cur\-Row\-Atom}
 \end{DoxyCompactItemize}
 
 
 \subsection{Constructor \& Destructor Documentation}
-\hypertarget{classOMP2D_1_1OMP2D_adda82b9feac12f10b4445d48efe7ace2}{\index{O\-M\-P2\-D\-::\-O\-M\-P2\-D@{O\-M\-P2\-D\-::\-O\-M\-P2\-D}!O\-M\-P2\-D@{O\-M\-P2\-D}}
+\hypertarget{classOMP2D_1_1OMP2D_a985a251dd19cea942fc0065a9a5143d7}{\index{O\-M\-P2\-D\-::\-O\-M\-P2\-D@{O\-M\-P2\-D\-::\-O\-M\-P2\-D}!O\-M\-P2\-D@{O\-M\-P2\-D}}
 \index{O\-M\-P2\-D@{O\-M\-P2\-D}!OMP2D::OMP2D@{O\-M\-P2\-D\-::\-O\-M\-P2\-D}}
 \subsubsection[{O\-M\-P2\-D}]{\setlength{\rightskip}{0pt plus 5cm}O\-M\-P2\-D.\-O\-M\-P2\-D.\-O\-M\-P2\-D (
 \begin{DoxyParamCaption}
-{}
+\item[{double\mbox{[}$\,$\mbox{]}}]{image\-Data, }
+\item[{int}]{width, }
+\item[{double}]{tol, }
+\item[{int}]{max\-Iterations}
 \end{DoxyParamCaption}
-)}}\label{classOMP2D_1_1OMP2D_adda82b9feac12f10b4445d48efe7ace2}
+)}}\label{classOMP2D_1_1OMP2D_a985a251dd19cea942fc0065a9a5143d7}
+\hypertarget{classOMP2D_1_1OMP2D_adff0f7494b751f2f20f94131fd4fa2fa}{\index{O\-M\-P2\-D\-::\-O\-M\-P2\-D@{O\-M\-P2\-D\-::\-O\-M\-P2\-D}!O\-M\-P2\-D@{O\-M\-P2\-D}}
+\index{O\-M\-P2\-D@{O\-M\-P2\-D}!OMP2D::OMP2D@{O\-M\-P2\-D\-::\-O\-M\-P2\-D}}
+\subsubsection[{O\-M\-P2\-D}]{\setlength{\rightskip}{0pt plus 5cm}O\-M\-P2\-D.\-O\-M\-P2\-D.\-O\-M\-P2\-D (
+\begin{DoxyParamCaption}
+\item[{{\bf Matrix}}]{image\-Block, }
+\item[{double}]{tol, }
+\item[{int}]{max\-Iterations}
+\end{DoxyParamCaption}
+)}}\label{classOMP2D_1_1OMP2D_adff0f7494b751f2f20f94131fd4fa2fa}
 
 
 \subsection{Member Function Documentation}
-\hypertarget{classOMP2D_1_1OMP2D_ae99cf374d875ce7914fc0da1962293a3}{\index{O\-M\-P2\-D\-::\-O\-M\-P2\-D@{O\-M\-P2\-D\-::\-O\-M\-P2\-D}!calc\-Block@{calc\-Block}}
+\hypertarget{classOMP2D_1_1OMP2D_a8ae01caea958e334f9d341cf6b46e31c}{\index{O\-M\-P2\-D\-::\-O\-M\-P2\-D@{O\-M\-P2\-D\-::\-O\-M\-P2\-D}!calc\-Block@{calc\-Block}}
 \index{calc\-Block@{calc\-Block}!OMP2D::OMP2D@{O\-M\-P2\-D\-::\-O\-M\-P2\-D}}
 \subsubsection[{calc\-Block}]{\setlength{\rightskip}{0pt plus 5cm}void O\-M\-P2\-D.\-O\-M\-P2\-D.\-calc\-Block (
 \begin{DoxyParamCaption}
-\item[{double}]{image\-Block\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]}, }
-\item[{int}]{iterations, }
-\item[{double}]{dict\-X\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]}, }
-\item[{double}]{dict\-Y\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]}, }
-\item[{int}]{num\-Atoms\-X, }
-\item[{int}]{num\-Atoms\-Y, }
-\item[{double}]{orthogonal\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]}, }
-\item[{double}]{beta\mbox{[}$\,$\mbox{]}\mbox{[}$\,$\mbox{]}}
+{}
 \end{DoxyParamCaption}
-)}}\label{classOMP2D_1_1OMP2D_ae99cf374d875ce7914fc0da1962293a3}
+) throws {\bf Bad\-Dimensions\-Exception}}}\label{classOMP2D_1_1OMP2D_a8ae01caea958e334f9d341cf6b46e31c}
+\hypertarget{classOMP2D_1_1OMP2D_a6ac98d46391b2794c2d109efa8151a8b}{\index{O\-M\-P2\-D\-::\-O\-M\-P2\-D@{O\-M\-P2\-D\-::\-O\-M\-P2\-D}!find\-Next\-Atom@{find\-Next\-Atom}}
+\index{find\-Next\-Atom@{find\-Next\-Atom}!OMP2D::OMP2D@{O\-M\-P2\-D\-::\-O\-M\-P2\-D}}
+\subsubsection[{find\-Next\-Atom}]{\setlength{\rightskip}{0pt plus 5cm}double O\-M\-P2\-D.\-O\-M\-P2\-D.\-find\-Next\-Atom (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) throws {\bf Bad\-Dimensions\-Exception}}}\label{classOMP2D_1_1OMP2D_a6ac98d46391b2794c2d109efa8151a8b}
+Selects an Atom from the current dictionary \begin{DoxyReturn}{Returns}
+The maximum absolute value found in the dictionaries given the residue, a.\-k.\-a the initial tolerance level 
+\end{DoxyReturn}
+\hypertarget{classOMP2D_1_1OMP2D_ad1b8c9f5c1f534f40fb72f6225153db6}{\index{O\-M\-P2\-D\-::\-O\-M\-P2\-D@{O\-M\-P2\-D\-::\-O\-M\-P2\-D}!get\-Approx\-Image@{get\-Approx\-Image}}
+\index{get\-Approx\-Image@{get\-Approx\-Image}!OMP2D::OMP2D@{O\-M\-P2\-D\-::\-O\-M\-P2\-D}}
+\subsubsection[{get\-Approx\-Image}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Matrix} O\-M\-P2\-D.\-O\-M\-P2\-D.\-get\-Approx\-Image (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classOMP2D_1_1OMP2D_ad1b8c9f5c1f534f40fb72f6225153db6}
+\begin{DoxyReturn}{Returns}
+The approximated block calculated 
+\end{DoxyReturn}
+\hypertarget{classOMP2D_1_1OMP2D_a03bfbeb0892de5f985e1dc79fa8630ba}{\index{O\-M\-P2\-D\-::\-O\-M\-P2\-D@{O\-M\-P2\-D\-::\-O\-M\-P2\-D}!get\-Biorthogonal@{get\-Biorthogonal}}
+\index{get\-Biorthogonal@{get\-Biorthogonal}!OMP2D::OMP2D@{O\-M\-P2\-D\-::\-O\-M\-P2\-D}}
+\subsubsection[{get\-Biorthogonal}]{\setlength{\rightskip}{0pt plus 5cm}void O\-M\-P2\-D.\-O\-M\-P2\-D.\-get\-Biorthogonal (
+\begin{DoxyParamCaption}
+\item[{{\bf Matrix}}]{beta, }
+\item[{double\mbox{[}$\,$\mbox{]}}]{new\-Atom, }
+\item[{double\mbox{[}$\,$\mbox{]}}]{orthogonal\-Atom, }
+\item[{double}]{row\-Norm}
+\end{DoxyParamCaption}
+) throws {\bf Bad\-Dimensions\-Exception}}}\label{classOMP2D_1_1OMP2D_a03bfbeb0892de5f985e1dc79fa8630ba}
 
 \begin{DoxyParams}{Parameters}
-{\em image\-Block} & \\
+{\em beta} & \\
+\hline
+{\em new\-Atom} & \\
+\hline
+{\em orthogonal\-Atom} & \\
+\hline
+{\em row\-Norm} & \\
 \hline
 \end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-the index of the the chosen atom to represent this block. 
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \hyperlink{classOMP2D_1_1BadDimensionsException}{Bad\-Dimensions\-Exception}} & \\
+\hline
+\end{DoxyExceptions}
+\hypertarget{classOMP2D_1_1OMP2D_a520742808179d4bb600bcaeca6db1078}{\index{O\-M\-P2\-D\-::\-O\-M\-P2\-D@{O\-M\-P2\-D\-::\-O\-M\-P2\-D}!get\-Coefficients@{get\-Coefficients}}
+\index{get\-Coefficients@{get\-Coefficients}!OMP2D::OMP2D@{O\-M\-P2\-D\-::\-O\-M\-P2\-D}}
+\subsubsection[{get\-Coefficients}]{\setlength{\rightskip}{0pt plus 5cm}double \mbox{[}$\,$\mbox{]} O\-M\-P2\-D.\-O\-M\-P2\-D.\-get\-Coefficients (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classOMP2D_1_1OMP2D_a520742808179d4bb600bcaeca6db1078}
+Returns the coefficients used to approximate this block as a Vector \begin{DoxyReturn}{Returns}
+the coefficients 
 \end{DoxyReturn}
+\hypertarget{classOMP2D_1_1OMP2D_a5f17f69611ecc22fadbc86099b7f6f0a}{\index{O\-M\-P2\-D\-::\-O\-M\-P2\-D@{O\-M\-P2\-D\-::\-O\-M\-P2\-D}!get\-Num\-Coefficients@{get\-Num\-Coefficients}}
+\index{get\-Num\-Coefficients@{get\-Num\-Coefficients}!OMP2D::OMP2D@{O\-M\-P2\-D\-::\-O\-M\-P2\-D}}
+\subsubsection[{get\-Num\-Coefficients}]{\setlength{\rightskip}{0pt plus 5cm}double O\-M\-P2\-D.\-O\-M\-P2\-D.\-get\-Num\-Coefficients (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classOMP2D_1_1OMP2D_a5f17f69611ecc22fadbc86099b7f6f0a}
+\begin{DoxyReturn}{Returns}
+The number of coefficients used to approximate this block 
+\end{DoxyReturn}
+\hypertarget{classOMP2D_1_1OMP2D_a0e7e5574e1bbef2cbf7c81e9cc8a7ac6}{\index{O\-M\-P2\-D\-::\-O\-M\-P2\-D@{O\-M\-P2\-D\-::\-O\-M\-P2\-D}!get\-P\-S\-N\-R@{get\-P\-S\-N\-R}}
+\index{get\-P\-S\-N\-R@{get\-P\-S\-N\-R}!OMP2D::OMP2D@{O\-M\-P2\-D\-::\-O\-M\-P2\-D}}
+\subsubsection[{get\-P\-S\-N\-R}]{\setlength{\rightskip}{0pt plus 5cm}double O\-M\-P2\-D.\-O\-M\-P2\-D.\-get\-P\-S\-N\-R (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classOMP2D_1_1OMP2D_a0e7e5574e1bbef2cbf7c81e9cc8a7ac6}
+Calculates and returns the P\-S\-N\-R of this block \begin{DoxyReturn}{Returns}
+P\-S\-N\-R 
+\end{DoxyReturn}
+\hypertarget{classOMP2D_1_1OMP2D_a47591a44fc5194d0add04b63b60098a5}{\index{O\-M\-P2\-D\-::\-O\-M\-P2\-D@{O\-M\-P2\-D\-::\-O\-M\-P2\-D}!multiply\-Dict\-X@{multiply\-Dict\-X}}
+\index{multiply\-Dict\-X@{multiply\-Dict\-X}!OMP2D::OMP2D@{O\-M\-P2\-D\-::\-O\-M\-P2\-D}}
+\subsubsection[{multiply\-Dict\-X}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Matrix} O\-M\-P2\-D.\-O\-M\-P2\-D.\-multiply\-Dict\-X (
+\begin{DoxyParamCaption}
+\item[{{\bf Matrix}}]{temp}
+\end{DoxyParamCaption}
+) throws {\bf Bad\-Dimensions\-Exception}\hspace{0.3cm}{\ttfamily [private]}}}\label{classOMP2D_1_1OMP2D_a47591a44fc5194d0add04b63b60098a5}
+\hypertarget{classOMP2D_1_1OMP2D_a3ef4a503bdcd3013d323b0172168ae12}{\index{O\-M\-P2\-D\-::\-O\-M\-P2\-D@{O\-M\-P2\-D\-::\-O\-M\-P2\-D}!orthogonalize@{orthogonalize}}
+\index{orthogonalize@{orthogonalize}!OMP2D::OMP2D@{O\-M\-P2\-D\-::\-O\-M\-P2\-D}}
+\subsubsection[{orthogonalize}]{\setlength{\rightskip}{0pt plus 5cm}void O\-M\-P2\-D.\-O\-M\-P2\-D.\-orthogonalize (
+\begin{DoxyParamCaption}
+\item[{double\mbox{[}$\,$\mbox{]}}]{vector}
+\end{DoxyParamCaption}
+) throws {\bf Bad\-Dimensions\-Exception}}}\label{classOMP2D_1_1OMP2D_a3ef4a503bdcd3013d323b0172168ae12}
+
+\begin{DoxyParams}{Parameters}
+{\em vector} & \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \hyperlink{classOMP2D_1_1BadDimensionsException}{Bad\-Dimensions\-Exception}} & \\
+\hline
+\end{DoxyExceptions}
+\hypertarget{classOMP2D_1_1OMP2D_a02281c6bdb3f7f6b6ceb9e1e64e82f71}{\index{O\-M\-P2\-D\-::\-O\-M\-P2\-D@{O\-M\-P2\-D\-::\-O\-M\-P2\-D}!process\-Results@{process\-Results}}
+\index{process\-Results@{process\-Results}!OMP2D::OMP2D@{O\-M\-P2\-D\-::\-O\-M\-P2\-D}}
+\subsubsection[{process\-Results}]{\setlength{\rightskip}{0pt plus 5cm}void O\-M\-P2\-D.\-O\-M\-P2\-D.\-process\-Results (
+\begin{DoxyParamCaption}
+\item[{{\bf Matrix}}]{beta}
+\end{DoxyParamCaption}
+) throws {\bf Bad\-Dimensions\-Exception}\hspace{0.3cm}{\ttfamily [private]}}}\label{classOMP2D_1_1OMP2D_a02281c6bdb3f7f6b6ceb9e1e64e82f71}
+\hypertarget{classOMP2D_1_1OMP2D_a1dd8c38fd12b2c5713bad45a9d1ddd41}{\index{O\-M\-P2\-D\-::\-O\-M\-P2\-D@{O\-M\-P2\-D\-::\-O\-M\-P2\-D}!reorthogonalize@{reorthogonalize}}
+\index{reorthogonalize@{reorthogonalize}!OMP2D::OMP2D@{O\-M\-P2\-D\-::\-O\-M\-P2\-D}}
+\subsubsection[{reorthogonalize}]{\setlength{\rightskip}{0pt plus 5cm}void O\-M\-P2\-D.\-O\-M\-P2\-D.\-reorthogonalize (
+\begin{DoxyParamCaption}
+\item[{int}]{repetitions}
+\end{DoxyParamCaption}
+) throws {\bf Bad\-Dimensions\-Exception}}}\label{classOMP2D_1_1OMP2D_a1dd8c38fd12b2c5713bad45a9d1ddd41}
+
+\begin{DoxyParams}{Parameters}
+{\em repetitions} & \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \hyperlink{classOMP2D_1_1BadDimensionsException}{Bad\-Dimensions\-Exception}} & \\
+\hline
+\end{DoxyExceptions}
+\hypertarget{classOMP2D_1_1OMP2D_af3097b03ec47d8fb4322e6606c58d334}{\index{O\-M\-P2\-D\-::\-O\-M\-P2\-D@{O\-M\-P2\-D\-::\-O\-M\-P2\-D}!setup@{setup}}
+\index{setup@{setup}!OMP2D::OMP2D@{O\-M\-P2\-D\-::\-O\-M\-P2\-D}}
+\subsubsection[{setup}]{\setlength{\rightskip}{0pt plus 5cm}void O\-M\-P2\-D.\-O\-M\-P2\-D.\-setup (
+\begin{DoxyParamCaption}
+\item[{double\mbox{[}$\,$\mbox{]}}]{image\-Data, }
+\item[{int}]{width}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [private]}}}\label{classOMP2D_1_1OMP2D_af3097b03ec47d8fb4322e6606c58d334}
+Initialisation of Matrices \hypertarget{classOMP2D_1_1OMP2D_ace00794c1b67988c574675531732194c}{\index{O\-M\-P2\-D\-::\-O\-M\-P2\-D@{O\-M\-P2\-D\-::\-O\-M\-P2\-D}!update\-Residual@{update\-Residual}}
+\index{update\-Residual@{update\-Residual}!OMP2D::OMP2D@{O\-M\-P2\-D\-::\-O\-M\-P2\-D}}
+\subsubsection[{update\-Residual}]{\setlength{\rightskip}{0pt plus 5cm}void O\-M\-P2\-D.\-O\-M\-P2\-D.\-update\-Residual (
+\begin{DoxyParamCaption}
+\item[{double\mbox{[}$\,$\mbox{]}}]{m2}
+\end{DoxyParamCaption}
+) throws {\bf Bad\-Dimensions\-Exception}}}\label{classOMP2D_1_1OMP2D_ace00794c1b67988c574675531732194c}
+
+\begin{DoxyParams}{Parameters}
+{\em residue} & \\
+\hline
+{\em m1} & image\-Block \\
+\hline
+{\em m2} & current\-Row \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \hyperlink{classOMP2D_1_1BadDimensionsException}{Bad\-Dimensions\-Exception}} & \\
+\hline
+\end{DoxyExceptions}
+
+
+\subsection{Member Data Documentation}
+\hypertarget{classOMP2D_1_1OMP2D_a8af5ef6c4d66d21558f3a61dc6b80bdc}{\index{O\-M\-P2\-D\-::\-O\-M\-P2\-D@{O\-M\-P2\-D\-::\-O\-M\-P2\-D}!coefficients@{coefficients}}
+\index{coefficients@{coefficients}!OMP2D::OMP2D@{O\-M\-P2\-D\-::\-O\-M\-P2\-D}}
+\subsubsection[{coefficients}]{\setlength{\rightskip}{0pt plus 5cm}double \mbox{[}$\,$\mbox{]} O\-M\-P2\-D.\-O\-M\-P2\-D.\-coefficients\hspace{0.3cm}{\ttfamily [private]}}}\label{classOMP2D_1_1OMP2D_a8af5ef6c4d66d21558f3a61dc6b80bdc}
+\hypertarget{classOMP2D_1_1OMP2D_a31148a069e4786564b9490f56e5d0288}{\index{O\-M\-P2\-D\-::\-O\-M\-P2\-D@{O\-M\-P2\-D\-::\-O\-M\-P2\-D}!cur\-Row\-Atom@{cur\-Row\-Atom}}
+\index{cur\-Row\-Atom@{cur\-Row\-Atom}!OMP2D::OMP2D@{O\-M\-P2\-D\-::\-O\-M\-P2\-D}}
+\subsubsection[{cur\-Row\-Atom}]{\setlength{\rightskip}{0pt plus 5cm}int O\-M\-P2\-D.\-O\-M\-P2\-D.\-cur\-Row\-Atom\hspace{0.3cm}{\ttfamily [private]}}}\label{classOMP2D_1_1OMP2D_a31148a069e4786564b9490f56e5d0288}
+\hypertarget{classOMP2D_1_1OMP2D_a8836c70cb96a019f86ff8d41d4b3a3f6}{\index{O\-M\-P2\-D\-::\-O\-M\-P2\-D@{O\-M\-P2\-D\-::\-O\-M\-P2\-D}!dict\-X@{dict\-X}}
+\index{dict\-X@{dict\-X}!OMP2D::OMP2D@{O\-M\-P2\-D\-::\-O\-M\-P2\-D}}
+\subsubsection[{dict\-X}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Matrix} O\-M\-P2\-D.\-O\-M\-P2\-D.\-dict\-X\hspace{0.3cm}{\ttfamily [private]}}}\label{classOMP2D_1_1OMP2D_a8836c70cb96a019f86ff8d41d4b3a3f6}
+\hypertarget{classOMP2D_1_1OMP2D_a17850fb16a9721bfbb92db8ea8848215}{\index{O\-M\-P2\-D\-::\-O\-M\-P2\-D@{O\-M\-P2\-D\-::\-O\-M\-P2\-D}!image\-Block@{image\-Block}}
+\index{image\-Block@{image\-Block}!OMP2D::OMP2D@{O\-M\-P2\-D\-::\-O\-M\-P2\-D}}
+\subsubsection[{image\-Block}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Matrix} O\-M\-P2\-D.\-O\-M\-P2\-D.\-image\-Block\hspace{0.3cm}{\ttfamily [private]}}}\label{classOMP2D_1_1OMP2D_a17850fb16a9721bfbb92db8ea8848215}
+\hypertarget{classOMP2D_1_1OMP2D_a249a4c8483ae447b2b88d47ea6ed6f9c}{\index{O\-M\-P2\-D\-::\-O\-M\-P2\-D@{O\-M\-P2\-D\-::\-O\-M\-P2\-D}!image\-Block\-Transposed@{image\-Block\-Transposed}}
+\index{image\-Block\-Transposed@{image\-Block\-Transposed}!OMP2D::OMP2D@{O\-M\-P2\-D\-::\-O\-M\-P2\-D}}
+\subsubsection[{image\-Block\-Transposed}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Matrix} O\-M\-P2\-D.\-O\-M\-P2\-D.\-image\-Block\-Transposed\hspace{0.3cm}{\ttfamily [private]}}}\label{classOMP2D_1_1OMP2D_a249a4c8483ae447b2b88d47ea6ed6f9c}
+\hypertarget{classOMP2D_1_1OMP2D_aa03b270daab3c9ade9073fbb23032a22}{\index{O\-M\-P2\-D\-::\-O\-M\-P2\-D@{O\-M\-P2\-D\-::\-O\-M\-P2\-D}!image\-Data@{image\-Data}}
+\index{image\-Data@{image\-Data}!OMP2D::OMP2D@{O\-M\-P2\-D\-::\-O\-M\-P2\-D}}
+\subsubsection[{image\-Data}]{\setlength{\rightskip}{0pt plus 5cm}double \mbox{[}$\,$\mbox{]} O\-M\-P2\-D.\-O\-M\-P2\-D.\-image\-Data\hspace{0.3cm}{\ttfamily [private]}}}\label{classOMP2D_1_1OMP2D_aa03b270daab3c9ade9073fbb23032a22}
+\hypertarget{classOMP2D_1_1OMP2D_ae838e473d8b5653fd07ed72a46389cd5}{\index{O\-M\-P2\-D\-::\-O\-M\-P2\-D@{O\-M\-P2\-D\-::\-O\-M\-P2\-D}!I\-N\-I\-T\-I\-A\-L\-\_\-\-T\-O\-L@{I\-N\-I\-T\-I\-A\-L\-\_\-\-T\-O\-L}}
+\index{I\-N\-I\-T\-I\-A\-L\-\_\-\-T\-O\-L@{I\-N\-I\-T\-I\-A\-L\-\_\-\-T\-O\-L}!OMP2D::OMP2D@{O\-M\-P2\-D\-::\-O\-M\-P2\-D}}
+\subsubsection[{I\-N\-I\-T\-I\-A\-L\-\_\-\-T\-O\-L}]{\setlength{\rightskip}{0pt plus 5cm}final double O\-M\-P2\-D.\-O\-M\-P2\-D.\-I\-N\-I\-T\-I\-A\-L\-\_\-\-T\-O\-L = 1e-\/10\hspace{0.3cm}{\ttfamily [private]}}}\label{classOMP2D_1_1OMP2D_ae838e473d8b5653fd07ed72a46389cd5}
+\hypertarget{classOMP2D_1_1OMP2D_a48452fd4f5fb84d49a108d233a1be40e}{\index{O\-M\-P2\-D\-::\-O\-M\-P2\-D@{O\-M\-P2\-D\-::\-O\-M\-P2\-D}!M\-A\-X\-\_\-\-I\-T\-E\-R\-A\-T\-I\-O\-N\-S@{M\-A\-X\-\_\-\-I\-T\-E\-R\-A\-T\-I\-O\-N\-S}}
+\index{M\-A\-X\-\_\-\-I\-T\-E\-R\-A\-T\-I\-O\-N\-S@{M\-A\-X\-\_\-\-I\-T\-E\-R\-A\-T\-I\-O\-N\-S}!OMP2D::OMP2D@{O\-M\-P2\-D\-::\-O\-M\-P2\-D}}
+\subsubsection[{M\-A\-X\-\_\-\-I\-T\-E\-R\-A\-T\-I\-O\-N\-S}]{\setlength{\rightskip}{0pt plus 5cm}final int O\-M\-P2\-D.\-O\-M\-P2\-D.\-M\-A\-X\-\_\-\-I\-T\-E\-R\-A\-T\-I\-O\-N\-S\hspace{0.3cm}{\ttfamily [private]}}}\label{classOMP2D_1_1OMP2D_a48452fd4f5fb84d49a108d233a1be40e}
+\hypertarget{classOMP2D_1_1OMP2D_a312e46e55e779f578a7b17f071bed5a9}{\index{O\-M\-P2\-D\-::\-O\-M\-P2\-D@{O\-M\-P2\-D\-::\-O\-M\-P2\-D}!orthogonal@{orthogonal}}
+\index{orthogonal@{orthogonal}!OMP2D::OMP2D@{O\-M\-P2\-D\-::\-O\-M\-P2\-D}}
+\subsubsection[{orthogonal}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Matrix} O\-M\-P2\-D.\-O\-M\-P2\-D.\-orthogonal\hspace{0.3cm}{\ttfamily [private]}}}\label{classOMP2D_1_1OMP2D_a312e46e55e779f578a7b17f071bed5a9}
+\hypertarget{classOMP2D_1_1OMP2D_a704206f085ba68939282448f2c1eacd4}{\index{O\-M\-P2\-D\-::\-O\-M\-P2\-D@{O\-M\-P2\-D\-::\-O\-M\-P2\-D}!R\-E\-O\-R\-T\-H\-\_\-\-I\-T\-E\-R\-A\-T\-I\-O\-N\-S@{R\-E\-O\-R\-T\-H\-\_\-\-I\-T\-E\-R\-A\-T\-I\-O\-N\-S}}
+\index{R\-E\-O\-R\-T\-H\-\_\-\-I\-T\-E\-R\-A\-T\-I\-O\-N\-S@{R\-E\-O\-R\-T\-H\-\_\-\-I\-T\-E\-R\-A\-T\-I\-O\-N\-S}!OMP2D::OMP2D@{O\-M\-P2\-D\-::\-O\-M\-P2\-D}}
+\subsubsection[{R\-E\-O\-R\-T\-H\-\_\-\-I\-T\-E\-R\-A\-T\-I\-O\-N\-S}]{\setlength{\rightskip}{0pt plus 5cm}final int O\-M\-P2\-D.\-O\-M\-P2\-D.\-R\-E\-O\-R\-T\-H\-\_\-\-I\-T\-E\-R\-A\-T\-I\-O\-N\-S = 2\hspace{0.3cm}{\ttfamily [private]}}}\label{classOMP2D_1_1OMP2D_a704206f085ba68939282448f2c1eacd4}
+\hypertarget{classOMP2D_1_1OMP2D_a2f1ff4422989fc543c1f6f562b8b05fc}{\index{O\-M\-P2\-D\-::\-O\-M\-P2\-D@{O\-M\-P2\-D\-::\-O\-M\-P2\-D}!residue@{residue}}
+\index{residue@{residue}!OMP2D::OMP2D@{O\-M\-P2\-D\-::\-O\-M\-P2\-D}}
+\subsubsection[{residue}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Matrix} O\-M\-P2\-D.\-O\-M\-P2\-D.\-residue\hspace{0.3cm}{\ttfamily [private]}}}\label{classOMP2D_1_1OMP2D_a2f1ff4422989fc543c1f6f562b8b05fc}
+\hypertarget{classOMP2D_1_1OMP2D_a5fe5837116b58dfb22450c0dc72dab41}{\index{O\-M\-P2\-D\-::\-O\-M\-P2\-D@{O\-M\-P2\-D\-::\-O\-M\-P2\-D}!T\-O\-L\-E\-R\-A\-N\-C\-E@{T\-O\-L\-E\-R\-A\-N\-C\-E}}
+\index{T\-O\-L\-E\-R\-A\-N\-C\-E@{T\-O\-L\-E\-R\-A\-N\-C\-E}!OMP2D::OMP2D@{O\-M\-P2\-D\-::\-O\-M\-P2\-D}}
+\subsubsection[{T\-O\-L\-E\-R\-A\-N\-C\-E}]{\setlength{\rightskip}{0pt plus 5cm}final double O\-M\-P2\-D.\-O\-M\-P2\-D.\-T\-O\-L\-E\-R\-A\-N\-C\-E\hspace{0.3cm}{\ttfamily [private]}}}\label{classOMP2D_1_1OMP2D_a5fe5837116b58dfb22450c0dc72dab41}
+\hypertarget{classOMP2D_1_1OMP2D_ac885e11e3f91b4a1c2d7c4b997d48047}{\index{O\-M\-P2\-D\-::\-O\-M\-P2\-D@{O\-M\-P2\-D\-::\-O\-M\-P2\-D}!W\-I\-D\-T\-H@{W\-I\-D\-T\-H}}
+\index{W\-I\-D\-T\-H@{W\-I\-D\-T\-H}!OMP2D::OMP2D@{O\-M\-P2\-D\-::\-O\-M\-P2\-D}}
+\subsubsection[{W\-I\-D\-T\-H}]{\setlength{\rightskip}{0pt plus 5cm}final int O\-M\-P2\-D.\-O\-M\-P2\-D.\-W\-I\-D\-T\-H\hspace{0.3cm}{\ttfamily [private]}}}\label{classOMP2D_1_1OMP2D_ac885e11e3f91b4a1c2d7c4b997d48047}
 
 
 The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
 \item 
-/home/matt/cuda-\/workspace/\-O\-M\-P2\-D Java/src/\-O\-M\-P2\-D/\hyperlink{OMP2D_8java}{O\-M\-P2\-D.\-java}\end{DoxyCompactItemize}
+/home/matt/git/\-O\-M\-P2\-D/\-O\-M\-P2\-D/src/\-O\-M\-P2\-D/\hyperlink{OMP2D_8java}{O\-M\-P2\-D.\-java}\end{DoxyCompactItemize}
