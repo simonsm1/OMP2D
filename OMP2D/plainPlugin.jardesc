@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<jardesc>
+    <jar path="OMP2D/OMP2D_Plugin.jar"/>
+    <options buildIfNeeded="true" compress="false" descriptionLocation="/OMP2D/plainPlugin.jardesc" exportErrors="true" exportWarnings="true" includeDirectoryEntries="false" overwrite="false" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
+    <storedRefactorings deprecationInfo="true" structuralOnly="false"/>
+    <selectedProjects/>
+    <manifest generateManifest="true" manifestLocation="" manifestVersion="1.0" reuseManifest="false" saveManifest="false" usesManifest="true">
+        <sealing sealJar="false">
+            <packagesToSeal/>
+            <packagesToUnSeal/>
+        </sealing>
+    </manifest>
+    <selectedElements exportClassFiles="true" exportJavaFiles="false" exportOutputFolder="false">
+        <file path="/OMP2D/plugins.config"/>
+        <javaElement handleIdentifier="=OMP2D/src&lt;"/>
+        <javaElement handleIdentifier="=OMP2D/src&lt;OMP2D{OMP2D.java"/>
+        <javaElement handleIdentifier="=OMP2D/src&lt;OMP2D{BadDimensionsException.java"/>
+        <javaElement handleIdentifier="=OMP2D/src&lt;OMP2D{DictionaryX.java"/>
+        <javaElement handleIdentifier="=OMP2D/src&lt;OMP2D{DictionaryY.java"/>
+        <javaElement handleIdentifier="=OMP2D/src&lt;OMP2D{Matrix.java"/>
+    </selectedElements>
+</jardesc>
