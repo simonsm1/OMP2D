@@ -1,4 +1,24 @@
+/*
+Copyright (c) 2014 Matthew Simons
 
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
 
 import ij.IJ;
 import ij.ImagePlus;
@@ -107,11 +127,13 @@ public class OMP2D_Plugin implements PlugInFilter {
 	        website.addMouseListener(new MouseAdapter() {
 	            @Override
 	            public void mouseClicked(MouseEvent e) {
-	                    try {
-	                            Desktop.getDesktop().browse(new URI("https://github.com/simonsm1/OMP2D"));
-	                    } catch (URISyntaxException | IOException ex) {
-	                    	ex.printStackTrace();
-	                    }
+                    try {
+						Desktop.getDesktop().browse(new URI("https://github.com/simonsm1/OMP2D"));
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					} catch (URISyntaxException e1) {
+						e1.printStackTrace();
+					}
 	            }
 	        });
 			about.add(website);
@@ -189,7 +211,9 @@ public class OMP2D_Plugin implements PlugInFilter {
 		PrintWriter pw = null;
 		try {
 			pw = new PrintWriter(getTempDir() + "H.txt", "UTF-8");
-		} catch(FileNotFoundException | UnsupportedEncodingException e) {
+		} catch(FileNotFoundException e) {
+			e.printStackTrace(); 
+		} catch(UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
 		
@@ -230,7 +254,9 @@ public class OMP2D_Plugin implements PlugInFilter {
 		
 		try {
 			processBlocks(blockProcessors);
-		} catch (InterruptedException | ExecutionException e) {
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} catch (ExecutionException e) {
 			e.printStackTrace();
 		}
 	}
