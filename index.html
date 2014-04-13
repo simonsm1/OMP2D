@@ -44,13 +44,20 @@
 </li>
 <li>Extract ImageJ to a folder of your choice and copy OMP2D_Plugin.jar to the plugins folder within.</li>
 <li>Launch the ImageJ executable and you should find OMP2D listed under the plugins menu.</li>
-</ol><p>or if you're running Linux</p>
+</ol><p>or if you're running 64-bit Linux</p>
 
 <pre><code>wget http://rsb.info.nih.gov/ij/download/linux/ij147-linux64.zip
 unzip ij147-linux64.zip
 wget -P ImageJ/plugins https://github.com/simonsm1/OMP2D/raw/master/OMP2D/OMP2D_Plugin.jar
 ./ImageJ/ImageJ
 </code></pre>
+
+<h3>
+<a name="supported-images" class="anchor" href="#supported-images"><span class="octicon octicon-link"></span></a>Supported Images</h3>
+
+<p>This plugin currently supports greyscale images which are exactly divisble by 32. See example image below:</p>
+
+<p><img src="https://raw.githubusercontent.com/simonsm1/OMP2D/master/OMP2D/Astro_512_grey.jpg" alt="Astro 512"></p>
 
 <h3>
 <a name="about" class="anchor" href="#about"><span class="octicon octicon-link"></span></a>About</h3>
