@@ -112,6 +112,7 @@ public class OMP2D {
 
 		if(acceptance < TOLERANCE) {
 			processResults(beta);
+			return;
 		}
 		
 		for(int k = 1; k < MAX_ITERATIONS; k++) {
