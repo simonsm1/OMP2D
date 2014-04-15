@@ -140,7 +140,6 @@ public class Matrix
 			}
 			result.addRow(row);
 		}
-
 		return result;
 	}
 	
