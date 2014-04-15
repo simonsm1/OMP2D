@@ -23,7 +23,6 @@ SOFTWARE.
 package OMP2D;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Matrix 
 {
@@ -474,6 +473,15 @@ public class Matrix
 	}
 	
 	public void subtract(Matrix m) {
+		for(int j = 0; j < m.getHeight(); j++) {
+			double[] row = matrix.get(j);
+			for(int i = 0; i < m.getWidth(); i++) {
+				row[i] -= m.get(i, j);
+			}
+		}
+	}
+	
+	public void subtract(BasicMatrix m) {
 		for(int j = 0; j < m.getHeight(); j++) {
 			double[] row = matrix.get(j);
 			for(int i = 0; i < m.getWidth(); i++) {

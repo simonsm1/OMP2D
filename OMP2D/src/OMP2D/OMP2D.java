@@ -26,9 +26,9 @@ public class OMP2D {
 	private double[] imageData;
 	private Matrix imageBlock, approxBlock;
 	private Matrix imageBlockTransposed;
-	private Matrix residue;
+	private BasicMatrix residue;
 	private Matrix orthogonal;
-	private Matrix dictX, dictY;
+	private BasicMatrix dictX, dictY;
 	private double[] coefficients;
 	
 	private final double INITIAL_TOL = 1e-10;
@@ -84,7 +84,7 @@ public class OMP2D {
 		
 		double[] tData = Matrix.transpose(imageData.clone(), WIDTH, WIDTH);
 		this.imageBlockTransposed = new Matrix(width, tData);
-		this.residue = new Matrix(WIDTH, tData);
+		this.residue = new BasicMatrix(WIDTH, tData);
 	}
 	
 	/**
@@ -105,7 +105,7 @@ public class OMP2D {
 		}
 		
 		//double[] chosenAtom = Matrix.kronecker(dictX.getCol(curColAtom), dictY.getRow(curRowAtom));//They are the same but transposed, use more efficient getrow
-		double[] chosenAtom = Matrix.kronecker(dictY.getRow(curColAtom), dictY.getRow(curRowAtom));
+		double[] chosenAtom = BasicMatrix.kronecker(dictY, dictY, curColAtom, curRowAtom);
 		orthogonal = new Matrix(chosenAtom.length, chosenAtom.clone());
 		Matrix beta = new Matrix(chosenAtom.length, chosenAtom.clone());
 
@@ -122,7 +122,7 @@ public class OMP2D {
 		for(int k = 1; k < MAX_ITERATIONS; k++) {
 			findNextAtom();
 			//chosenAtom = Matrix.kronecker(dictX.getCol(curColAtom), dictY.getRow(curRowAtom));
-			chosenAtom = Matrix.kronecker(dictY.getRow(curColAtom), dictY.getRow(curRowAtom));
+			chosenAtom = BasicMatrix.kronecker(dictY, dictY, curColAtom, curRowAtom);
 			
 			orthogonalize(chosenAtom.clone());
 			reorthogonalize(REORTH_ITERATIONS); 
@@ -167,8 +167,8 @@ public class OMP2D {
 	 *  a.k.a the initial tolerance level
 	 */
 	public double findNextAtom() throws BadDimensionsException{
-		Matrix temp = Matrix.multiply2(dictY, residue);
-		Matrix innerProducts = Matrix.multiply2(temp, dictX);
+		BasicMatrix temp = BasicMatrix.multiply(dictY, residue);
+		BasicMatrix innerProducts = BasicMatrix.multiply(temp, dictX);
 		//Matrix innerProducts = multiplyDictX(temp);
 		
 		innerProducts.updateMaxAbs();
@@ -251,9 +251,10 @@ public class OMP2D {
 	public void updateResidual(double[] m) throws BadDimensionsException {
 		double scalar = Matrix.innerProduct(imageBlock, m);
 		for(int j = 0; j < residue.getHeight(); j++) {
-			double[] row = residue.getRow(j);
+			//double[] row = residue.getRow(j);
 			for(int i = 0; i < residue.getWidth(); i++) {
-				row[i] -= m[i*residue.getWidth()+j]*scalar;
+				//row[i] -= m[i*residue.getWidth()+j]*scalar;
+				residue.set(i, j, residue.get(i, j) - m[i*residue.getWidth()+j]*scalar);
 			}
 		}
 	}
@@ -281,12 +282,17 @@ public class OMP2D {
 	 * @throws BadDimensionsException
 	 */
 	public void reorthogonalize(int repetitions) throws BadDimensionsException{
-		int row = orthogonal.getHeight()-1;
+		int rowId = orthogonal.getHeight()-1;
+		int width = orthogonal.getWidth();
+		
+		double[] lastRow = orthogonal.getRow(rowId);
 		for(int r = 0; r < repetitions; r++) {
-			for(int j = 0; j < row; j++) {
-				double scalar = Matrix.innerProduct(orthogonal.getRow(j), orthogonal.getRow(row));
-				for(int i = 0; i < orthogonal.getWidth(); i++) {
-					orthogonal.set(i, row, orthogonal.get(i, row) - scalar*orthogonal.get(i, j));
+			for(int j = 0; j < rowId; j++) {
+				double[] curRow = orthogonal.getRow(j);
+				double scalar = Matrix.innerProduct(curRow, lastRow);
+				for(int i = 0; i < width; i++) {
+					lastRow[i] -= scalar*curRow[i];
+					//orthogonal.set(i, rowId, orthogonal.get(i, rowId) - scalar*orthogonal.get(i, j));
 				}
 			}
 		}
