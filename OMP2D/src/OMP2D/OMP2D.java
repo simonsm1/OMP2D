@@ -292,7 +292,6 @@ public class OMP2D {
 				double scalar = Matrix.innerProduct(curRow, lastRow);
 				for(int i = 0; i < width; i++) {
 					lastRow[i] -= scalar*curRow[i];
-					//orthogonal.set(i, rowId, orthogonal.get(i, rowId) - scalar*orthogonal.get(i, j));
 				}
 			}
 		}
