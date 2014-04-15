@@ -104,7 +104,8 @@ public class OMP2D {
 			return;
 		}
 		
-		double[] chosenAtom = Matrix.kronecker(dictX.getCol(curColAtom), dictY.getRow(curRowAtom));
+		//double[] chosenAtom = Matrix.kronecker(dictX.getCol(curColAtom), dictY.getRow(curRowAtom));//They are the same but transposed, use more efficient getrow
+		double[] chosenAtom = Matrix.kronecker(dictY.getRow(curColAtom), dictY.getRow(curRowAtom));
 		orthogonal = new Matrix(chosenAtom.length, chosenAtom.clone());
 		Matrix beta = new Matrix(chosenAtom.length, chosenAtom.clone());
 
@@ -120,7 +121,8 @@ public class OMP2D {
 		
 		for(int k = 1; k < MAX_ITERATIONS; k++) {
 			findNextAtom();
-			chosenAtom = Matrix.kronecker(dictX.getCol(curColAtom), dictY.getRow(curRowAtom));
+			//chosenAtom = Matrix.kronecker(dictX.getCol(curColAtom), dictY.getRow(curRowAtom));
+			chosenAtom = Matrix.kronecker(dictY.getRow(curColAtom), dictY.getRow(curRowAtom));
 			
 			orthogonalize(chosenAtom.clone());
 			reorthogonalize(REORTH_ITERATIONS); 
