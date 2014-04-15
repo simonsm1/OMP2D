@@ -44,7 +44,18 @@ public class OMP2DPluginTest {
 	@Test
 	public void astroTest() throws IOException {
 		OMP2D_Plugin operation = new OMP2D_Plugin();
-		ImagePlus original = getSampleImage("Orginal Sample Image");
+		ImagePlus original = getSampleImage("Astro_512_grey.jpg");
+		
+		if(operation.setup(null, original) != PlugInFilter.DONE) {
+			operation.run(original.getProcessor());
+		}
+
+	}
+	/*
+	@Test
+	public void babyBlocksTest() throws IOException {
+		OMP2D_Plugin operation = new OMP2D_Plugin();
+		ImagePlus original = getSampleImage("baby-blocks-8G.png");
 		
 		if(operation.setup(null, original) != PlugInFilter.DONE) {
 			operation.run(original.getProcessor());
@@ -69,8 +80,7 @@ public class OMP2DPluginTest {
 	}*/
 	
 	private static ImagePlus getSampleImage(String title) throws IOException {
-		ImageProcessor pro = new ByteProcessor(ImageIO.read(new File("Astro_512_grey.jpg")));
+		ImageProcessor pro = new ByteProcessor(ImageIO.read(new File(title)));
 		return new ImagePlus("Original Image", pro);
 	}
-
 }
