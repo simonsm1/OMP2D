@@ -36,6 +36,7 @@ public class OMP2D {
 	private final double TOLERANCE;
 	private final int MAX_ITERATIONS;
 	private final int WIDTH;
+	public final int BLOCK_ID;
 	
 	private int curRowAtom, curColAtom;
 	
@@ -46,12 +47,13 @@ public class OMP2D {
 	 * @param tol The tolerance level to be achieved
 	 * @param maxIterations The maximum number of iterations to be done without meeting the tolerance level
 	 */
-	public OMP2D(double[] imageData, int width, double tol, int maxIterations) {
+	public OMP2D(double[] imageData, int width, int id, double tol, int maxIterations) {
 		this.imageData = imageData;
 
 		TOLERANCE = tol;
 		WIDTH = width;
 		MAX_ITERATIONS = maxIterations;
+		BLOCK_ID = id;
 	}
 	
 	/**
@@ -60,13 +62,14 @@ public class OMP2D {
 	 * @param tol The tolerance level to be achieved
 	 * @param maxIterations The maximum number of iterations to be done without meeting the tolerance level
 	 */
-	public OMP2D(Matrix imageBlock, double tol, int maxIterations) {
+	public OMP2D(Matrix imageBlock, int id, double tol, int maxIterations) {
 		this.imageData = imageBlock.to1DArray();
 		this.imageBlock = imageBlock;
 
 		TOLERANCE = tol;
 		WIDTH = imageBlock.getWidth();
 		MAX_ITERATIONS = maxIterations;
+		BLOCK_ID = id;
 	}
 	
 	/**
