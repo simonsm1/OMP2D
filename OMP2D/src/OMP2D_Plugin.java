@@ -45,6 +45,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.JLabel;
 
@@ -231,7 +232,7 @@ public class OMP2D_Plugin implements PlugInFilter {
 	private void singleThread(ImageProcessor ip) {
 		for(int b = 0; b < imageBlocks.length; b++) {
 			try {
-				OMP2D blockProcessor = new OMP2D(imageBlocks[b], BLOCK_DIM, TOLERANCE, MAX_ITERATIONS);
+				OMP2D blockProcessor = new OMP2D(imageBlocks[b], BLOCK_DIM, b, TOLERANCE, MAX_ITERATIONS);
 				blockProcessor.calcBlock();
 				totalCoeffs += blockProcessor.getNumCoefficients();
 				approxBlocks[b] = blockProcessor.getApproxImage().to1DArray();
@@ -248,7 +249,7 @@ public class OMP2D_Plugin implements PlugInFilter {
 		List<OMP2D> blockProcessors = new ArrayList<OMP2D>();
 		
 		for(int b = 0; b < imageBlocks.length; b++) {
-			OMP2D blockProcessor = new OMP2D(imageBlocks[b], BLOCK_DIM, TOLERANCE, MAX_ITERATIONS);
+			OMP2D blockProcessor = new OMP2D(imageBlocks[b], BLOCK_DIM, b, TOLERANCE, MAX_ITERATIONS);
 			blockProcessors.add(blockProcessor);
 		}
 		
@@ -273,19 +274,28 @@ public class OMP2D_Plugin implements PlugInFilter {
 	    int threads = Runtime.getRuntime().availableProcessors();
 	    ExecutorService service = Executors.newFixedThreadPool(threads);
 
-	    List<Future<OMP2D>> futures = new ArrayList<Future<OMP2D>>();
+	    //List<Future<OMP2D>> futures = new ArrayList<Future<OMP2D>>();
 	    for(final OMP2D block : blocks) {
 	        Callable<OMP2D> callable = new Callable<OMP2D>() {
 	            public OMP2D call() throws BadDimensionsException {
 					block.calcBlock();
-					IJ.showProgress(++progress, imageBlocks.length);
+
+					synchronized(approxBlocks) {
+						totalCoeffs += block.getNumCoefficients();
+						approxBlocks[block.BLOCK_ID] = block.getApproxImage().to1DArray();
+						IJ.showProgress(++progress, imageBlocks.length);
+					}
 	                return block;
 	            }
 	        };
-	        futures.add(service.submit(callable));
+	        //futures.add(service.submit(callable));
+	        service.submit(callable);
 	    }
 
+
 	    service.shutdown();
+	    service.awaitTermination(1000, TimeUnit.SECONDS);
+	    /*
 	    int blockId = 0;
 	    
 	    for(Future<OMP2D> future : futures) {
@@ -293,7 +303,7 @@ public class OMP2D_Plugin implements PlugInFilter {
 			totalCoeffs += block.getNumCoefficients();
 			approxBlocks[blockId] = block.getApproxImage().to1DArray();
 	        blockId++;
-	    }
+	    }*/
 	}
 	
 	/**
@@ -409,7 +419,7 @@ public class OMP2D_Plugin implements PlugInFilter {
 	private byte[] doubleToByteArray(double[] d) {
 		byte[] b = new byte[d.length];
 		for(int i = 0; i < d.length; i++) {
-			b[i] = (byte) d[i];
+			b[i] = (byte) (d[i] > 255 ? -1 : d[i]);
 		}
 		return b;
 	}
