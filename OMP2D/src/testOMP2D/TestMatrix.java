@@ -34,8 +34,8 @@ import OMP2D.Matrix;
 
 @RunWith(Enclosed.class)
 public class TestMatrix {
-	public static MatlabProxy matlab = null;
-    public static final String matLoc = System.getProperty("user.dir") + "/matlab";
+	private static MatlabProxy matlab = null;
+    private static final String matLoc = System.getProperty("user.dir") + "/matlab";
 	
 	@BeforeClass
 	public static void setMatlabConnection() {
@@ -57,10 +57,11 @@ public class TestMatrix {
 		protected static JSONObject testSet;
 		protected static JSONArray originalMatrix1;
 		protected static JSONArray originalMatrix2;
+		protected static JSONArray originalMatrix3;
 		
-		protected static Matrix 	m1, m2;
+		protected static Matrix 	m1, m2, m3;
 		protected static Matrix	 	add, scale;
-		protected static int 		width, height;
+		protected static int 		width, height, size;
 		protected static double	 	scaleFactor;
 		protected static Matrix	 	addRow;
 		protected static double[]	row1;
@@ -81,6 +82,7 @@ public class TestMatrix {
 		protected static Matrix 	multiplied;
 		
 		public static final double NO_MARGIN = 0.0;
+		public static final double TINY_MARGIN = 0.00000000000000100;
 		public static final int TO_ZERO_INDEX = 1;
 		
 		@AfterClass
@@ -90,12 +92,14 @@ public class TestMatrix {
 			}
 		}
 
-		public static void generateTestSet(int w, int h) throws IOException, JSONException, MatlabConnectionException, MatlabInvocationException {
+		protected static void generateTestSet(int w, int h, double min, double max) throws IOException, JSONException, MatlabConnectionException, MatlabInvocationException {
 			int seed = 1;
 			String jsonString = null;
 			
 			if(matlab != null) {
-				matlab.eval("testSet = createTestMatrix(" + w + "," + h + "," + seed + ",'');");
+				String fName = "'temp" + w + "x" + h + "-(" + min + "-" + max + ")'";
+				matlab.eval("testSet = createTestMatrix(" + w + "," + h + "," +
+						min + "," + max + "," + seed + "," + fName + ");");
 				jsonString = (String) matlab.getVariable("testSet");
 			} else {
 				URI alternative = null;
@@ -112,16 +116,19 @@ public class TestMatrix {
 			//System.out.println(result);
 			testSet = new JSONObject(jsonString);
 			
-			width = testSet.getInt("width");
-			height = testSet.getInt("height");
+			width = w;
+			height = h;
+			size = w*h;
 			
 			originalMatrix1 = testSet.getJSONArray("matrix1");
 			originalMatrix2 = testSet.getJSONArray("matrix2");
+			originalMatrix3 = testSet.getJSONArray("matrix3");
 			
 			m1 					= toMatrix(testSet.getJSONArray("matrix1"));
 			m2 					= toMatrix(testSet.getJSONArray("matrix2"));
+			m3 					= toMatrix(testSet.getJSONArray("matrix3"), height);
 			incompatibleMatrix 	= toMatrix(testSet.getJSONArray("incompatibleMatrix"));
-			multiplied			= toMatrix(testSet.getJSONArray("multiplied"));
+			multiplied			= toMatrix(testSet.getJSONArray("multiplied"), m3.getWidth());
 			add 				= toMatrix(testSet.getJSONArray("add"));
 			addRow				= toMatrix(testSet.getJSONArray("addRow"));
 			row1 				= toRow(testSet.getJSONArray("getRow1"));
@@ -142,19 +149,35 @@ public class TestMatrix {
 				maxAbsCol 		= testSet.getInt("getMaxAbsCol") - TO_ZERO_INDEX;
 				maxAbs 			= testSet.getDouble("getMaxAbs");
 			} catch(JSONException e) {
-				maxAbsRow = testSet.getJSONArray("getMaxAbsRow").getJSONArray(0).getInt(0) - TO_ZERO_INDEX;
-				maxAbsCol = testSet.getJSONArray("getMaxAbsCol").getJSONArray(0).getInt(0) - TO_ZERO_INDEX;
+				//maxAbsRow = testSet.getJSONArray("getMaxAbsRow").getJSONArray(0).getInt(0) - TO_ZERO_INDEX;
+				//maxAbsCol = testSet.getJSONArray("getMaxAbsCol").getJSONArray(0).getInt(0) - TO_ZERO_INDEX;
 				maxAbs    = testSet.getJSONArray("getMaxAbs").getJSONArray(0).getDouble(0);
+				
+				//Hack because Matlab finds the first max locales column-wise vs my Java doing it row wise
+				double[] absRowTemp = nestedArrayToRow(testSet.getJSONArray("getMaxAbsRow"));
+				int pos = min(absRowTemp);
+				maxAbsRow = testSet.getJSONArray("getMaxAbsRow").getJSONArray(pos).getInt(0) - TO_ZERO_INDEX;
+				maxAbsCol = testSet.getJSONArray("getMaxAbsCol").getJSONArray(pos).getInt(0) - TO_ZERO_INDEX;
 			}
-
 		}
 		
 		public static void reset() throws JSONException {
 			m1 = toMatrix(originalMatrix1);
 			m2 = toMatrix(originalMatrix2);
+			m3 = toMatrix(originalMatrix3);
 		}
 		
-		public static double[] toRow(JSONArray array) throws JSONException {
+		private static int min(double[] a) {
+			int min = 0;
+			for(int i = 1; i < a.length; i++) {
+				if(a[i] < a[min]) {
+					min = i;
+				}
+			}
+			return min;
+		}
+		
+		private static double[] toRow(JSONArray array) throws JSONException {
 			double[] row = new double[array.length()];
 			for(int i = 0; i < row.length; i++) {
 				row[i] = array.getDouble(i);
@@ -162,7 +185,23 @@ public class TestMatrix {
 			return row;
 		}
 		
-		public static Matrix toMatrix(JSONArray array) throws JSONException {
+		private static double[] nestedArrayToRow(JSONArray array) throws JSONException {
+			double[] row = new double[array.length()];
+			for(int i = 0; i < row.length; i++) {
+				row[i] = array.getJSONArray(i).getDouble(0);
+			}
+			return row;
+		}
+		
+		private static Matrix toMatrix(JSONArray array) throws JSONException {
+			Matrix m = new Matrix(width);
+			for(int row = 0; row < array.length(); row++) {
+				m.addRow(toDoubleArray(array.getJSONArray(row)));
+			}
+			return m;
+		}
+		
+		private static Matrix toMatrix(JSONArray array, int width) throws JSONException {
 			Matrix m = new Matrix(width);
 			for(int row = 0; row < array.length(); row++) {
 				m.addRow(toDoubleArray(array.getJSONArray(row)));
@@ -180,7 +219,7 @@ public class TestMatrix {
 		
 		@Test
 		public void whenMultiplying() throws BadDimensionsException {
-			final Matrix result = Matrix.multiply(m1, m2);
+			final Matrix result = Matrix.multiply(m1, m3);
 			//Then 
 			assertArrayEquals(multiplied.to1DArray(), result.to1DArray(), NO_MARGIN);
 		}
@@ -197,20 +236,34 @@ public class TestMatrix {
 			final double VAL_2 = 45;
 			final double VAL_3 = 56;
 			
-			m1.set(0, 0, VAL_1);
-			
+			final int START_POS = 0;
 			final int MID_POS = (int) Math.floor(m1.getSize()/2.0);
+			final int END_POS = m1.getSize()-1;
+			final int THIRD_POS_X = (int) Math.floor(m1.getWidth()/3);
+			final int THIRD_POS_Y = (int) Math.floor(m1.getHeight()/3);
+			
+			m1.set(START_POS, VAL_1);
 			m1.set(MID_POS, VAL_2);
+			m1.set(END_POS, VAL_3);
+			m1.set(THIRD_POS_X, THIRD_POS_Y, VAL_3);
 			
 			//Then
 			assertEquals(m1.get(0, 0), VAL_1, NO_MARGIN);
 			assertEquals(m1.get(MID_POS), VAL_2, NO_MARGIN);
+			assertEquals(m1.get(END_POS), VAL_3, NO_MARGIN);
+			assertEquals(m1.get(THIRD_POS_X, THIRD_POS_Y), VAL_3, NO_MARGIN);
 		}
 		
 		@Test(expected=ArrayIndexOutOfBoundsException.class)
-		public void whenAnElementOutsideRangeIsAccessed() {
+		public void whenAnElementUnderRangeIsAccessed() {
 			m1.get(-1);
 			//Then throws ArrayIndexOutOfBoundsException
+		}
+		
+		@Test(expected=IndexOutOfBoundsException.class)
+		public void whenAnElementOverRangeIsAccessed() {
+			m1.get(m1.getSize());
+			//Then throws IndexOutOfBoundsException
 		}
 		
 		@Test
@@ -226,10 +279,10 @@ public class TestMatrix {
 			m1.normalizeRow(1);
 			m1.normalizeRow(2);
 			m1.normalizeRow(height-1);
-			assertArrayEquals(normalizeRow1, m1.getRow(0), NO_MARGIN);
-			assertArrayEquals(normalizeRow2, m1.getRow(1), NO_MARGIN);
-			assertArrayEquals(normalizeRow3, m1.getRow(2), NO_MARGIN);
-			assertArrayEquals(normalizeRowLast, m1.getRow(height-1), NO_MARGIN);
+			assertArrayEquals(normalizeRow1, m1.getRow(0), TINY_MARGIN);
+			assertArrayEquals(normalizeRow2, m1.getRow(1), TINY_MARGIN);
+			assertArrayEquals(normalizeRow3, m1.getRow(2), TINY_MARGIN);
+			assertArrayEquals(normalizeRowLast, m1.getRow(height-1), TINY_MARGIN);
 		}
 		
 		@Test 
@@ -276,13 +329,40 @@ public class TestMatrix {
 			m1.addRow(row1);
 			assertArrayEquals(addRow.to1DArray(), m1.to1DArray(), NO_MARGIN);
 		}
+		
+		@Test 
+		public void whenConvertingToArray() {
+			
+		}
+		
+		@Test
+		public void whenConstructing() {
+			//Then
+			assertEquals(height, m1.getHeight());
+			assertEquals(width, m1.getWidth());
+			assertEquals(size, m1.getSize());
+		}
+		
 	}
 	
 	public static class GivenAn8x8Matrix extends Tests {
 		
 		@BeforeClass
 		public static void givenAn8x8Matrix() throws IOException, JSONException, MatlabConnectionException, MatlabInvocationException {
-			generateTestSet(8,8);
+			generateTestSet(8,8,0,255);
+		}
+		
+		@After
+		public void cleanUp() throws IOException, JSONException, MatlabConnectionException, MatlabInvocationException {
+			reset();
+		}
+	}	
+	
+	public static class GivenAn8x8Matrix2 extends Tests {
+		
+		@BeforeClass
+		public static void givenAn8x8Matrix() throws IOException, JSONException, MatlabConnectionException, MatlabInvocationException {
+			generateTestSet(8,8,-100000,100000);
 		}
 		
 		@After
@@ -293,8 +373,8 @@ public class TestMatrix {
 	
 	public static class GivenA16x16Matrix extends Tests {
 		@BeforeClass
-		public static void givenAn16x16Matrix() throws IOException, JSONException, MatlabConnectionException, MatlabInvocationException {
-			generateTestSet(16,16);
+		public static void givenA16x16Matrix() throws IOException, JSONException, MatlabConnectionException, MatlabInvocationException {
+			generateTestSet(16,16,0,255);
 		}
 		
 		@After
@@ -305,8 +385,34 @@ public class TestMatrix {
 	
 	public static class GivenA32x32Matrix extends Tests {
 		@BeforeClass
-		public static void givenAn32x32Matrix() throws IOException, JSONException, MatlabConnectionException, MatlabInvocationException {
-			generateTestSet(32,32);
+		public static void givenA32x32Matrix() throws IOException, JSONException, MatlabConnectionException, MatlabInvocationException {
+			generateTestSet(32,32,0,255);
+		}
+		
+		@After
+		public void cleanUp() throws IOException, JSONException, MatlabConnectionException, MatlabInvocationException {
+			reset();
+		}
+	}
+	
+	public static class GivenA8x40Matrix extends Tests {
+		
+		@BeforeClass
+		public static void givenA8x40Matrix() throws IOException, JSONException, MatlabConnectionException, MatlabInvocationException {
+			generateTestSet(8,40,0,255);
+		}
+		
+		@After
+		public void cleanUp() throws IOException, JSONException, MatlabConnectionException, MatlabInvocationException {
+			reset();
+		}
+	}	
+	
+	public static class GivenA40x8Matrix extends Tests {
+		
+		@BeforeClass
+		public static void givenA40x8Matrix() throws IOException, JSONException, MatlabConnectionException, MatlabInvocationException {
+			generateTestSet(40,8,0,255);
 		}
 		
 		@After
