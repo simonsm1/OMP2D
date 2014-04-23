@@ -166,7 +166,7 @@ public class OMP2D {
 	 * @return The maximum absolute value found in the dictionaries given the residue,
 	 *  a.k.a the initial tolerance level
 	 */
-	public double findNextAtom() throws BadDimensionsException{
+	private double findNextAtom() throws BadDimensionsException{
 		BasicMatrix temp = BasicMatrix.multiply(dictY, residue);
 		BasicMatrix innerProducts = BasicMatrix.multiply(temp, dictX);
 		//Matrix innerProducts = multiplyDictX(temp);
@@ -194,7 +194,7 @@ public class OMP2D {
 	 * @param rowNorm
 	 * @throws BadDimensionsException
 	 */
-	public void getBiorthogonal(Matrix beta, double[] newAtom, double[] orthogonalAtom, double rowNorm) throws BadDimensionsException{
+	private void getBiorthogonal(Matrix beta, double[] newAtom, double[] orthogonalAtom, double rowNorm) throws BadDimensionsException{
 		
 		double[] alpha = new double[beta.getHeight()];
 		for(int j = 0; j < beta.getHeight(); j++) {
@@ -248,7 +248,7 @@ public class OMP2D {
 	 * @param m currentRow
 	 * @throws BadDimensionsException
 	 */
-	public void updateResidual(double[] m) throws BadDimensionsException {
+	private void updateResidual(double[] m) throws BadDimensionsException {
 		double scalar = Matrix.innerProduct(imageBlock, m);
 		for(int j = 0; j < residue.getHeight(); j++) {
 			//double[] row = residue.getRow(j);
@@ -264,7 +264,7 @@ public class OMP2D {
 	 * @param vector 
 	 * @throws BadDimensionsException
 	 */
-	public void orthogonalize(double[] vector) throws BadDimensionsException{
+	private void orthogonalize(double[] vector) throws BadDimensionsException{
 		double scalar = Matrix.innerProduct(orthogonal.getRow(orthogonal.getHeight()-1), vector);
 		
 		for(int j = 0; j < orthogonal.getHeight(); j++) {
@@ -281,7 +281,7 @@ public class OMP2D {
 	 * @param repetitions
 	 * @throws BadDimensionsException
 	 */
-	public void reorthogonalize(int repetitions) throws BadDimensionsException{
+	private void reorthogonalize(int repetitions) throws BadDimensionsException{
 		int rowId = orthogonal.getHeight()-1;
 		int width = orthogonal.getWidth();
 		
